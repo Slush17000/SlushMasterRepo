@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RGBA Image Generator</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+      .controls {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .controls button {
+        padding: 6px 12px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 2px solid #333;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: monospace;
+        transition: all 0.2s;
+        max-width: 180px;
+        text-align: left;
+        white-space: nowrap;
+      }
+      
+      .controls button:hover {
+        background-color: #333;
+        color: white;
+        transform: translateX(4px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <button id="btn-colored-static">Colored Static</button>
+      <button id="btn-static-no-red">Static (No Red)</button>
+      <button id="btn-grayscale-static">Grayscale Static</button>
+      <button id="btn-distance">Distance from Center</button>
+      <button id="btn-checkerboard">Checkerboard</button>
+      <button id="btn-xor">XOR Pattern</button>
+      <button id="btn-sine">Sine Wave</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script type="module" src="main.ts"></script>
+  </body>
+</html>

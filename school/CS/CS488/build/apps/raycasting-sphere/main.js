@@ -1,0 +1,280 @@
+import { VertexAttributes } from 'lib/vertex-attributes.js';
+import { ShaderProgram } from 'lib/shader-program.js';
+import { fetchText } from 'lib/web-utilities.js';
+import { VertexArray } from 'lib/vertex-array.js';
+import { Prefab } from 'lib/prefab.js';
+import { Matrix4 } from 'lib/matrix.js';
+import { Vector3, Vector4 } from 'lib/vector.js';
+import { Trackball } from 'lib/trackball.js';
+import { intersectRaySphere } from 'lib/intersect.js';
+let canvas;
+let shaderProgram;
+let clipFromEye;
+let eyeFromWorld;
+let worldFromEye;
+let eyeFromClip;
+// VAOs for different objects
+let sphereVao;
+let intersectionVao;
+let rayVao;
+let trackball;
+let lightPosition = new Vector3(0, 5, 5);
+// Store intersection points and rays
+let intersectionPoints = [];
+let rays = [];
+// Track dragging state
+let isDragging = false;
+// Camera distance for zooming
+let cameraDistance = 5.0;
+// Sphere properties
+const sphereCenter = new Vector3(0, 0, 0);
+const sphereRadius = 1.0;
+async function initialize() {
+    canvas = document.getElementById('canvas');
+    window.gl = canvas.getContext('webgl2');
+    const vertexSource = await fetchText('flat-vertex.glsl');
+    const fragmentSource = await fetchText('flat-fragment.glsl');
+    shaderProgram = new ShaderProgram(vertexSource, fragmentSource);
+    // Create main sphere
+    const sphereMesh = Prefab.sphere(sphereRadius, 50, 50);
+    sphereMesh.computeNormals();
+    const sphereAttributes = new VertexAttributes();
+    sphereAttributes.addAttribute('position', sphereMesh.vertexCount, 3, sphereMesh.positionBuffer);
+    sphereAttributes.addAttribute('normal', sphereMesh.vertexCount, 3, sphereMesh.normalBuffer);
+    sphereAttributes.addIndices(sphereMesh.faceBuffer);
+    sphereVao = new VertexArray(shaderProgram, sphereAttributes);
+    // Create small sphere for intersection points
+    const intersectionMesh = Prefab.sphere(0.05, 20, 20);
+    intersectionMesh.computeNormals();
+    const intersectionAttributes = new VertexAttributes();
+    intersectionAttributes.addAttribute('position', intersectionMesh.vertexCount, 3, intersectionMesh.positionBuffer);
+    intersectionAttributes.addAttribute('normal', intersectionMesh.vertexCount, 3, intersectionMesh.normalBuffer);
+    intersectionAttributes.addIndices(intersectionMesh.faceBuffer);
+    intersectionVao = new VertexArray(shaderProgram, intersectionAttributes);
+    // Create cylinder for rays (we'll update this dynamically)
+    const rayMesh = Prefab.cylinder(0.02, 1, 20, 2);
+    rayMesh.computeNormals();
+    const rayAttributes = new VertexAttributes();
+    rayAttributes.addAttribute('position', rayMesh.vertexCount, 3, rayMesh.positionBuffer);
+    rayAttributes.addAttribute('normal', rayMesh.vertexCount, 3, rayMesh.normalBuffer);
+    rayAttributes.addIndices(rayMesh.faceBuffer);
+    rayVao = new VertexArray(shaderProgram, rayAttributes);
+    // Initialize trackball
+    trackball = new Trackball(sphereRadius);
+    // Event listeners
+    window.addEventListener('resize', () => resizeCanvas());
+    canvas.addEventListener('pointerdown', (ev) => onPointerDown(ev));
+    canvas.addEventListener('pointermove', (ev) => onPointerMove(ev));
+    canvas.addEventListener('pointerup', (ev) => onPointerUp(ev));
+    canvas.addEventListener('pointercancel', (ev) => onPointerCancel(ev));
+    canvas.addEventListener('click', (ev) => onMouseClick(ev));
+    canvas.addEventListener('wheel', (ev) => onWheel(ev), { passive: false });
+    resizeCanvas();
+}
+function onPointerDown(event) {
+    isDragging = false;
+    trackball.start(new Vector3(event.clientX, event.clientY, 0));
+    canvas.setPointerCapture(event.pointerId);
+}
+function onPointerMove(event) {
+    if (canvas.hasPointerCapture(event.pointerId)) {
+        isDragging = true;
+        trackball.drag(new Vector3(event.clientX, event.clientY, 0));
+        render();
+    }
+}
+function onPointerUp(event) {
+    if (canvas.hasPointerCapture(event.pointerId)) {
+        trackball.end();
+        canvas.releasePointerCapture(event.pointerId);
+        // Reset isDragging after pointer is released
+        // Note: click event fires after pointerup, so the click handler will see the isDragging state
+        setTimeout(() => { isDragging = false; }, 0);
+    }
+}
+function onPointerCancel(event) {
+    if (canvas.hasPointerCapture(event.pointerId)) {
+        trackball.cancel();
+        canvas.releasePointerCapture(event.pointerId);
+        isDragging = false;
+    }
+}
+function onWheel(event) {
+    event.preventDefault();
+    // Adjust camera distance based on scroll direction
+    const zoomSpeed = 0.001;
+    cameraDistance += event.deltaY * zoomSpeed;
+    // Clamp camera distance to reasonable values
+    cameraDistance = Math.max(2.0, Math.min(20.0, cameraDistance));
+    resizeCanvas();
+}
+function onMouseClick(event) {
+    // Don't cast ray if this was a drag
+    if (isDragging) {
+        isDragging = false; // Reset for next interaction
+        return;
+    }
+    // Convert mouse pixel coordinates to normalized device coordinates
+    const mousePixel = new Vector4(event.clientX, canvas.height - 1 - event.clientY, 0, 1);
+    const mouseNormalized = new Vector4(mousePixel.x / canvas.width * 2 - 1, mousePixel.y / canvas.height * 2 - 1, -1, // Start on near plane
+    1);
+    // Transform from clip space to eye space (near plane)
+    let mouseEye = eyeFromClip.multiplyVector4(mouseNormalized);
+    mouseEye = mouseEye.divideScalar(mouseEye.w);
+    // Transform from eye space to world space
+    const mouseWorld = worldFromEye.multiplyVector4(mouseEye);
+    const rayStart = new Vector3(mouseWorld.x, mouseWorld.y, mouseWorld.z);
+    // Find the end point on the far clipping plane
+    const mouseNormalizedFar = new Vector4(mousePixel.x / canvas.width * 2 - 1, mousePixel.y / canvas.height * 2 - 1, 1, // End on far plane
+    1);
+    let mouseEyeFar = eyeFromClip.multiplyVector4(mouseNormalizedFar);
+    mouseEyeFar = mouseEyeFar.divideScalar(mouseEyeFar.w);
+    const mouseWorldFar = worldFromEye.multiplyVector4(mouseEyeFar);
+    const rayEnd = new Vector3(mouseWorldFar.x, mouseWorldFar.y, mouseWorldFar.z);
+    // Compute ray direction
+    const rayDirection = rayEnd.subtract(rayStart).normalize();
+    // Store rays in model space (inverse of trackball rotation) so they rotate with the sphere
+    const inverseRotation = trackball.rotater.inverse();
+    const rayStartModel = inverseRotation.multiplyVector3(rayStart);
+    const rayEndModel = inverseRotation.multiplyVector3(rayEnd);
+    const rayDirectionModel = rayEndModel.subtract(rayStartModel).normalize();
+    // Find intersections with the sphere in model space
+    const intersections = intersectRaySphere(rayStartModel, rayDirectionModel, sphereCenter, sphereRadius);
+    if (intersections.length > 0) {
+        // Store the ray segment in model space so it rotates with the sphere
+        if (intersections.length === 2) {
+            rays.push({
+                start: intersections[0],
+                end: intersections[1]
+            });
+        }
+        else if (intersections.length === 1) {
+            // Single intersection (tangent) - store a very short ray
+            rays.push({
+                start: intersections[0],
+                end: intersections[0]
+            });
+        }
+        // Store intersection points in model space
+        intersectionPoints.push(...intersections);
+    }
+    render();
+}
+function render() {
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.BACK);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DEPTH_TEST);
+    shaderProgram.bind();
+    // Transform light to eye space
+    const lightPositionEye = eyeFromWorld.multiplyPosition(lightPosition);
+    shaderProgram.setUniform3f('lightPositionEye', lightPositionEye.x, lightPositionEye.y, lightPositionEye.z);
+    shaderProgram.setUniform3f('diffuseColor', 1.0, 1.0, 1.0);
+    shaderProgram.setUniform3f('specularColor', 0.5, 0.5, 0.5);
+    // Upload transformation matrices
+    shaderProgram.setUniformMatrix4fv('clipFromEye', clipFromEye.elements);
+    shaderProgram.setUniformMatrix4fv('eyeFromWorld', eyeFromWorld.elements);
+    // Enable blending for semi-transparent sphere
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.depthMask(false);
+    // Render main sphere (semi-transparent darker blue)
+    const sphereWorld = trackball.rotater;
+    shaderProgram.setUniformMatrix4fv('worldFromModel', sphereWorld.elements);
+    shaderProgram.setUniform3f('albedo', 0.2, 0.3, 0.7);
+    shaderProgram.setUniform1f('ambientFactor', 0.4);
+    shaderProgram.setUniform1f('shininess', 100.0);
+    shaderProgram.setUniform1f('alpha', 0.85);
+    sphereVao.bind();
+    sphereVao.drawIndexed(gl.TRIANGLES);
+    sphereVao.unbind();
+    // Restore settings for opaque objects
+    gl.disable(gl.BLEND);
+    gl.depthMask(true);
+    // Apply trackball rotation to rays and points (they're in model space)
+    const worldFromModel = trackball.rotater;
+    // Render rays first (black cylinders)
+    shaderProgram.setUniform3f('albedo', 0.0, 0.0, 0.0);
+    shaderProgram.setUniform1f('ambientFactor', 0.3);
+    shaderProgram.setUniform1f('shininess', 30.0);
+    shaderProgram.setUniform1f('alpha', 1.0);
+    rayVao.bind();
+    for (const ray of rays) {
+        const rayVector = ray.end.subtract(ray.start);
+        const rayLength = rayVector.magnitude;
+        // Skip if ray has no length (tangent intersection)
+        if (rayLength < 0.001)
+            continue;
+        // The cylinder needs to be positioned at the start and oriented along the ray
+        const up = new Vector3(0, 1, 0);
+        const rayDir = rayVector.normalize();
+        // Calculate rotation axis and angle
+        const rotationAxis = up.cross(rayDir);
+        const rotationAngle = Math.acos(Math.max(-1, Math.min(1, up.dot(rayDir)))) * 180 / Math.PI;
+        let modelFromCylinder;
+        if (rotationAxis.magnitude > 0.001) {
+            // Rotate around the perpendicular axis
+            modelFromCylinder = Matrix4.translate(ray.start.x, ray.start.y, ray.start.z)
+                .multiplyMatrix(Matrix4.rotateAround(rotationAxis.normalize(), rotationAngle))
+                .multiplyMatrix(Matrix4.scale(1, rayLength, 1));
+        }
+        else {
+            // Ray is aligned with up vector, no rotation needed (or 180 degrees if pointing down)
+            if (rayDir.y < 0) {
+                modelFromCylinder = Matrix4.translate(ray.start.x, ray.start.y, ray.start.z)
+                    .multiplyMatrix(Matrix4.rotateX(180))
+                    .multiplyMatrix(Matrix4.scale(1, rayLength, 1));
+            }
+            else {
+                modelFromCylinder = Matrix4.translate(ray.start.x, ray.start.y, ray.start.z)
+                    .multiplyMatrix(Matrix4.scale(1, rayLength, 1));
+            }
+        }
+        // Apply trackball rotation to transform from model space to world space
+        const worldFromCylinder = worldFromModel.multiplyMatrix(modelFromCylinder);
+        shaderProgram.setUniformMatrix4fv('worldFromModel', worldFromCylinder.elements);
+        rayVao.drawIndexed(gl.TRIANGLES);
+    }
+    rayVao.unbind();
+    // Clear depth buffer before rendering spheres so they always appear on top
+    gl.clear(gl.DEPTH_BUFFER_BIT);
+    // Render intersection points last (red spheres)
+    shaderProgram.setUniform3f('albedo', 1.0, 0.0, 0.0);
+    shaderProgram.setUniform1f('ambientFactor', 0.5);
+    shaderProgram.setUniform1f('shininess', 50.0);
+    shaderProgram.setUniform1f('alpha', 1.0);
+    intersectionVao.bind();
+    for (const point of intersectionPoints) {
+        // Transform from model space to world space
+        const modelFromPoint = Matrix4.translate(point.x, point.y, point.z);
+        const worldFromPoint = worldFromModel.multiplyMatrix(modelFromPoint);
+        shaderProgram.setUniformMatrix4fv('worldFromModel', worldFromPoint.elements);
+        intersectionVao.drawIndexed(gl.TRIANGLES);
+    }
+    intersectionVao.unbind();
+    shaderProgram.unbind();
+}
+function resizeCanvas() {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    const aspectRatio = canvas.clientWidth / canvas.clientHeight;
+    const fovY = 45;
+    const near = 0.1;
+    const far = 100;
+    clipFromEye = Matrix4.perspective(fovY, aspectRatio, near, far);
+    eyeFromWorld = Matrix4.translate(0, 0, -cameraDistance);
+    // Compute inverse matrices
+    worldFromEye = eyeFromWorld.inverse();
+    eyeFromClip = clipFromEye.inverse();
+    // Calculate the sphere's radius in pixels
+    const sphereWorldRadius = 1.0;
+    const fovRadians = fovY * Math.PI / 180;
+    const viewportHeight = 2 * cameraDistance * Math.tan(fovRadians / 2);
+    const pixelsPerUnit = canvas.height / viewportHeight;
+    const sphereRadiusPixels = sphereWorldRadius * pixelsPerUnit;
+    trackball.setViewport(canvas.width, canvas.height, sphereRadiusPixels);
+    render();
+}
+window.addEventListener('load', () => initialize());

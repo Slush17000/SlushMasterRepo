@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Skeletoon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://fav.farm/💀">
+    <link rel="stylesheet" href="/style.css">
+    <script type="module" src="main.ts"></script>
+    <style>
+        .color-controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .color-controls label {
+            color: white;
+            font-family: monospace;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            animation: rainbow 7s linear infinite;
+        }
+
+        @keyframes rainbow {
+
+            /* Red */
+            0% {
+                color: rgb(255, 0, 0);
+            }
+
+            /* Orange */
+            14.28% {
+                color: rgb(255, 127, 0);
+            }
+
+            /* Yellow */
+            28.56% {
+                color: rgb(255, 255, 0);
+            }
+
+            /* Green */
+            42.84% {
+                color: rgb(0, 255, 0);
+            }
+
+            /* Blue */
+            57.12% {
+                color: rgb(0, 0, 255);
+            }
+
+            /* Indigo */
+            71.4% {
+                color: rgb(75, 0, 130);
+            }
+
+            /* Violet */
+            85.68% {
+                color: rgb(143, 0, 255);
+            }
+
+            /* Red */
+            100% {
+                color: rgb(255, 0, 0);
+            }
+        }
+
+        .color-controls button {
+            padding: 8px 16px;
+            background-color: #333;
+            color: white;
+            border: 2px solid #666;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .color-controls button.active {
+            background-color: #666;
+            border-color: #999;
+        }
+
+        .color-controls button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="color-controls">
+        <label>Color:</label>
+        <button id="defaultBtn" class="active">Vertex Colors</button>
+        <button id="redBtn">Red</button>
+        <button id="orangeBtn">Orange</button>
+        <button id="yellowBtn">Yellow</button>
+        <button id="greenBtn">Green</button>
+        <button id="blueBtn">Blue</button>
+        <button id="indigoBtn">Indigo</button>
+        <button id="violetBtn">Violet</button>
+        <button id="whiteBtn">White</button>
+        <button id="greyBtn">Grey</button>
+        <button id="blackBtn">Black</button>
+
+        <label style="margin-top: 16px;">Animations:</label>
+        <button id="walkBtn">Walk</button>
+        <button id="reachBtn">Reach</button>
+    </div>
+    <canvas id="canvas"></canvas>
+</body>
+
+</html>

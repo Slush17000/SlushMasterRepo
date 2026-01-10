@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Menger Sponge</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            font-size: 14px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 5px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            transition: background 0.2s;
+        }
+        
+        button.active {
+            background: #0066cc;
+        }
+        
+        button:hover:not(.active) {
+            background: #555;
+        }
+        
+        #level-display {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 16px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+        <div class="control-group">
+            <label>Mode:</label>
+            <div class="button-group">
+                <button id="btn-2d" class="active">2D</button>
+                <button id="btn-3d">3D</button>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="level">Fractal Level:</label>
+            <input type="number" id="level" min="1" max="5" value="3">
+            <span id="level-display">Level: 3</span>
+        </div>
+    </div>
+    <script type="module" src="main.ts"></script>
+</body>
+
+</html>
