@@ -1,0 +1,5 @@
+This is a plain text file.
+
+Note that <html>HTML</html> tags do not mean anything.
+
+<h1>This is not a header.</h1>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search - Trail Finder</title>
+    <link rel="icon" href="https://fav.farm/mountain">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+    <header class="bg-success">
+        <h1>Trail Finder</h1>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navigation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="near-me.html">Near Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-details.html">User Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">Settings</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" data-bs-theme="light">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Left Sidebar: Filters -->
+            <aside class="col-md-3 ps-0" aria-label="Trail search filters">
+                <h2 class="visually-hidden">Filter Trails</h2>
+                <div class="filter-container">
+                    <h3>Filters</h3>
+                
+                    <!-- Trail Length Filter -->
+                <fieldset class="filter-section mb-4">
+                    <legend class="h5">Trail Length</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="length0-2" name="length" value="0-2">
+                        <label class="form-check-label" for="length0-2">
+                            0-2 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="length2-5" name="length" value="2-5">
+                        <label class="form-check-label" for="length2-5">
+                            2-5 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="length5-10" name="length" value="5-10">
+                        <label class="form-check-label" for="length5-10">
+                            5-10 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="length10plus" name="length" value="10+">
+                        <label class="form-check-label" for="length10plus">
+                            10+ miles
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Difficulty Filter -->
+                <fieldset class="filter-section mb-4">
+                    <legend class="h5">Difficulty</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="diffEasy" name="difficulty" value="easy">
+                        <label class="form-check-label" for="diffEasy">
+                            Easy
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="diffModerate" name="difficulty" value="moderate">
+                        <label class="form-check-label" for="diffModerate">
+                            Moderate
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="diffHard" name="difficulty" value="hard">
+                        <label class="form-check-label" for="diffHard">
+                            Hard
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Rating Filter -->
+                <fieldset class="filter-section mb-4">
+                    <legend class="h5">Rating</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rating5" name="rating" value="5">
+                        <label class="form-check-label" for="rating5">
+                            5 ★★★★★
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rating4" name="rating" value="4">
+                        <label class="form-check-label" for="rating4">
+                            4 ★★★★☆
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rating3" name="rating" value="3">
+                        <label class="form-check-label" for="rating3">
+                            3 ★★★☆☆
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rating2" name="rating" value="2">
+                        <label class="form-check-label" for="rating2">
+                            2 ★★☆☆☆
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rating1" name="rating" value="1">
+                        <label class="form-check-label" for="rating1">
+                            1 ★☆☆☆☆
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Cost Filter -->
+                <fieldset class="filter-section mb-4">
+                    <legend class="h5">Cost</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="costFree" name="cost" value="free">
+                        <label class="form-check-label" for="costFree">
+                            Free
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="costPaid" name="cost" value="paid">
+                        <label class="form-check-label" for="costPaid">
+                            Paid
+                        </label>
+                    </div>
+                    <!-- Price Range Sublist -->
+                    <div class="ms-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price1-5" name="price" value="1-5">
+                            <label class="form-check-label" for="price1-5">
+                                $1 - $5
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price5-10" name="price" value="5-10">
+                            <label class="form-check-label" for="price5-10">
+                                $5 - $10
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price10-20" name="price" value="10-20">
+                            <label class="form-check-label" for="price10-20">
+                                $10 - $20
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price20plus" name="price" value="20+">
+                            <label class="form-check-label" for="price20plus">
+                                $20+
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Distance Filter -->
+                <fieldset class="filter-section mb-4">
+                    <legend class="h5">Distance from You</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="dist5" name="distance" value="5">
+                        <label class="form-check-label" for="dist5">
+                            Within 5 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="dist10" name="distance" value="10">
+                        <label class="form-check-label" for="dist10">
+                            Within 10 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="dist25" name="distance" value="25">
+                        <label class="form-check-label" for="dist25">
+                            Within 25 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="dist50" name="distance" value="50">
+                        <label class="form-check-label" for="dist50">
+                            Within 50 miles
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="dist50plus" name="distance" value="50+">
+                        <label class="form-check-label" for="dist50plus">
+                            50+ miles away
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button type="button" class="btn btn-success w-100 mb-2">Apply Filters</button>
+                <button type="button" class="color-toggle btn btn-outline-secondary w-100">Clear All</button>
+                </div>
+            </aside>
+
+            <!-- Main Content: Search Form and Results -->
+            <main class="col-md-9">
+                <h1 class="mb-4">Search Trails</h1>
+                
+                <!-- Search Form -->
+                <form class="mb-4" aria-label="Trail search form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="trailName" class="form-label">Trail Name</label>
+                            <input type="text" class="form-control" id="trailName" placeholder="e.g., Mountain Vista Trail">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="keywords" class="form-label">Keywords</label>
+                            <input type="text" class="form-control" id="keywords" placeholder="e.g., waterfall, dog-friendly, scenic">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" placeholder="e.g., Denver">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" id="state">
+                                <option value="">Select a state...</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success btn-lg">Search Trails</button>
+                            <button type="reset" class="color-toggle btn btn-outline-secondary btn-lg ms-2">Reset</button>
+                        </div>
+                    </div>
+                </form>
+
+                <hr>
+
+                <!-- Search Results Placeholder -->
+                <section class="search-results">
+                    <h2>Search Results</h2>
+                    <p class="text-muted">Enter search criteria and click "Search Trails" to find hiking trails.</p>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+    <script src="api/trails-api.js"></script>
+    <script src="user-data-manager.js"></script>
+    <script src="trail-actions.js"></script>
+    <script src="search-highlight.js"></script>
+    <script src="navbar-search.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        // Initialize API and User Data
+        const api = new TrailsAPI();
+        const userDataManager = new UserDataManager();
+        trailActions.init(userDataManager);
+        let allTrails = [];
+        let currentResults = [];
+        let displayedCount = 0;
+        const RESULTS_PER_PAGE = 10;
+        let userLocation = null;
+
+        // Load user location from localStorage
+        const storedLocation = localStorage.getItem('userLocation');
+        if (storedLocation) {
+            userLocation = JSON.parse(storedLocation);
+        }
+
+        // Helper functions
+        // Calculate distance between two coordinates using Haversine formula
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 3959; // Earth's radius in miles
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            stars += '☆'.repeat(5 - Math.ceil(rating));
+            return stars;
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function getTagBadgeClass(index) {
+            const classes = ['bg-success', 'bg-info text-dark', 'bg-warning text-dark'];
+            return classes[index % classes.length];
+        }
+
+        // Get selected filter values
+        function getSelectedFilters() {
+            const filters = {};
+
+            // Length filters
+            const lengthChecked = Array.from(document.querySelectorAll('input[name="length"]:checked'));
+            if (lengthChecked.length > 0) {
+                filters.lengthRanges = lengthChecked.map(cb => cb.value);
+            }
+
+            // Difficulty filters
+            const difficultyChecked = Array.from(document.querySelectorAll('input[name="difficulty"]:checked'));
+            if (difficultyChecked.length > 0) {
+                filters.difficulty = difficultyChecked.map(cb => cb.value);
+            }
+
+            // Rating filters
+            const ratingChecked = Array.from(document.querySelectorAll('input[name="rating"]:checked'));
+            if (ratingChecked.length > 0) {
+                filters.minRating = Math.min(...ratingChecked.map(cb => parseInt(cb.value)));
+            }
+
+            // Distance filters
+            const distanceChecked = Array.from(document.querySelectorAll('input[name="distance"]:checked'));
+            if (distanceChecked.length > 0 && userLocation) {
+                filters.distanceRanges = distanceChecked.map(cb => cb.value);
+            }
+
+            // Cost filters
+            const costFree = document.getElementById('costFree').checked;
+            const costPaid = document.getElementById('costPaid').checked;
+            const priceChecked = Array.from(document.querySelectorAll('input[name="price"]:checked'));
+            if (costFree && !costPaid) {
+                filters.maxCost = 0;
+            } else if (costPaid && !costFree) {
+                if (priceChecked.length > 0) {
+                    filters.priceRanges = priceChecked.map(cb => cb.value);
+                } else {
+                    filters.paidOnly = true;
+                }
+            } else if (costFree && costPaid) {
+                if (priceChecked.length > 0) {
+                    filters.priceRanges = priceChecked.map(cb => cb.value);
+                }
+            }
+
+            return filters;
+        }
+
+        // Get search form values
+        function getSearchCriteria() {
+            const stateSelect = document.getElementById('state');
+            const stateValue = stateSelect.value;
+            // Get the full state name from the selected option
+            const stateText = stateValue ? stateSelect.options[stateSelect.selectedIndex].text : '';
+            
+            return {
+                trailName: document.getElementById('trailName').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: stateText,
+                keywords: document.getElementById('keywords').value.trim()
+            };
+        }
+
+        // Apply filters to trails
+        function applyFilters(trails) {
+            const filters = getSelectedFilters();
+            const search = getSearchCriteria();
+            let results = [...trails];
+
+            // Apply length filter
+            if (filters.lengthRanges) {
+                results = results.filter(trail => {
+                    return filters.lengthRanges.some(range => {
+                        if (range === '0-2') return trail.length <= 2;
+                        if (range === '2-5') return trail.length > 2 && trail.length <= 5;
+                        if (range === '5-10') return trail.length > 5 && trail.length <= 10;
+                        if (range === '10+') return trail.length > 10;
+                        return false;
+                    });
+                });
+            }
+
+            // Apply difficulty filter
+            if (filters.difficulty) {
+                results = results.filter(trail => 
+                    filters.difficulty.includes(trail.difficulty)
+                );
+            }
+
+            // Apply rating filter
+            if (filters.minRating) {
+                results = results.filter(trail => 
+                    Math.floor(trail.rating) >= filters.minRating
+                );
+            }
+
+            // Apply distance filter
+            if (filters.distanceRanges && userLocation) {
+                results = results.filter(trail => {
+                    if (!trail.coordinates) return false;
+                    const distance = calculateDistance(
+                        userLocation.latitude,
+                        userLocation.longitude,
+                        trail.coordinates.lat,
+                        trail.coordinates.lng
+                    );
+                    return filters.distanceRanges.some(range => {
+                        if (range === '50+') return distance > 50;
+                        const maxDist = parseInt(range);
+                        return distance <= maxDist;
+                    });
+                });
+            }
+
+            // Apply cost filter
+            if (filters.maxCost === 0) {
+                results = results.filter(trail => trail.cost === 0);
+            } else if (filters.paidOnly) {
+                results = results.filter(trail => trail.cost > 0);
+            } else if (filters.priceRanges) {
+                results = results.filter(trail => {
+                    return filters.priceRanges.some(range => {
+                        if (range === '1-5') return trail.cost >= 1 && trail.cost <= 5;
+                        if (range === '5-10') return trail.cost > 5 && trail.cost <= 10;
+                        if (range === '10-20') return trail.cost > 10 && trail.cost <= 20;
+                        if (range === '20+') return trail.cost > 20;
+                        return false;
+                    });
+                });
+            }
+
+            // Apply search criteria
+            if (search.trailName) {
+                const searchTerm = search.trailName.toLowerCase();
+                results = results.filter(trail => 
+                    trail.name.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (search.city) {
+                const searchTerm = search.city.toLowerCase();
+                results = results.filter(trail => 
+                    trail.location.city.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (search.state) {
+                const searchState = search.state.toLowerCase();
+                results = results.filter(trail => {
+                    const state = trail.location.state.toLowerCase();
+                    // Match full state name or abbreviation
+                    return state === searchState || state.includes(searchState);
+                });
+            }
+
+            if (search.keywords) {
+                const keywords = search.keywords.toLowerCase().split(',').map(k => k.trim());
+                results = results.filter(trail => 
+                    keywords.some(keyword => 
+                        trail.name.toLowerCase().includes(keyword) ||
+                        trail.description.toLowerCase().includes(keyword) ||
+                        trail.tags.some(tag => tag.toLowerCase().includes(keyword))
+                    )
+                );
+            }
+
+            return results;
+        }
+
+        // Display search results
+        function displayResults(trails, reset = true) {
+            const resultsSection = document.querySelector('.search-results');
+            
+            if (reset) {
+                currentResults = trails;
+                displayedCount = 0;
+            }
+            
+            if (currentResults.length === 0) {
+                resultsSection.innerHTML = `
+                    <h2>Search Results</h2>
+                    <div class="alert alert-success">
+                        <h4 class="alert-heading">No Trails Found</h4>
+                        <p>No trails match your search criteria. Try adjusting your filters or search terms.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const trailsToShow = currentResults.slice(displayedCount, displayedCount + RESULTS_PER_PAGE);
+            displayedCount += trailsToShow.length;
+
+            let html = '';
+            if (reset) {
+                html = `<h2>Search Results (${currentResults.length} trail${currentResults.length !== 1 ? 's' : ''})</h2>`;
+                html += `<p class="text-muted mb-3">Showing ${displayedCount} of ${currentResults.length} results</p>`;
+            } else {
+                // Update the count
+                const countText = document.querySelector('.search-results p.text-muted');
+                if (countText) {
+                    countText.textContent = `Showing ${displayedCount} of ${currentResults.length} results`;
+                }
+            }
+            
+            trailsToShow.forEach(trail => {
+                // Calculate distance if user location is available
+                let distanceText = '';
+                if (userLocation && trail.coordinates) {
+                    const distance = calculateDistance(
+                        userLocation.latitude,
+                        userLocation.longitude,
+                        trail.coordinates.lat,
+                        trail.coordinates.lng
+                    );
+                    distanceText = ` | <strong>Distance:</strong> ${distance.toFixed(1)} miles away`;
+                }
+
+                html += `
+                    <article class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="${trail.image}" class="img-fluid rounded-start" alt="${trail.name}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h3 class="card-title h5">${trail.name}</h3>
+                                        <span class="badge ${trail.difficulty === 'easy' ? 'bg-success' : trail.difficulty === 'moderate' ? 'bg-warning text-dark' : 'bg-danger'}">${capitalize(trail.difficulty)}</span>
+                                    </div>
+                                    <p class="card-text">
+                                        <span class="stars" role="img" aria-label="Rating: ${trail.rating} stars">${generateStars(trail.rating)}</span>
+                                        <small class="text-muted">(${trail.rating}/5)</small>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong>Length:</strong> ${trail.length} miles | 
+                                        <strong>Elevation Gain:</strong> ${trail.elevationGain.toLocaleString()} ft | 
+                                        <strong>Cost:</strong> ${trail.cost === 0 ? 'Free' : '$' + trail.cost}${distanceText}
+                                    </p>
+                                    <p class="card-text"><strong>Location:</strong> ${trail.location.city}, ${trail.location.state}</p>
+                                    <p class="card-text">${trail.description}</p>
+                                    <div class="mt-2">
+                                        ${trail.tags.map((tag, index) => `<span class="badge ${getTagBadgeClass(index)}">${tag}</span>`).join(' ')}
+                                    </div>
+                                    <div class="trail-action-buttons mt-3">
+                                        <button class="btn btn-success btn-sm mark-completed-btn me-2" data-trail-id="${trail.id}">
+                                            <span>✓</span> Mark Completed
+                                        </button>
+                                        <button class="btn btn-warning btn-sm mark-favorite-btn" data-trail-id="${trail.id}">
+                                            <span>★</span> Mark Favorite
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+
+            // Add Load More button if there are more results
+            if (displayedCount < currentResults.length) {
+                html += `
+                    <div class="text-center my-4">
+                        <button id="loadMoreBtn" class="btn btn-success btn-lg">
+                            Load More (${Math.min(RESULTS_PER_PAGE, currentResults.length - displayedCount)} more)
+                        </button>
+                    </div>
+                `;
+            }
+
+            if (reset) {
+                resultsSection.innerHTML = html;
+            } else {
+                // Remove old Load More button if it exists
+                const oldBtn = document.getElementById('loadMoreBtn');
+                if (oldBtn) {
+                    oldBtn.parentElement.remove();
+                }
+                // Append new results
+                resultsSection.insertAdjacentHTML('beforeend', html);
+            }
+
+            // Add event listeners to action buttons
+            trailsToShow.forEach(trail => {
+                const completedBtn = document.querySelector(`[data-trail-id="${trail.id}"].mark-completed-btn`);
+                const favoriteBtn = document.querySelector(`[data-trail-id="${trail.id}"].mark-favorite-btn`);
+                
+                if (completedBtn && !completedBtn.dataset.listenerAttached) {
+                    completedBtn.addEventListener('click', () => trailActions.markCompleted(trail));
+                    completedBtn.dataset.listenerAttached = 'true';
+                }
+                if (favoriteBtn && !favoriteBtn.dataset.listenerAttached) {
+                    favoriteBtn.addEventListener('click', () => trailActions.markFavorite(trail));
+                    favoriteBtn.dataset.listenerAttached = 'true';
+                }
+            });
+
+            // Add event listener to Load More button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    displayResults(currentResults, false);
+                });
+            }
+        }
+
+        // Handle search form submission
+        document.querySelector('form[aria-label="Trail search form"]').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const results = applyFilters(allTrails);
+            displayResults(results);
+        });
+
+        // Handle apply filters button
+        document.querySelector('button.btn-success').addEventListener('click', function() {
+            const results = applyFilters(allTrails);
+            displayResults(results);
+        });
+
+        // Handle clear all button
+        document.querySelectorAll('button.color-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Clear all checkboxes
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                
+                // Clear form fields if this is the reset button
+                if (btn.type === 'reset') {
+                    document.getElementById('trailName').value = '';
+                    document.getElementById('city').value = '';
+                    document.getElementById('state').value = '';
+                    document.getElementById('keywords').value = '';
+                }
+                
+                // Show all trails
+                displayResults(allTrails);
+            });
+        });
+
+        // Load all trails on page load
+        async function loadTrails() {
+            // Wait for API to load
+            await new Promise(resolve => {
+                const checkLoaded = setInterval(() => {
+                    if (api.trails.length > 0) {
+                        clearInterval(checkLoaded);
+                        resolve();
+                    }
+                }, 100);
+            });
+
+            allTrails = api.trails;
+            displayResults(allTrails);
+        }
+
+        // Initialize
+        loadTrails();
+    </script>
+</body>
+
+</html>

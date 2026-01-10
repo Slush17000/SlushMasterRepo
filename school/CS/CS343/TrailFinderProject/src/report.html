@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Report - Trail Finder</title>
+    <link rel="icon" href="https://fav.farm/mountain">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+    <header class="bg-success">
+        <h1>Trail Finder</h1>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navigation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="near-me.html">Near Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-details.html">User Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="report.html">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">Settings</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" data-bs-theme="light">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+                <h1 class="mt-4">Project Milestone Reports</h1>
+                <hr>
+
+                <section class="mb-5">
+                    <h2>Features Implemented in Milestone 1</h2>
+                    <ol>
+                        <li>Conceived the project idea and then created the narrative description.</li>
+                        <li>Created a rough draft of the website layout.</li>
+                    </ol>
+                </section>
+                
+                <section class="mb-5">
+                    <h2>Features Implemented in Milestone 2</h2>
+                    <ol>
+                        <li>This is the url to our github repo: <a href="https://github.com/wanghci-class/class-project-trail-finders">github.com</a></li>
+                        <li>This is the url to our deployed site: <a href="https://w3stu.cs.jmu.edu/derrowjb/cs343/final-project/">Trail Finder</a></li>
+                        <li>We used bootstrap for our responsive design.</li>
+                        <li>We have six different pages which can be accessed from each other using the navbar that appears in a header at the top of each page.</li>
+                        <li>We have multiple images present on both the home and near me pages.</li>
+                        <li>All pages pass both the WAVE evaluation tool and the HTML validator.</li>
+                        <li>The trail finder logo at the top is rendered in a different font then the rest of the text.</li>
+                        <li>The search page contains multiple different types of forms.</li>
+                        <li>We have a link to the National Park Service website as well as the CS343 wiki on the about page.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-5">
+                    <h2>Features Implemented in Milestone 3</h2>
+                    <ol>
+                        <li>Created mock api and added documentation page.</li>
+                        <li>Added JS functionality on most pages to interact with the mock API and update the UI dynamically.</li>
+                        <li>Added user location preferences on the settings page to influence the near me and user detail pages.</li>
+                        <li>Confirmed that all pages still pass both the WAVE evaluation tool and the HTML validator.</li>
+                    </ol>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+    <script src="search-highlight.js"></script>
+    <script src="navbar-search.js"></script>
+    <script src="theme.js"></script>
+</body>
+
+</html>

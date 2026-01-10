@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Amazing Trivia Game</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+        }
+
+        #quiz-container {
+            border: 2px solid black;
+            padding: 10px;
+            max-width: 600px;
+        }
+
+        #question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #answers button {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        #score {
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        // Questions from https://gist.github.com/cmota/f7919cd962a061126effb2d7118bec72
+        const questions = [{
+            "question": "A flashing red traffic light signifies that a driver should do what?",
+            "responses": {
+                "A": { text: "stop", correct: true },
+                "B": { text: "speed up", correct: false },
+                "C": { text: "proceed with caution", correct: false },
+                "D": { text: "honk the horn", correct: false }
+            }
+        }, {
+            "question": "A knish is traditionally stuffed with what filling?",
+            "responses": {
+                "A": { text: "potato", correct: true },
+                "B": { text: "creamed corn", correct: false },
+                "C": { text: "lemon custard", correct: false },
+                "D": { text: "raspberry jelly", correct: false }
+            }
+        }, {
+            "question": "A pita is a type of what?",
+            "responses": {
+                "A": { text: "fresh fruit", correct: false },
+                "B": { text: "flat bread", correct: true },
+                "C": { text: "French tart", correct: false },
+                "D": { text: "friend bean dip", correct: false }
+            }
+        }, {
+            "question": "A portrait that comically exaggerates a person's physical traits is called a what?",
+            "responses": {
+                "A": { text: "landscape", correct: false },
+                "B": { text: "caricature", correct: true },
+                "C": { text: "still life", correct: false },
+                "D": { text: "Impressionism", correct: false }
+            }
+        }, {
+            "question": "A second-year college student is usually called a what?",
+            "responses": {
+                "A": { text: "sophomore", correct: true },
+                "B": { text: "senior", correct: false },
+                "C": { text: "freshman ", correct: false },
+                "D": { text: "junior ", correct: false }
+            }
+        }, {
+            "question": "According to a Yale University study, what smell is the most recognizable to American adults?",
+            "responses": {
+                "A": { text: "tuna", correct: false },
+                "B": { text: "laundry", correct: false },
+                "C": { text: "popcorn", correct: false },
+                "D": { text: "coffee", correct: true }
+            }
+        }, {
+            "question": "According to folklore, the 'jackalope' is an antlered version of what animal?",
+            "responses": {
+                "A": { text: "chicken", correct: false },
+                "B": { text: "rabbit", correct: true },
+                "C": { text: "moose", correct: false },
+                "D": { text: "snake", correct: false }
+            }
+        }, {
+            "question": "According to Greek mythology, who was Apollo's twin sister?",
+            "responses": {
+                "A": { text: "Aphrodite", correct: false },
+                "B": { text: "Artemis", correct: true },
+                "C": { text: "Venus", correct: false },
+                "D": { text: "Athena", correct: false }
+            }
+        }, {
+            "question": "According to legend, if you give someone the 'evil eye' what are you doing?",
+            "responses": {
+                "A": { text: "cursing them", correct: true },
+                "B": { text: "blessing a child", correct: false },
+                "C": { text: "counting money", correct: false },
+                "D": { text: "passing time", correct: false }
+            }
+        }, {
+            "question": "According to the American Kennel Club, what is the most popular breed of dog in the US as of 1999?",
+            "responses": {
+                "A": { text: "Poodle", correct: false },
+                "B": { text: "Beagle", correct: false },
+                "C": { text: "German shepherd", correct: false },
+                "D": { text: "Labrador retriever", correct: true }
+            }
+        }];
+    </script>
+</head>
+
+<body>
+    <h1>The Amazing Trivia Game</h1>
+    <div id="win-message" hidden>
+        <h2>Your did it!</h2>
+        <p>Final correctness: <span>0%</span></p>
+    </div>
+    <div id="quiz-container">
+        <div id="question"></div>
+        <div id="answers">
+            <button id="btnA" type="button" aria-label="Answer A"></button>
+            <button id="btnB" type="button" aria-label="Answer B"></button>
+            <button id="btnC" type="button" aria-label="Answer C"></button>
+            <button id="btnD" type="button" aria-label="Answer D"></button>
+        </div>
+        <div id="score">
+            <span>Right: <span class="rightCount">0</span></span>
+            <span>Wrong: <span class="wrongCount">0</span></span>
+        </div>
+    </div>
+    <script>
+        let current = 0; // Index of the current question
+        let right = 0; // Number of questions answered correctly
+        let wrong = 0; // Number of questions answered incorrectly
+
+        // ----------- DO NOT MODIFY ANYTHING ABOVE THIS LINE
+
+        // This function should display the question text and button texts based on the current question
+        // Each button's text should have the format "A: answer text", "B: answer text", etc.
+        function showQuestion() {
+            let q = questions[current];
+            document.getElementById("question").textContent = q.question;
+            document.getElementById("btnA").textContent = "A: " + q.responses.A.text;
+            document.getElementById("btnB").textContent = "B: " + q.responses.B.text;
+            document.getElementById("btnC").textContent = "C: " + q.responses.C.text;
+            document.getElementById("btnD").textContent = "D: " + q.responses.D.text;
+        }
+
+        // This function should update the score display
+        function updateScore() {
+            document.querySelector("#score .rightCount").textContent = right;
+            document.querySelector("#score .wrongCount").textContent = wrong;
+        }
+
+        // This function should:
+        // 1. Check if the choice is correct and update the score accordingly
+        // 2. Update the score display (by calling updateScore)
+        // 3. Move to the next question (don't forget to show it!)
+        // 4. If there are no more questions, hide the quiz and show the win message
+        //    * How to hide/show elements: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/hidden
+        //    * Don't forget to update the final score percentage!
+        function answer(choice) {
+            if (questions[current].responses[choice].correct) {
+                right++;
+            } else {
+                wrong++;
+            }
+
+            updateScore();
+            if (current < questions.length - 1) {
+                current++;
+                showQuestion();
+            } else {
+                document.getElementById("quiz-container").hidden = true;
+                document.getElementById("win-message").hidden = false;
+                let percentage = Math.round((right / (right + wrong)) * 100);
+                document.querySelector("#win-message span").textContent = percentage + "%";
+            }
+        }
+
+        // Set up event handlers for all the buttons.
+        // When clicked, they should call the answer function with the appropriate choice.
+        const buttonA = document.getElementById("btnA");
+        buttonA.addEventListener("click", () => answer("A"));
+
+        const buttonB = document.getElementById("btnB");
+        buttonB.addEventListener("click", () => answer("B"));
+
+        const buttonC = document.getElementById("btnC");
+        buttonC.addEventListener("click", () => answer("C"));
+
+        const buttonD = document.getElementById("btnD");
+        buttonD.addEventListener("click", () => answer("D"));
+
+        // Show the first question
+        showQuestion();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chance.js Demo</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chance@1.1.11/chance.min.js"></script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        h1 {
+            text-decoration: underline;
+        }
+
+        #flipButton {
+            margin-bottom: 15px;
+        }
+
+        #rollButton {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Chance.js Demo</h1>
+    <div id="output"></div>
+
+    <h2>🪙 Coin Flip:</h2>
+    <button id="flipButton">Flip Coin</button>
+    <div id="coinFlip"></div>
+
+    <div id="flipHistory"></div>
+    <div id="flipStats"></div>
+
+    <h2>🎲 Dice Roll:</h2>
+    <button id="rollButton">Roll Die</button>
+    <div id="diceRoll"></div>
+
+    <div id="diceHistory"></div>
+    <div id="diceStats"></div>
+
+    <script>
+        const chance = new Chance();
+        const flipHistory = [];
+
+        function flipCoin() {
+            const result = chance.coin();
+            const displayResult = result.charAt(0).toUpperCase() + result.slice(1);
+            flipHistory.push(displayResult);
+
+            // Display current result & update stats
+            document.getElementById('coinFlip').textContent = `Result: ${displayResult}`;
+            updateFlipStats();
+        }
+
+        function updateFlipStats() {
+            const totalFlips = flipHistory.length;
+            const headsCount = flipHistory.filter(flip => flip === "Heads").length;
+            const tailsCount = flipHistory.filter(flip => flip === "Tails").length;
+
+            const headsPercentage = totalFlips > 0 ? ((headsCount / totalFlips) * 100).toFixed(1) : 0;
+            const tailsPercentage = totalFlips > 0 ? ((tailsCount / totalFlips) * 100).toFixed(1) : 0;
+
+            document.getElementById('flipHistory').innerHTML = `
+                Previous Flips: ${flipHistory.join(', ')}
+            `;
+
+            document.getElementById('flipStats').innerHTML = `
+                Total Flips: ${totalFlips}<br>
+                Heads count: ${headsCount} (${headsPercentage}%)<br>
+                Tails count: ${tailsCount} (${tailsPercentage}%)
+            `;
+        }
+
+        document.getElementById('flipButton').addEventListener('click', flipCoin);
+        const rollHistory = [];
+
+        function rollDie() {
+            const roll = chance.d6();
+            rollHistory.push(roll);
+
+            // Display current result & update stats
+            document.getElementById('diceRoll').textContent = `Result: ${roll}`;
+            updateDiceStats();
+        }
+
+        function updateDiceStats() {
+            const totalRolls = rollHistory.length;
+
+            // Count occurrences of each number
+            const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+            rollHistory.forEach(roll => counts[roll]++);
+
+            // Calculate percentages
+            let statsHTML = `Total Rolls: ${totalRolls}<br>`;
+            for (let i = 1; i <= 6; i++) {
+                const percentage = totalRolls > 0 ? ((counts[i] / totalRolls) * 100).toFixed(1) : 0;
+                statsHTML += `${i} count: ${counts[i]} (${percentage}%)<br>`;
+            }
+
+            document.getElementById('diceStats').innerHTML = statsHTML;
+            document.getElementById('diceHistory').innerHTML = `
+                Previous Rolls: ${rollHistory.join(', ')}
+            `;
+        }
+
+        document.getElementById('rollButton').addEventListener('click', rollDie);
+    </script>
+</body>
+
+</html>

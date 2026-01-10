@@ -1,0 +1,28 @@
+.dark {
+    background-color: black;
+    color: aqua;
+}
+
+.dark a {
+    color: white;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.light a {
+    color: blue;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: aqua;
+  }
+
+  a {
+    color: white;
+  }
+}

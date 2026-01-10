@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 8 - SJA</title>
+    <style>
+        nav {
+            background-color: black;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid white;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 10px;
+            color: white;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background-color: darkviolet;
+            color: white;
+            padding: 10px;
+            margin: 0px;
+            border: 1px solid white;
+        }
+
+        body {
+            margin: 0px;
+            background-color: darkviolet;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .buttons {
+            margin: 20px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: black;
+            color: white;
+            border: 1px solid white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        #display {
+            font-size: 4rem;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 600px;
+            max-height: 600px;
+            border: 2px solid white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CS343 Activity 8 - Surprise JavaScript Asynchronous V2</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">V1</a>
+        <a href="alt.html">V2</a>
+    </nav>
+
+    <div class="buttons">
+        <button id="callMeBtn">Call me in 5</button>
+        <button id="surpriseBtn">Surprise me</button>
+        <button id="dogBtn">Dog Tech</button>
+    </div>
+
+    <div id="display"></div>
+
+    <script>
+        // DOM elements
+        const display = document.getElementById('display');
+        const callMeBtn = document.getElementById('callMeBtn');
+        const surpriseBtn = document.getElementById('surpriseBtn');
+        const dogBtn = document.getElementById('dogBtn');
+
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        /**
+         * Button 1: Uses setTimeout with a callback after 5 seconds
+         */
+        function callMeInFive() {
+            const startTime = Date.now();
+            const endTime = startTime + 5000;
+            
+            // Update timer every 10 milliseconds
+            const timerInterval = setInterval(function() {
+                const currentTime = Date.now();
+                const remaining = endTime - currentTime;
+                
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    display.innerHTML = `<img src="pork.jpg" alt="Pork">`;
+                } else {
+                    const seconds = Math.floor(remaining / 1000);
+                    const milliseconds = remaining % 1000;
+                    display.textContent = `${seconds}.${milliseconds.toString().padStart(3, '0')}`;
+                }
+            }, 10);
+        }
+
+        /**
+         * Button 2: Uses setTimeout with a random delay between 1-10 seconds
+         */
+        function surpriseMe() {
+            const randomDelay = getRandomNumber(1, 100) * 1000;
+            const startTime = Date.now();
+            const endTime = startTime + randomDelay;
+            
+            // Update timer every 10 milliseconds
+            const timerInterval = setInterval(function() {
+                const currentTime = Date.now();
+                const remaining = endTime - currentTime;
+                
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    display.innerHTML = `<img src="nav.jpg" alt="Nav">`;
+                } else {
+                    const seconds = Math.floor(remaining / 1000);
+                    const milliseconds = remaining % 1000;
+                    display.textContent = `${seconds}.${milliseconds.toString().padStart(3, '0')}`;
+                }
+            }, 10);
+        }
+
+        /**
+         * Button 3: Uses fetch with Promises to get a dog image from the API
+         */
+        function fetchDog() {
+            display.textContent = "Fetching...";
+
+            const promise = fetch('https://dog.ceo/api/breeds/image/random');
+
+            promise.then(response => {
+                return response.json();
+            })
+
+                .then(data => {
+                    const imageUrl = data.message;
+                    display.innerHTML = `<img src="${imageUrl}" alt="Random dog">`;
+                })
+
+                .catch(error => {
+                    display.textContent = `Error: ${error.message}`;
+                    console.error('Failed to fetch dog image:', error);
+                });
+        }
+
+        // Event listeners
+        callMeBtn.addEventListener('click', callMeInFive);
+        surpriseBtn.addEventListener('click', surpriseMe);
+        dogBtn.addEventListener('click', fetchDog);
+    </script>
+</body>
+
+</html>
