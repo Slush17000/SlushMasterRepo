@@ -1,0 +1,56 @@
+ 
+\documentclass {article}
+\usepackage{amsfonts}
+\usepackage{amsmath} %this is a package you need to make triple integrals and line integrals (the ones with the circle)
+\usepackage{esint}%this is a package you need to make triple integrals and line integrals (the ones with the circle)
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+
+\setlength{\oddsidemargin}{-.3in}
+\setlength{\evensidemargin}{-.3in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+\usepackage{scrextend}
+
+
+\def\dt        {{\Delta t}}
+\def\dx        {{\Delta x}}
+
+\def\eq        {\, = \,}
+\def\gt        {\, > \,}
+\def\implies   {{\, \Longrightarrow \,}}
+\def\norm      {{| \! |}}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{\bf HOMEWORK 6}
+
+
+\rhead{\bf  MATH 440}
+\noindent
+
+\cfoot{\thepage}
+
+
+{\bf Problem 4.4.3(b):}  Consider a slightly damped vibrating string that satisfies 
+$$
+\rho_0 \frac{ \partial^2 u}{ \partial t^2} = T_0 \frac{\partial^2u}{\partial x^2} - \beta \frac{\partial u}{\partial t}.
+$$
+Determine the solution (by separation of variables) for a string with fixed ends and with initial conditions $u(x,0)= f(x)$ and $\frac{\partial u}{\partial t}(x,0) = g(x)$
+
+{\bf Problem 4.4.7:}  If a vibrating string satisfying (4.4.1)-(4.4.3) is initially at rest ($g(x) = 0$), show that 
+$$
+u(x,t) = \frac{1}{2} \left[ F(x-ct) + F(x+ct) \right],
+$$
+where $F(x)$ is the odd-periodic extension of $f(x)$.
+
+
+\end{document}

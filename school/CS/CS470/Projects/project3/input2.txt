@@ -1,0 +1,20 @@
+# Process 0
+
+proc 0
+put apple 10
+put banana 20
+sync
+get apple
+get banana
+get cherry
+size
+
+# Process 1
+
+proc 1
+put cherry 30
+put date 40
+sync
+get date
+get apple
+size
