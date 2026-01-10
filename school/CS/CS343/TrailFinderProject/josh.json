@@ -1,0 +1,102 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-08T04:32:12.671Z",
+  "profile": {
+    "name": "Josh Derrow",
+    "username": "TrailFinder17000",
+    "email": "joshb12d@gmail.com",
+    "memberSince": "October 2025"
+  },
+  "favorites": [
+    {
+      "name": "Old Rag",
+      "location": "Syria, VA",
+      "distance": 10,
+      "difficulty": "Hard",
+      "rating": 5,
+      "description": "This hike was absolutely amazing!",
+      "id": 1
+    },
+    {
+      "name": "McAfee Knob Trail",
+      "location": "Catawba, Virginia",
+      "distance": 7.8,
+      "difficulty": "Moderate",
+      "rating": 4.7,
+      "description": "The most photographed spot on the Appalachian Trail! McAfee Knob offers one of the best panoramic views in Virginia. The iconic jutting rock ledge provides an incredible photo opportunity overlooking the Catawba Valley. Best visited during sunrise or sunset.",
+      "id": 2
+    }
+  ],
+  "completedHikes": [
+    {
+      "name": "Old Rag",
+      "location": "Syria, VA",
+      "date": "Dec 7, 2025",
+      "distance": 10,
+      "difficulty": "Hard",
+      "id": 1
+    },
+    {
+      "name": "Raven Rocks",
+      "location": "Bluemont, VA",
+      "date": "Oct 15, 2025",
+      "distance": 2.5,
+      "difficulty": "Easy",
+      "id": 2
+    },
+    {
+      "name": "Riprap Trail",
+      "location": "Crozet, Virginia",
+      "date": "Dec 7, 2025",
+      "distance": 9.5,
+      "difficulty": "Hard",
+      "id": 3
+    },
+    {
+      "name": "Dolly Sods Wilderness",
+      "location": "Laneville, West Virginia",
+      "date": "Dec 7, 2025",
+      "distance": 8,
+      "difficulty": "Moderate",
+      "id": 4
+    },
+    {
+      "name": "Blackwater Falls Trail",
+      "location": "Davis, West Virginia",
+      "date": "Dec 7, 2025",
+      "distance": 0.5,
+      "difficulty": "Easy",
+      "id": 5
+    },
+    {
+      "name": "Tinker Cliffs Trail",
+      "location": "Daleville, Virginia",
+      "date": "Dec 7, 2025",
+      "distance": 9.5,
+      "difficulty": "Moderate",
+      "id": 6
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Raven Rocks",
+      "date": "Oct 16, 2025",
+      "rating": 5,
+      "review": "The view at the top was great!",
+      "id": 1
+    },
+    {
+      "name": "Old Rag",
+      "date": "Dec 8, 2025",
+      "rating": 4,
+      "review": "This hike was pretty challenging but otherwise great!",
+      "id": 2
+    }
+  ],
+  "statistics": {
+    "hikesCompleted": 6,
+    "milesHiked": "40.0",
+    "reviewsWritten": 2,
+    "favoriteTrails": 2
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="https://fav.farm/📃">
+    <title>Lab 5: Grocery List</title>
+
+    <style>
+        /* Styles that apply to table, th, and td elements */
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        /* Styles that apply to only th (head) and td (data/cell) elements */
+        th,
+        td {
+            padding: 10px;
+        }
+
+        /* Styles that apply to only th (head) elements */
+        th {
+            text-align: center;
+            width: 200px;
+        }
+
+        #form-container {
+            margin-top: 2em;
+            border: 1px dashed black;
+            background-color: aliceblue;
+            width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Table used for grocery list! -->
+    <table id="list">
+        <!-- Just the table headers -->
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Notes</th>
+            </tr>
+        </thead>
+
+        <!-- This is where each table row goes: -->
+        <tbody id="list-body">
+
+            <!-- Example row: (Feel free to delete/comment out) -->
+            <!-- <tr>
+                <td>Milk</td>
+                <td>1</td>
+                <td>2% or whole</td>
+            </tr> -->
+
+            <!-- Tasks will be added here -->
+
+        </tbody>
+    </table>
+
+    <div id="form-container">
+        <form id="grocery-form">
+            <input type="text" id="item" name="item" required>
+            <label for="item">Item</label>
+            </input>
+
+            <br>
+
+            <input type="number" id="quantity" name="quantity" required>
+            <label for="quantity">Quantity</label>
+            </input>
+
+            <br>
+
+            <input type="text" id="notes" name="notes">
+            <label for="notes">Notes</label>
+            </input>
+
+            <br>
+
+            <button type="submit">Add to List</button>
+
+        </form>
+    </div>
+
+    <!-- Script to handle adding items to list! -->
+    <script>
+        // Attach the addItemToList function to the form's submit event
+        document.getElementById("grocery-form").addEventListener("submit", addItemToList);
+
+        /**
+         * Handles the form submission to add a new item to the grocery list.
+         */
+        function addItemToList(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get the table body where new rows will be added
+            const listBody = document.getElementById("list-body");
+            const newRowHTML = makeRow();
+
+            // Add the new row to the end of the table body
+            listBody.innerHTML += newRowHTML;
+        }
+
+        /**
+         * Returns a string containing the HTML for a table row that has four cells.
+         */
+        function makeRow() {
+            let item = document.getElementById("item");
+            let quantity = document.getElementById("quantity");
+            let notes = document.getElementById("notes");
+
+            let rowHTML = `<tr><td>${item.value}</td><td>${quantity.value}</td><td>${notes.value}</td></tr>`; // TODO
+
+            return rowHTML;
+        }
+    </script>
+</body>
+
+</html>

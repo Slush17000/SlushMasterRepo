@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trail Finder</title>
+    <link rel="icon" href="https://fav.farm/mountain">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+    <header class="bg-success">
+        <h1>Trail Finder</h1>
+    </header>
+    <!--navbar expand is an example of responsive design-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navigation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="near-me.html">Near Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-details.html">User Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">Settings</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" data-bs-theme="light">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Photo Carousel -->
+    <section aria-label="Featured trail photos carousel">
+        <div id="trailCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators text-success">
+            <button type="button" data-bs-target="#trailCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#trailCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#trailCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#trailCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&h=400&fit=crop" class="d-block w-100" alt="Mountain trail with scenic views">
+                <div class="carousel-caption d-none d-md-block">
+                    <p class="mb-2"><strong>Mountain Vista Trail</strong></p>
+                    <p class="mb-0">Experience breathtaking mountain views on this challenging 8-mile hike.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&h=400&fit=crop" class="d-block w-100" alt="Forest trail surrounded by trees">
+                <div class="carousel-caption d-none d-md-block">
+                    <p class="mb-2"><strong>Whispering Pines Loop</strong></p>
+                    <p class="mb-0">A peaceful 3-mile forest trail perfect for beginners and families.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=400&fit=crop" class="d-block w-100" alt="Riverside trail along a creek">
+                <div class="carousel-caption d-none d-md-block">
+                    <p class="mb-2"><strong>Riverside Ramble</strong></p>
+                    <p class="mb-0">Follow the creek on this easy 2-mile trail with beautiful water features.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=400&fit=crop" class="d-block w-100" alt="Summit trail at sunset">
+                <div class="carousel-caption d-none d-md-block">
+                    <p class="mb-2"><strong>Sunset Peak Trail</strong></p>
+                    <p class="mb-0">Reach the summit for spectacular sunset views on this moderate 5-mile trek.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#trailCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden carousel-buttons">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#trailCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden carousel-buttons">Next</span>
+        </button>
+    </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+                <h1 class="mt-4">Welcome to Trail Finder</h1>
+                <p class="lead">Discover the best hiking trails around you!</p>
+                <hr>
+
+                <!-- Featured Trails Section -->
+                <section class="mb-5">
+                    <h2>Featured Trails</h2>
+                    <div id="featuredTrails">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User Reviews Section -->
+                <section class="mb-5">
+                    <h2>Recent Reviews</h2>
+                    <div id="recentReviews">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+    <script src="api/trails-api.js"></script>
+    <script src="user-data-manager.js"></script>
+    <script src="trail-actions.js"></script>
+    <script src="search-highlight.js"></script>
+    <script src="navbar-search.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        // Initialize API and User Data
+        const api = new TrailsAPI();
+        const userDataManager = new UserDataManager();
+        trailActions.init(userDataManager);
+
+        // Helper function to generate star rating HTML
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            stars += '☆'.repeat(5 - Math.ceil(rating));
+            return `<span class="stars" aria-label="Rating: ${rating} out of 5 stars" role="img">${stars}</span>`;
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Helper function to capitalize first letter
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Helper function to get badge color for tags
+        function getTagBadgeClass(index) {
+            const classes = ['bg-success', 'bg-info text-dark', 'bg-warning text-dark'];
+            return classes[index % classes.length];
+        }
+
+        // Load featured trails
+        async function loadFeaturedTrails() {
+            // Wait for API to load with timeout
+            const timeout = 10000; // 10 seconds
+            const startTime = Date.now();
+            
+            await new Promise((resolve, reject) => {
+                const checkLoaded = setInterval(() => {
+                    if (api.trails.length > 0) {
+                        clearInterval(checkLoaded);
+                        resolve();
+                    } else if (Date.now() - startTime > timeout) {
+                        clearInterval(checkLoaded);
+                        reject(new Error('Timeout loading trails'));
+                    }
+                }, 100);
+            }).catch(error => {
+                console.error('Error loading trails:', error);
+                document.getElementById('featuredTrails').innerHTML = `
+                    <div class="alert alert-danger">
+                        <h4>Error Loading Trails</h4>
+                        <p>Failed to load trail data. Please refresh the page.</p>
+                    </div>
+                `;
+                return;
+            });
+
+            const topTrails = api.getTopRatedTrails(5);
+            const container = document.getElementById('featuredTrails');
+            
+            let html = '';
+            topTrails.forEach(trail => {
+                html += `
+                    <article class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h3 class="card-title mb-0">${trail.name}</h3>
+                                ${generateStars(trail.rating)}
+                            </div>
+                            <p class="card-text">
+                                <strong>Difficulty:</strong> ${capitalize(trail.difficulty)} | 
+                                <strong>Length:</strong> ${trail.length} miles | 
+                                <strong>Elevation Gain:</strong> ${trail.elevationGain.toLocaleString()} ft<br>
+                                <strong>Location:</strong> ${trail.location.city}, ${trail.location.state}
+                            </p>
+                            <p class="card-text">${trail.description}</p>
+                            ${trail.tags.map((tag, index) => `<span class="badge ${getTagBadgeClass(index)}">${tag}</span>`).join(' ')}
+                            <div class="trail-action-buttons mt-3">
+                                <button class="btn btn-success btn-sm mark-completed-btn me-2" data-trail-id="${trail.id}">
+                                    <span>✓</span> Mark Completed
+                                </button>
+                                <button class="btn btn-warning btn-sm mark-favorite-btn" data-trail-id="${trail.id}">
+                                    <span>★</span> Mark Favorite
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // Add event listeners to action buttons
+            topTrails.forEach(trail => {
+                const completedBtn = container.querySelector(`[data-trail-id="${trail.id}"].mark-completed-btn`);
+                const favoriteBtn = container.querySelector(`[data-trail-id="${trail.id}"].mark-favorite-btn`);
+                
+                if (completedBtn) {
+                    completedBtn.addEventListener('click', () => trailActions.markCompleted(trail));
+                }
+                if (favoriteBtn) {
+                    favoriteBtn.addEventListener('click', () => trailActions.markFavorite(trail));
+                }
+            });
+        }
+
+        // Load recent reviews
+        async function loadRecentReviews() {
+            // Wait for API to load with timeout
+            const timeout = 10000; // 10 seconds
+            const startTime = Date.now();
+            
+            await new Promise((resolve, reject) => {
+                const checkLoaded = setInterval(() => {
+                    if (api.reviews.length > 0) {
+                        clearInterval(checkLoaded);
+                        resolve();
+                    } else if (Date.now() - startTime > timeout) {
+                        clearInterval(checkLoaded);
+                        reject(new Error('Timeout loading reviews'));
+                    }
+                }, 100);
+            }).catch(error => {
+                console.error('Error loading reviews:', error);
+                document.getElementById('recentReviews').innerHTML = `
+                    <div class="alert alert-danger">
+                        <h4>Error Loading Reviews</h4>
+                        <p>Failed to load review data. Please refresh the page.</p>
+                    </div>
+                `;
+                return;
+            });
+
+            const recentReviews = api.getReviews({ limit: 5 });
+            const container = document.getElementById('recentReviews');
+            
+            let html = '';
+            recentReviews.forEach(review => {
+                html += `
+                    <article class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h3 class="card-title mb-0 h5">${review.trailName}</h3>
+                                ${generateStars(review.rating)}
+                            </div>
+                            <p class="card-subtitle mb-2 text-muted">${review.userName} - Hiked on ${formatDate(review.date)}</p>
+                            <p class="card-text">"${review.comment}"</p>
+                        </div>
+                    </article>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Load data when page loads
+        loadFeaturedTrails();
+        loadRecentReviews();
+
+        // Request user location on first visit
+        function requestUserLocation() {
+            // Check if we already have location
+            const userLocation = localStorage.getItem('userLocation');
+
+            // If we don't have location, try to get it
+            if (!userLocation) {
+                // Check if geolocation is supported
+                if ('geolocation' in navigator) {
+                    // Request location
+                    navigator.geolocation.getCurrentPosition(
+                        // Success callback
+                        function(position) {
+                            const location = {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                timestamp: new Date().toISOString()
+                            };
+                            
+                            // Save to localStorage
+                            localStorage.setItem('userLocation', JSON.stringify(location));
+                            
+                            console.log('Location saved:', location);
+                        },
+                        // Error callback
+                        function(error) {
+                            console.log('Location access denied or error:', error.message);
+                        },
+                        // Options
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 0
+                        }
+                    );
+                } else {
+                    console.log('Geolocation is not supported by this browser.');
+                }
+            }
+        }
+
+        // Request location when page loads
+        requestUserLocation();
+    </script>
+</body>
+
+</html>

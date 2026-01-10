@@ -1,0 +1,17 @@
+{
+  "breakfast": {
+    "meal": "400",
+    "mealText": "Eggs and Toast (400 cal)",
+    "portion": "2"
+  },
+  "lunch": {
+    "meal": "600",
+    "mealText": "Burger and Fries (600 cal)",
+    "portion": "1"
+  },
+  "dinner": {
+    "meal": "700",
+    "mealText": "Steak and Potatoes (700 cal)",
+    "portion": "1"
+  }
+}

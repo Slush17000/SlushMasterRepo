@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 7: Dynamic Layout</title>
+    <style>
+        body {
+            margin: 0px;
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .vertical {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://picsum.photos/200/200?random=0">
+    <img src="https://picsum.photos/200/200?random=1">
+
+    <script>
+        const body = document.body;
+        let timesClicked = 0;
+
+        function addPicAndSwitchFlex() {
+            const newImage = document.createElement("img");
+            newImage.src = "https://picsum.photos/200/200?random=" + (timesClicked + 2);
+            timesClicked++;
+            body.appendChild(newImage);
+            body.classList.toggle("vertical");
+        }
+
+        body.addEventListener("click", addPicAndSwitchFlex)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
+
+header {
+    margin: 0;
+    padding: 1rem;
+    border: 2px solid white;
+    border-bottom: none;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+    color: white;
+    text-decoration: underline;
+    font-family: 'Merriweather', serif;
+    font-size: 3rem;
+}
+
+header h1 a {
+    color: white;
+    text-decoration: underline;
+}
+
+header h1 a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+nav.navbar {
+    border: 2px solid white;
+    border-top: none;
+}
+
+/* Carousel Styles */
+.carousel {
+    max-width: 100%;
+    margin-bottom: 2rem;
+}
+
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Search Results Trail Cards */
+.search-results .card .row {
+    align-items: stretch;
+}
+
+.search-results .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 250px;
+}
+
+@media (max-width: 767px) {
+    .search-results .card img {
+        height: 200px;
+        min-height: 200px;
+    }
+}
+
+/* Near Me Trail Cards */
+#nearbyTrails .card .row {
+    align-items: stretch;
+}
+
+#nearbyTrails .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 250px;
+}
+
+@media (max-width: 767px) {
+    #nearbyTrails .card img {
+        height: 200px;
+        min-height: 200px;
+    }
+}
+
+/* Search Page Filters */
+.filter-section h5 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #198754;
+}
+
+.filter-section {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #198754;
+}
+
+.filter-section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 2rem;
+}
+
+aside.col-md-3 {
+    padding-bottom: 3rem;
+}
+
+.filter-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Trail Images */
+.trail-img {
+    height: 100%;
+    object-fit: cover;
+    min-height: 250px;
+}
+
+/* Changed color of current page in nav bar for contrast issues*/
+.navbar-nav .nav-link.active {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.navbar-nav .nav-link:not(.active) {
+    color: #fff !important; 
+}

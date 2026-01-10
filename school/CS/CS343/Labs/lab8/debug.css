@@ -1,0 +1,26 @@
+.debug {
+  .main-head {
+    background-color: red;
+    border: 5px dashed #450085;
+  }
+  .content {
+    background-color: orange;
+    border: 5px dashed #333333;
+  }
+  .main-nav {
+    background-color: yellow;
+    border: 5px dashed #009698;
+  }
+  .side {
+    background-color: green;
+    border: 5px dashed #8EE4D7 ;
+  }
+  .ad {
+    background-color: #F4EFE1;
+    border: 5px dashed blue;
+  }
+  .main-footer {
+    background-color: #cbb677;
+    border: 5px dashed #b599ce;
+  }
+}

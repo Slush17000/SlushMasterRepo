@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Prep 8 - Save</title>
+  <style>
+    nav {
+      background-color: black;
+      padding: 8px;
+      margin-bottom: 16px;
+      border: 1px solid white;
+    }
+
+    nav a {
+      text-decoration: none;
+      margin-right: 10px;
+      color: white;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background-color: darkviolet;
+      color: white;
+      padding: 10px;
+      margin: 0px;
+      border: 1px solid white;
+    }
+
+    body {
+      margin: 0px;
+      background-color: darkviolet;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    form {
+      padding-left: 15px;
+      max-width: 350px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      text-decoration: underline;
+    }
+
+    input {
+      padding: 5px;
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      display: block;
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: white;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>CS343 Prep 8 - Save</h1>
+  </header>
+
+  <nav>
+    <a href="load.html">Load Data</a>
+  </nav>
+
+  <form id="save-form">
+    <p><b>Leave field(s) blank and save for default data</b></p>
+    <label for="name-input">Name:</label>
+    <input type="text" id="name-input" placeholder="Enter your name">
+
+    <label for="favnumber-input">Favorite Number:</label>
+    <input type="number" id="favnumber-input" placeholder="Enter your favorite number">
+
+    <label for="quotes-input">Quotes (comma separated):</label>
+    <input type="text" id="quotes-input" placeholder='e.g. "Quote 1", "Quote 2"'>
+
+    <button type="button" id="save-button">Save</button>
+  </form>
+
+  <script>
+    // Default data
+    const defaultName = 'Josh Derrow';
+    const defaultNumber = 17;
+    const defaultQuotes = [
+      `"If you don't take risks, you can't create a future." - Monkey D. Luffy`,
+      `"A scar on the back is a shame for a swordsman." - Roronoa Zoro`,
+      `"People's dreams...never end!" - Marshall D. Teach`
+    ];
+
+    // Initialize defaults if empty
+    if (!localStorage.getItem('fullname')) {
+      localStorage.setItem('fullname', defaultName);
+    }
+    if (!localStorage.getItem('favnumber')) {
+      localStorage.setItem('favnumber', defaultNumber);
+    }
+    if (!localStorage.getItem('quotes')) {
+      localStorage.setItem('quotes', JSON.stringify(defaultQuotes));
+    }
+
+    const saveButton = document.getElementById('save-button');
+    saveButton.addEventListener('click', () => {
+      const nameInput = document.getElementById('name-input').value.trim();
+      const favNumberInput = document.getElementById('favnumber-input').value.trim();
+      const quotesInput = document.getElementById('quotes-input').value.trim();
+
+      // Use default if empty
+      const newName = nameInput || defaultName;
+      const newFavNumber = favNumberInput || defaultNumber;
+      const newQuotes = quotesInput
+        ? quotesInput.split(',').map(q => q.trim()).filter(q => q.length > 0)
+        : defaultQuotes;
+
+      // Save to localStorage
+      localStorage.setItem('fullname', newName);
+      localStorage.setItem('favnumber', newFavNumber);
+      localStorage.setItem('quotes', JSON.stringify(newQuotes));
+      alert('✅ Data saved to local storage');
+    });
+  </script>
+</body>
+
+</html>

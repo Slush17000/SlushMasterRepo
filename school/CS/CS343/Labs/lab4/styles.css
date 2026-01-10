@@ -1,0 +1,68 @@
+nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: darkblue;
+    font-size: 16pt;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+article {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+    width: 275px;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+#tagline {
+    font-family: "Brush Script MT", cursive;
+    font-size: 20pt;
+    color: purple;
+}
+
+.highlight {
+    font-style: italic;
+    background-color: lightyellow;
+}
+
+.price {
+    font-weight: bold;
+    color: green;
+}
+
+#phone {
+    font-size: 14pt;
+    color: blue;
+}
+
+#services article {
+    background-color: aliceblue;
+}
+
+#stylists article {
+    background-color: lavenderblush;
+}
+
+#stylists img {
+    border-radius: 15px;
+}
+
+#stylists h3 {
+    color: darkred;
+}
+
+#location {
+    font-style: italic;
+}
+
+header,
+footer {
+    text-align: center;
+}
