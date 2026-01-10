@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Boxels</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://fav.farm/📦" />
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    #model-controls {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .model-category {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .model-category:first-child {
+      margin-top: 0;
+    }
+
+    .category-title {
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .model-button {
+      padding: 10px 20px;
+      background-color: rgba(88, 0, 133, 0.8);
+      color: white;
+      border: 2px solid rgb(0, 0, 0);
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .model-button:hover {
+      background-color: rgba(120, 0, 180, 0.9);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .model-button.active {
+      background-color: rgba(150, 0, 200, 1);
+      border-color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="model-controls">
+    <div class="model-category">
+      <div class="category-title">Models made by me:</div>
+      <button class="model-button active" data-model="./models/pyramid.txt">Pyramid</button>
+      <button class="model-button" data-model="./models/mountain.txt">Mountain</button>
+      <button class="model-button" data-model="./models/yin.txt">Yin</button>
+      <button class="model-button" data-model="./models/yang.txt">Yang</button>
+      <button class="model-button" data-model="./models/house.txt">House</button>
+      <button class="model-button" data-model="./models/eiffel-tower.txt">Eiffel Tower</button>
+    </div>
+
+    <div class="model-category">
+      <div class="category-title">Models made by classmates:</div>
+      <button class="model-button" data-model="./models/bear.txt">Bear</button>
+      <button class="model-button" data-model="./models/burger.txt">Burger</button>
+      <button class="model-button" data-model="./models/castle.txt">Castle</button>
+      <button class="model-button" data-model="./models/chicken.txt">Chicken</button>
+      <button class="model-button" data-model="./models/cow-moon.txt">Cow Moon</button>
+      <button class="model-button" data-model="./models/dragon.txt">Dragon</button>
+      <button class="model-button" data-model="./models/lighthouse.txt">Lighthouse</button>
+      <button class="model-button" data-model="./models/orange.txt">Orange</button>
+      <button class="model-button" data-model="./models/robot-jedi.txt">Robot Jedi</button>
+      <button class="model-button" data-model="./models/skateboard.txt">Skateboard</button>
+      <button class="model-button" data-model="./models/sword.txt">Sword</button>
+      <button class="model-button" data-model="./models/turtle.txt">Turtle</button>
+      <button class="model-button" data-model="./models/witch.txt">Witch</button>
+    </div>
+  </div>
+  <canvas id="canvas"></canvas>
+  <script type="module" src="main.ts"></script>
+</body>
+
+</html>

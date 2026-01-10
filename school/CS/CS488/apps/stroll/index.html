@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hello, Stroll</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    #heightmap-controls {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .heightmap-button {
+      padding: 10px 20px;
+      background-color: rgba(0, 100, 150, 0.8);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .heightmap-button:hover {
+      background-color: rgba(0, 130, 180, 0.9);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .heightmap-button.active {
+      background-color: rgba(0, 150, 200, 1);
+      border-color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="heightmap-controls">
+    <button class="heightmap-button active" data-heightmap="./height-maps/everestHeightMap.png">Everest</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/fujiHeightMap.png">Fuji</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/grandCanyonHeightMap.png">Grand Canyon</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/hawaiiHeightMap.png">Hawaii</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/kauaiHeightMap.png">Kauai</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/kilimanjaroHeightMap.png">Kilimanjaro</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/matterhornHeightMap.png">Matterhorn</button>
+    <button class="heightmap-button"
+      data-heightmap="./height-maps/mauiMolokaiLanaiHeightMap.png">Maui-Molokai-Lanai</button>
+    <button class="heightmap-button" data-heightmap="./height-maps/oahuHeightMap.png">Oahu</button>
+  </div>
+  <canvas id="canvas"></canvas>
+  <script type="module" src="main.ts"></script>
+</body>
+
+</html>
