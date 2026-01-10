@@ -1,0 +1,57 @@
+Change num balls. [500, 1000, 2000, 4000]
+Threads: 2 Duration 2.0
+500 Balls
+Threads: 2, Spheres: 500, Duration: 2, Elapsed Time: 22.464 sec
+
+1000 Balls
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 43.6942 sec
+
+2000 Balls
+Threads: 2, Spheres: 2000, Duration: 2, Elapsed Time: 94.7018 sec
+
+4000 Balls
+Threads: 2, Spheres: 4000, Duration: 2, Elapsed Time: 180.305 sec
+
+
+Change num threads. [1, 2, 4, 8, 16, 32, 64]
+Balls: 1000 Duration 2.0
+1 Thread
+Threads: 1, Spheres: 1000, Duration: 2, Elapsed Time: 89.1931 sec
+
+2 Threads
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 44.2776 sec
+
+4 Threads
+Threads: 4, Spheres: 1000, Duration: 2, Elapsed Time: 26.6018 sec
+
+8 Threads
+Threads: 8, Spheres: 1000, Duration: 2, Elapsed Time: 14.1714 sec
+
+16 Threads
+Threads: 16, Spheres: 1000, Duration: 2, Elapsed Time: 13.5462 sec
+
+32 Threads
+Threads: 32, Spheres: 1000, Duration: 2, Elapsed Time: 12.1279 sec
+
+64 Threads
+WARNING! Requested number of threads (64) larger than maximum available (32)
+Threads: 64, Spheres: 1000, Duration: 2, Elapsed Time: 15.4357 sec
+
+
+Change duration. [0.5, 1.0, 2.0, 4.0, 8.0]
+Balls: 1000 Threads: 2
+0.5 Duration
+Threads: 2, Spheres: 1000, Duration: 0.5, Elapsed Time: 12.1962 sec
+
+1.0 Duration
+Threads: 2, Spheres: 1000, Duration: 1, Elapsed Time: 24.3192 sec
+
+2.0 Duration
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 47.0882 sec
+
+4.0 Duration
+Threads: 2, Spheres: 1000, Duration: 4, Elapsed Time: 94.0408 sec
+
+8.0 Duration
+Threads: 2, Spheres: 1000, Duration: 8, Elapsed Time: 181.432 sec
+

@@ -1,0 +1,30 @@
+Lines of code/text in our project:
+
+Chrono:
+cpp: 513,803
+c: 296
+cu: 12,753
+py: 21,800
+cmake: 4,222
+SWIG: 13,180
+cs: 3,285
+txt: 6,128,955
+total without text: 569,339
+total with text: 6,698,294
+
+Build:
+cpp: 48,450
+c: 1,210
+cu: 936
+py: 412
+cmake: 7,841
+SWIG: 0
+cs: 0
+txt: 6,114,082
+total without text: 58,849
+total with text: 6,172,931
+
+combined total without text: 628,188
+combined text total: 12,243,037
+combined total with text: 12,871,225
+

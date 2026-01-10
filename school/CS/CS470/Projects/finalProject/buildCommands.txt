@@ -1,0 +1,9 @@
+Build Commands run by Onyx & I:
+1. Eigen3_ROOT="shared/common/eigen-3.4.0/" srun --gres=gpu cmake -DCH_ENABLE_MODULE_GPU=ON -S . -B ../build
+2. cd /build
+3. make -j (probably needs to be srun make -j)
+
+Build Commands run by Brennan:
+1. Eigen3_ROOT="shared/common/eigen-3.4.0/" srun --gres=gpu cmake -DCH_ENABLE_MODULE_GPU=ON -DCH_ENABLE_MODULE_VEHICLE=ON -S . -B ../build
+2. cd /build
+3. srun make -j
