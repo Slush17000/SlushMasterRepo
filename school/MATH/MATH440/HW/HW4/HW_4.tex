@@ -1,0 +1,87 @@
+ 
+\documentclass {article}
+\usepackage{amsfonts}
+\usepackage{amsmath} %this is a package you need to make triple integrals and line integrals (the ones with the circle)
+\usepackage{esint}%this is a package you need to make triple integrals and line integrals (the ones with the circle)
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+
+\setlength{\oddsidemargin}{-.3in}
+\setlength{\evensidemargin}{-.3in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+\usepackage{scrextend}
+
+
+\def\dt        {{\Delta t}}
+\def\dx        {{\Delta x}}
+
+\def\eq        {\, = \,}
+\def\gt        {\, > \,}
+\def\implies   {{\, \Longrightarrow \,}}
+\def\norm      {{| \! |}}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{\bf HOMEWORK 4}
+
+
+\rhead{\bf  MATH 440}
+\noindent
+
+\cfoot{\thepage}
+
+
+{\bf Problem Similar to 2.3.5:}  Evaluate (be careful if $n=m \neq 0$ and if $n = m = 0$) 
+$$
+\int_{-L}^L \sin\frac{n \pi x}{L} \sin \frac{m\pi x}{L} dx,
+$$
+and
+$$
+\int_{-L}^L \cos\frac{n \pi x}{L} \cos \frac{m\pi x}{L} dx,
+$$
+for $n>0$, $m>0$. 
+
+{\bf Problem 2.4.3:}  Solve the eigenvalue problem 
+$$
+\frac{d^2 \phi}{d x^2} = -\lambda \phi,
+$$
+subject to $\phi(0) = \phi (2 \pi)$, and $\frac{d \phi}{d x} (0) = \frac{d \phi}{dx}(2 \pi)$.  \textit{Note:  This is an ODE, not a PDE so there is no time dependence here.}  You must consider whether $\lambda >0$, $\lambda = 0$, or $\lambda<0$.
+
+{\bf Problem 2.4.6:}  Determine the equilibrium temperature distribution for the thin circular ring of Section 2.4.2:
+
+{\bf (a)}  directly from the equilibrium problem (see Section 1.4), and 
+
+{\bf (b)}  by computing the limit as $t \to \infty$ of the time-dependent problem.
+
+{\bf Problem 2.5.1(a):}  Solve Laplace's equation inside a rectangle $0 \le x \le L$, $0 \le y \le H$, with the following boundary conditions:
+
+{\bf (a)}  $\frac{\partial u}{\partial x}(0,y) = 0$, $\frac{\partial u}{\partial x}(L, y) = 0$, $u(x,0) = 0$, $u(x,H) = f(x)$.
+
+{\bf Problem 2.5.3(a):}  Solve Laplace's equation \textit{outside} a circular disk ($r \ge a$) subject to the boundary conditions
+
+{\bf (a)} $u(a, \theta) = \ln 2 + 4 \cos \theta$
+
+{\bf Problem 2.5.5(a):}  Solve Laplace's equation inside the quarter circle of radius 1 ($0 \le \theta \le \pi/2$, $0 \le r \le 1$) subject to the boundary conditions
+
+{\bf (a)} $\frac{\partial u}{\partial \theta} (r,0) = 0$, $u(r, \pi/2) = 0$, and $u(1, \theta) = f(\theta)$.
+
+{\bf Problem 2.5.6(a):}  Solve Laplace's equation inside a semicircle of radius $a$ ($0<r<a$, $0 < \theta < \pi$) subject to the boundary conditions
+
+{\bf (a)} $u(r ,\theta) = 0$ on the diameter and $u(a, \theta) = g(\theta)$.
+
+{\bf Problem 2.5.15(a):}  Solve Laplace's equation inside a semi-infinite strip ($0 < x < \infty$, $0 < y < H$) subject to the boundary conditions
+
+{\bf (a)} $\frac{\partial u}{\partial y} (x,0) = 0$, $\frac{ \partial u}{\partial y} (x, H) = 0$, and $u(0,y) = f(y)$.
+
+
+
+\end{document}

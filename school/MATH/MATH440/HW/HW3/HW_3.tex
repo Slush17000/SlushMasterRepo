@@ -1,0 +1,150 @@
+ 
+\documentclass {article}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+
+\setlength{\oddsidemargin}{-.3in}
+\setlength{\evensidemargin}{-.3in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+\usepackage{scrextend}
+
+
+
+\def\dt        {{\Delta t}}
+\def\dx        {{\Delta x}}
+
+\def\eq        {\, = \,}
+\def\gt        {\, > \,}
+\def\implies   {{\, \Longrightarrow \,}}
+\def\norm      {{| \! |}}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{\bf HOMEWORK 3}
+
+
+\rhead{\bf  MATH 440}
+\noindent
+
+\cfoot{\thepage}
+ 
+
+%
+%{\bf RUBRIC:}  
+%
+%
+%\bigskip\bigskip
+%\centerline{\begin{tabular}{|c||c|c|}\hline
+%& & \\
+%Questions & \quad Points \quad & \qquad Score \qquad\,\\ \hline\hline
+%& & \\
+% & & \\ \hline
+%& & \\
+%&  & \\ \hline
+%& & \\
+%&  & \\ \hline
+%\hline
+%& & \\
+%Total &  & \\
+%& & \\ \hline
+%\end{tabular}}
+%\newpage
+
+%{\bf Problem 1.5.3(a-c):} Consider the polar coordinates
+%\begin{eqnarray}
+%x & = & r \cos \theta, \nonumber \\
+%y & = & r \sin \theta. \nonumber
+%\end{eqnarray}
+%
+%{\bf (a)} Since $r^2 = x^2+y^2$, show that $\frac{\partial r}{\partial x} = \cos \theta$, $\frac{\partial r}{\partial y} = \sin \theta$, $\frac{\partial \theta}{\partial y} = \frac{\cos \theta}{r}$, $\frac{\partial \theta}{\partial x} = -\frac{\sin \theta}{r}$.
+%
+%{\bf (b)} Argue that $\hat{r} = \cos \theta \hat{i}+ \sin \theta \hat{j}$ and $\hat{\theta} = -\sin \theta \hat{i} + \cos \theta \hat{j}$.
+%
+%{\bf (c)} Using the chain rule, show that $\vec{\nabla} = \hat{r} \frac{\partial}{\partial r} + \hat{\theta} \frac{1}{r} \frac{\partial}{\partial \theta}$.
+%
+%{\bf (d)} If $\vec{A} = A_r \hat{r} + A_{\theta} \hat{\theta}$,  show that $\vec{\nabla} \cdot \vec{A} = \frac{1}{r}\frac{\partial}{\partial r} \left( r A_r \right) + \frac{1}{r} \frac{\partial }{\partial \theta} \left( A_{\theta} \right)$.
+%
+%{\bf (e)} Show that $\nabla^2 u = \frac{1}{r} \frac{\partial}{\partial r} \left( r \frac{\partial }{\partial r} \right) + \frac{1}{r^2} \frac{\partial^2}{\partial \theta^2}$
+
+{\bf Problem 1.5.10:}  Determine the equilibrium temperature distribution inside a circle $(r \le r_0)$ if the boundary is fixed at a temperature $T_0$.
+
+{\bf Problem 1.5.11:}  Consider 
+$$
+\frac{\partial u}{\partial t} = \frac{k}{r} \frac{\partial }{\partial r} \left( r \frac{ \partial u}{\partial r} \right), \ \ \ a < r< b,
+$$
+subject to $u(r,0) = f(r)$, $\frac{\partial u}{\partial r} (a,t) = \beta$, and $\frac{\partial u}{\partial r}(b,t) = 1$.  For what value(s) of $\beta$ does an equilibrium temperature distribution exist?
+
+
+{\bf Problem 2.2.1:}  Show that any linear combination of linear operators is a linear operator. 
+
+
+{\bf Problem 2.2.2:}  Show that
+
+{\bf (a)} $L(u) = \frac{\partial}{\partial x} \left[ K_0 (x) \frac{\partial u}{\partial x} \right]$ is a linear operator
+
+{\bf (b)} and usually $L(u) = \frac{\partial }{\partial x} \left[ K_0(x,u) \frac{\partial u}{\partial x} \right]$ is not a linear operator.
+
+{\bf Problem 2.2.3:}  Show that $\frac{\partial u}{\partial t} = k \frac{\partial^2u}{\partial x^2} + Q(u,x,t)$ is linear if $Q = \alpha(x,t)u + \beta(x,t)$ and, in addition, homogeneous if $\beta(x,t) = 0$.
+
+{\bf Problem 2.2.4:}  In this exercise we derive superposition principles for non homogeneous problems.
+
+{\bf (a)}  Consider $L(u) = f$.  If $u_p$ is a particular solution, $L\left( u_p\right) = f$, and if $u_1$ and $u_2$ are homogeneous solutions, $L\left(u_i\right) = 0$, show that $u = u_p+c_1u_1+c_2u_2$ is another particular solution.
+
+{\bf (b)}  If $L(u) = f_1+f_2$, where $u_{pi}$ is a particular solution corresponding to $f_i$, what is a particular solution for $f_1+f_2$?
+
+{\bf Problem 2.3.1 b,d:}  For the following partial differential equations, what ordinary differential equations are implied by the method of separation of variables?
+
+{\bf (b)} $\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}-v_0 \frac{\partial u}{\partial x}$
+
+{\bf (d)} $\frac{\partial u}{\partial t} = \frac{k}{r^2} \frac{\partial }{\partial r} \left( r^2 \frac{\partial u}{\partial r} \right)$
+
+{\bf Problem 2.3.2 a,e:}  Consider the differential equation 
+$$
+\frac{d^2 \phi}{d x^2} + \lambda \phi = 0,
+$$
+where $\phi$ is a function of $x$ only.  Determine the eigenvalues $\lambda$ (and corresponding eigenfunctions) if $\phi$ satisfies the following boundary conditions.  Analyze three cases ($\lambda > 0$, $\lambda = 0$, and $\lambda<0$).  You may assume that the eigenvalues are real.
+
+{\bf (a)} $\phi(0) = 0$ and $\phi (\pi) = 0$
+
+%{\bf (b)} $\phi(0) = 0$ and $\phi ( 1) = 0$
+
+{\bf (e)} $\frac{d \phi }{d x} (0) = 0$ and $\phi (L) = 0$
+
+{\bf Problem 2.3.3 a,c,d:}  Consider the heat equation 
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
+$$
+subject to the boundary conditions $u(0,t) = 0$ and $u(L,t) = 0$.  Solve the initial value problem if the temperature is initially 
+
+{\bf (a)} $u(x,0) = 6 \sin \left( \frac{9 \pi x}{L}\right)$
+
+{\bf (c)} $u(x,0) = 2 \cos \left( \frac{ 3 \pi x}{L} \right)$
+
+{\bf (d)} $u(x,0) = \Big\{ 
+\begin{array}{ll}
+1 & 0 < x\le L/2 \\
+2 & L/2 < x < L
+\end{array}
+$
+
+{\bf Problem 2.3.4 a-b:}  Consider
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2},
+$$
+subject to the boundary conditions $u(0,t) = 0$, $u(L,t) = 0$ and $u(x,0) = f(x)$.
+
+{\bf (a)} What is the total heat energy in the rod as a function of time?
+
+{\bf (b)} What is the flow of heat energy out to the rod at $x = 0$? at $x = L$?
+
+\end{document}

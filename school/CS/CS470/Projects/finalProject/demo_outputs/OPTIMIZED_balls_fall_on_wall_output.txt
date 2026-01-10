@@ -1,0 +1,120 @@
+Strong scaling tests
+
+Change Thread Count. [1, 2, 4, 8, 16, 32] (5 runs each)
+Balls: 1000 Duration: 2.0
+
+=== 1 Threads ===
+Run 1/3:
+Elapsed Time: 90.1337 sec
+---
+Run 2/3:
+Elapsed Time: 90.4829 sec
+---
+Run 3/3:
+Elapsed Time: 91.6724 sec
+---
+
+=== 2 Threads ===
+Run 1/3:
+Elapsed Time: 46.5976 sec
+---
+Run 2/3:
+Elapsed Time: 46.5736 sec
+---
+Run 3/3:
+Elapsed Time: 46.2871 sec
+---
+
+=== 4 Threads ===
+Run 1/3:
+Elapsed Time: 26.0762 sec
+---
+Run 2/3:
+Elapsed Time: 26.1409 sec
+---
+Run 3/3:
+Elapsed Time: 25.6207 sec
+---
+
+=== 8 Threads ===
+Run 1/3:
+Elapsed Time: 14.8162 sec
+---
+Run 2/3:
+Elapsed Time: 15.2824 sec
+---
+Run 3/3:
+Elapsed Time: 14.7009 sec
+---
+
+=== 16 Threads ===
+Run 1/3:
+Elapsed Time: 9.21302 sec
+---
+Run 2/3:
+Elapsed Time: 9.21872 sec
+---
+Run 3/3:
+Elapsed Time: 9.11282 sec
+---
+
+=== 32 Threads ===
+Run 1/3:
+Elapsed Time: 10.5555 sec
+---
+Run 2/3:
+Elapsed Time: 13.9093 sec
+---
+Run 3/3:
+Elapsed Time: 11.3884 sec
+---
+
+Weak scaling tests
+
+Change Number of Balls. [500, 1000, 2000, 4000] (5 runs each)
+Threads: 2 Duration: 2.0
+
+=== 500 Balls ===
+Run 1/3:
+Elapsed Time: 23.6001 sec
+---
+Run 2/3:
+Elapsed Time: 23.871 sec
+---
+Run 3/3:
+Elapsed Time: 23.649 sec
+---
+
+=== 1000 Balls ===
+Run 1/3:
+Elapsed Time: 47.9646 sec
+---
+Run 2/3:
+Elapsed Time: 47.3186 sec
+---
+Run 3/3:
+Elapsed Time: 46.6105 sec
+---
+
+=== 2000 Balls ===
+Run 1/3:
+Elapsed Time: 95.9676 sec
+---
+Run 2/3:
+Elapsed Time: 94.536 sec
+---
+Run 3/3:
+Elapsed Time: 92.937 sec
+---
+
+=== 4000 Balls ===
+Run 1/3:
+Elapsed Time: 190.506 sec
+---
+Run 2/3:
+Elapsed Time: 189.7 sec
+---
+Run 3/3:
+Elapsed Time: 186.946 sec
+---
+

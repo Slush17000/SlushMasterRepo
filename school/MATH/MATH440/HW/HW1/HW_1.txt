@@ -1,0 +1,109 @@
+ 
+\documentclass {article}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+
+\setlength{\oddsidemargin}{-.3in}
+\setlength{\evensidemargin}{-.3in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+\usepackage{scrextend}
+
+
+
+\def\dt        {{\Delta t}}
+\def\dx        {{\Delta x}}
+
+\def\eq        {\, = \,}
+\def\gt        {\, > \,}
+\def\implies   {{\, \Longrightarrow \,}}
+\def\norm      {{| \! |}}
+
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{\bf HOMEWORK 1}
+
+
+\rhead{{\bf  NAME:} YOUR NAME GOES HERE}
+\noindent
+
+\cfoot{\thepage}
+ 
+
+
+{\bf RUBRIC:}  
+
+
+\bigskip\bigskip
+\centerline{\begin{tabular}{|c||c|c|}\hline
+& & \\
+Questions & \quad Points \quad & \qquad Score \qquad\,\\ \hline\hline
+& & \\
+ & & \\ \hline
+& & \\
+&  & \\ \hline
+& & \\
+&  & \\ \hline
+\hline
+& & \\
+Total &  & \\
+& & \\ \hline
+\end{tabular}}
+\newpage
+
+{\bf Problem 1.2.1:} Briefly explain the minus sign in conservation law (1.2.3) or (1.2.5) if $Q = 0$.
+
+ \textcolor{red}{DELETE THIS PORTION WHEN YOU ARE WRITING YOUR HOMEWORK.  THIS IS JUST A SAMPLE TO SHOW YOU HOW TO TEX UP SOME MATH.
+You should always write in complete sentences.  You can also use math in this environment
+$$
+X = \frac{a}{B}.
+$$
+If you want your equations to have numbers that you can reference, do something like this
+\begin{equation}
+B = \int_a^b G(x) dx. \nonumber %\label{eq:example}
+\end{equation}
+Then you can reference Eq.% \ref{eq:example}.  You can also include pictures like this
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=1.5in]{SamplePic.jpg}
+   \caption{\textcolor{red}{Don't forget to put a caption for any figure.  Here I have made the figure 1.5 inches in width, but you can change this.  Captions are absolutely necessary and should reference, at the very least, which problem/part to which they belong.  Figures are floats, which means they don't always show up where you expect them, they will show up where they fit best.  Also make sure your figure captions are complete sentences.}  }
+   \label{fig:SampleTag}
+\end{figure}
+Then you can reference the figure \ref{fig:SampleTag}.  If you wish to include hand drawn figures, draw the figure, take a picture of it (i.e. with your cell phone) and save it as a jpg, then include it like this.  Always make sure to used complete sentences and to reference your figure.  If you have a figure, you must talk about it (and reference which figure it is)!}
+
+
+{\bf Problem 1.2.3:} Derive the heat equation for a rod assuming constant thermal properties with variable cross-sectional area $A(x)$ assuming no sources by considering the total thermal energy between $x = a$ and $x = b$.
+
+{\bf Problem 1.2.4:} Derive the diffusion equation for a chemical pollutant.
+
+{\bf (a)} Consider the total amount of the chemical in a thin region between $x$ and $x+\Delta x$.
+
+{\bf (b)} Consider the total amount of the chemical between $x = a$ and $x = b$.
+
+{\bf Problem 1.2.5:}  Derive an equation for the concentration $u(x,t)$ of a chemical pollutant if the chemical is produced due to a chemical reaction at a rate of $\alpha u\left( \beta - u\right)$ per unit volume.
+
+{\bf Problem 1.2.8:}  If $u(x,t)$ is known, give an expression for the total thermal energy contained in a rod ($0 < x < L$).
+
+{\bf Problem 1.2.9(a-b):}  Consider a thin, one-dimensional rod without sources of thermal energy whose lateral surface area is not insulated.
+
+{\bf (a)} Assume that the heat energy flowing out of the lateral sides per unit surface area per time is $w(x,t)$.  Derive the partial differential equation for the temperature $u(x,t)$.
+
+{\bf (b)} Assume that $w(x,t)$ is proportional to the temperature difference between the rod $u(x,t)$ and a known outside temperature $\gamma (x,t)$  Derive 
+$$
+c \rho \frac{\partial u}{\partial t} = \frac{\partial}{\partial x} \left( K_0 \frac{\partial u}{\partial x} \right)  - \frac{P}{A} \left[ u(x,t) - \gamma (x,t) \right] h(x),
+$$
+where $h(x)$ is a positive $x$-dependent proportionality, $P$ is the lateral perimeter, and $A$ is the cross-sectional area.
+
+\end{document}

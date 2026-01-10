@@ -1,0 +1,180 @@
+Strong scaling tests
+
+Change Thread Count. [1, 2, 4, 8, 16, 32] (5 runs each)
+Balls: 1000 Duration: 2.0
+
+=== 1 Threads ===
+Run 1/5:
+Elapsed Time: 88.8276 sec
+---
+Run 2/5:
+Elapsed Time: 92.7214 sec
+---
+Run 3/5:
+Elapsed Time: 89.6554 sec
+---
+Run 4/5:
+Elapsed Time: 90.7282 sec
+---
+Run 5/5:
+Elapsed Time: 91.4786 sec
+---
+
+=== 2 Threads ===
+Run 1/5:
+Elapsed Time: 47.5793 sec
+---
+Run 2/5:
+Elapsed Time: 47.7945 sec
+---
+Run 3/5:
+Elapsed Time: 47.4176 sec
+---
+Run 4/5:
+Elapsed Time: 48.1301 sec
+---
+Run 5/5:
+Elapsed Time: 47.5489 sec
+---
+
+=== 4 Threads ===
+Run 1/5:
+Elapsed Time: 25.9033 sec
+---
+Run 2/5:
+Elapsed Time: 26.0495 sec
+---
+Run 3/5:
+Elapsed Time: 26.0932 sec
+---
+Run 4/5:
+Elapsed Time: 26.0124 sec
+---
+Run 5/5:
+Elapsed Time: 26.1894 sec
+---
+
+=== 8 Threads ===
+Run 1/5:
+Elapsed Time: 15.0114 sec
+---
+Run 2/5:
+Elapsed Time: 15.2928 sec
+---
+Run 3/5:
+Elapsed Time: 15.0991 sec
+---
+Run 4/5:
+Elapsed Time: 15.2264 sec
+---
+Run 5/5:
+Elapsed Time: 15.0817 sec
+---
+
+=== 16 Threads ===
+Run 1/5:
+Elapsed Time: 9.32477 sec
+---
+Run 2/5:
+Elapsed Time: 9.24405 sec
+---
+Run 3/5:
+Elapsed Time: 9.39639 sec
+---
+Run 4/5:
+Elapsed Time: 9.28455 sec
+---
+Run 5/5:
+Elapsed Time: 8.89582 sec
+---
+
+=== 32 Threads ===
+Run 1/5:
+Elapsed Time: 9.96719 sec
+---
+Run 2/5:
+Elapsed Time: 10.9968 sec
+---
+Run 3/5:
+Elapsed Time: 11.0065 sec
+---
+Run 4/5:
+Elapsed Time: 21.3011 sec
+---
+Run 5/5:
+Elapsed Time: 10.5626 sec
+---
+
+Weak scaling tests
+
+Change Number of Balls. [500, 1000, 2000, 4000] (5 runs each)
+Threads: 2 Duration: 2.0
+
+=== 500 Balls ===
+Run 1/5:
+Elapsed Time: 23.6083 sec
+---
+Run 2/5:
+Elapsed Time: 23.6783 sec
+---
+Run 3/5:
+Elapsed Time: 23.8569 sec
+---
+Run 4/5:
+Elapsed Time: 23.9108 sec
+---
+Run 5/5:
+Elapsed Time: 23.3418 sec
+---
+
+=== 1000 Balls ===
+Run 1/5:
+Elapsed Time: 46.8076 sec
+---
+Run 2/5:
+Elapsed Time: 47.2871 sec
+---
+Run 3/5:
+Elapsed Time: 46.7434 sec
+---
+Run 4/5:
+Elapsed Time: 47.5267 sec
+---
+Run 5/5:
+Elapsed Time: 47.6754 sec
+---
+
+=== 2000 Balls ===
+Run 1/5:
+Elapsed Time: 95.6733 sec
+---
+Run 2/5:
+Elapsed Time: 93.1952 sec
+---
+Run 3/5:
+Elapsed Time: 92.1341 sec
+---
+Run 4/5:
+Elapsed Time: 96.4432 sec
+---
+Run 5/5:
+Elapsed Time: 97.4818 sec
+---
+
+=== 4000 Balls ===
+Run 1/5:
+Elapsed Time: 186.783 sec
+---
+Run 2/5:
+Elapsed Time: 187.818 sec
+---
+Run 3/5:
+Elapsed Time: 184.821 sec
+---
+Run 4/5:
+Elapsed Time: 193.978 sec
+---
+Run 5/5:
+Elapsed Time: 187.412 sec
+---
+

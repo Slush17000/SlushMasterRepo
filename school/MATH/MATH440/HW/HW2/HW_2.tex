@@ -1,0 +1,102 @@
+ 
+\documentclass {article}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+
+\setlength{\oddsidemargin}{-.3in}
+\setlength{\evensidemargin}{-.3in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+\usepackage{scrextend}
+
+
+
+\def\dt        {{\Delta t}}
+\def\dx        {{\Delta x}}
+
+\def\eq        {\, = \,}
+\def\gt        {\, > \,}
+\def\implies   {{\, \Longrightarrow \,}}
+\def\norm      {{| \! |}}
+
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{\bf HOMEWORK 2}
+
+
+\rhead{\bf  MATH 440}
+\noindent
+
+\cfoot{\thepage}
+ 
+
+
+{\bf RUBRIC:}  
+
+
+\bigskip\bigskip
+\centerline{\begin{tabular}{|c||c|c|}\hline
+& & \\
+Questions & \quad Points \quad & \qquad Score \qquad\,\\ \hline\hline
+& & \\
+ & & \\ \hline
+& & \\
+&  & \\ \hline
+& & \\
+&  & \\ \hline
+\hline
+& & \\
+Total &  & \\
+& & \\ \hline
+\end{tabular}}
+\newpage
+
+{\bf Problem 1.3.1:}  Consider a one-dimensional rod, $0 \le x \le L$.  Assume that the heat energy flowing out of the rod at $x = L$ is proportional to the temperature difference between the end temperature of the bar and the known external temperature.  Derive (1.3.5); briefly, physically explain why $H>0$.
+
+{\bf Problem 1.3.2:}  Two one-dimensional rods of different materials joined at $x = x_0$ are said to be in \textbf{perfect thermal contact} if the temperature is continuous at $x = x_0$:
+$$
+u(x_{0-}, t) = u( x_{0+}, t)
+$$ 
+and no heat energy is lost at $x = x_0$.  What mathematical equation represents the later condition at $x = x_0$?  Under what special condition is $\frac{\partial u}{\partial x}$ continuous at $x = x_0$?
+
+{\bf Problem 1.4.1a,d, e-f:} Determine the equilibrium temperature distribution for a one-dimensional rod with constant thermal properties with the following sources and boundary conditions:
+
+{\bf (a)} $Q = 0$, $u(0) = 0$, and $u(L) = T$
+
+{\bf (d)} $Q = 0$, $u(0) = T$, and $\frac{\partial u}{\partial x}(L) = \alpha$
+
+{\bf (e)} $\frac{Q}{K_0} = 1$, $u(0) = T_1$, and $u(L) = T_2$
+
+{\bf (f)} $\frac{Q}{K_0} = x^2$, $u(0) = T$, and $\frac{\partial u}{\partial x} (L) = 0$
+
+{\bf Problem 1.4.2a-b}: Consider the equilibrium temperature distribution for a uniform one-dimensional rod with sources $\frac{Q}{K_0} = x$ of thermal energy subject to the boundary conditions $u(0) = 0$ and $u(L) = 0$.
+
+{\bf (a)} Determine the heat energy generated per unit time inside the entire rod.
+
+{\bf (b)} Determine the heat energy flowing out of the rod per unit time at $x = 0$ and at $x = L$ (remember, this is at equilibrium).
+
+{\bf Problem 1.4.3:} Determine the equilibrium temperature distribution for a one-dimensional rod composed of two different materials in perfect thermal contact at $x = 1$.  For $0 < x<1$, there is one material ($c \rho - 1$, $K_0 = 1$) with a constant source ($Q = 1$), whereas for the other $1<x<2$, there are no sources ($Q = 0$, $c \rho =2$, $K_0 = 2$ with $u(0) = 0 = u(2)$.
+
+{\bf Problem 1.4.5:}  Consider a one-dimensional rod $0 \le x \le L$ of known length and constant thermal properties without sources or sinks.  Suppose that the temperature is an {\it unknown} constant $T$ at $x = L$.  Determine $T$ if we known ( in the steady state) for the temperature and the heat flow at $x = 0$.
+
+{\bf Problem 1.4.7a-b:}  For the following problems, determine an equilibrium temperature distribution (if one exists).  For what values of $\beta$ are there solutions?  Explain physically.
+
+{\bf (a)} $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2} +1$, $u(x,0) = f(x)$, $\frac{\partial u}{\partial x}(0,t) = 1$, and $\frac{\partial u}{\partial x} (L,T) = \beta$
+
+{\bf (b)} $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$, $u(x,0) = f(x)$, $\frac{\partial u}{\partial x}(0,t) = 1$, and $\frac{\partial u}{\partial x} (L,T) = \beta$
+
+{\bf Problem 1.4.10:} Suppose $\frac{\partial u}{\partial t} = \frac{\partial^2 u }{\partial x^2} + 4$, $u(x,0) = f(x)$, $\frac{\partial u}{\partial x}(0,t) = 5$, and $\frac{\partial u}{\partial x} (L,t) = 6$.  Calculate the total thermal energy in the one-dimensional rod (as a function of time).
+
+
+
+\end{document}

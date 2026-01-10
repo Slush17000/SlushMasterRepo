@@ -1,0 +1,286 @@
+Change num balls. [500, 1000, 2000, 4000] (5 runs each)
+Threads: 2 Duration: 2.0
+
+=== 500 Balls ===
+Run 1/5:
+Threads: 2, Spheres: 500, Duration: 2, Elapsed Time: 24.1837 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 500, Duration: 2, Elapsed Time: 23.3812 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 500, Duration: 2, Elapsed Time: 23.7781 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 500, Duration: 2, Elapsed Time: 24.1694 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 500, Duration: 2, Elapsed Time: 23.3152 sec
+---
+
+=== 1000 Balls ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 47.2873 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.5548 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 47.0129 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.3823 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.95 sec
+---
+
+=== 2000 Balls ===
+Run 1/5:
+Threads: 2, Spheres: 2000, Duration: 2, Elapsed Time: 93.972 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 2000, Duration: 2, Elapsed Time: 93.3059 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 2000, Duration: 2, Elapsed Time: 93.405 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 2000, Duration: 2, Elapsed Time: 95.2027 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 2000, Duration: 2, Elapsed Time: 96.0112 sec
+---
+
+=== 4000 Balls ===
+Run 1/5:
+Threads: 2, Spheres: 4000, Duration: 2, Elapsed Time: 185.121 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 4000, Duration: 2, Elapsed Time: 187.61 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 4000, Duration: 2, Elapsed Time: 192.093 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 4000, Duration: 2, Elapsed Time: 188.789 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 4000, Duration: 2, Elapsed Time: 183.614 sec
+---
+
+Change num threads. [1, 2, 4, 8, 16, 32, 64] (5 runs each)
+Balls: 1000 Duration: 2.0
+
+=== 1 Threads ===
+Run 1/5:
+Threads: 1, Spheres: 1000, Duration: 2, Elapsed Time: 90.2059 sec
+---
+Run 2/5:
+Threads: 1, Spheres: 1000, Duration: 2, Elapsed Time: 90.4822 sec
+---
+Run 3/5:
+Threads: 1, Spheres: 1000, Duration: 2, Elapsed Time: 92.5976 sec
+---
+Run 4/5:
+Threads: 1, Spheres: 1000, Duration: 2, Elapsed Time: 89.4433 sec
+---
+Run 5/5:
+Threads: 1, Spheres: 1000, Duration: 2, Elapsed Time: 92.7922 sec
+---
+
+=== 2 Threads ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 48.0423 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 47.3574 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 47.8558 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.3806 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 48.4515 sec
+---
+
+=== 4 Threads ===
+Run 1/5:
+Threads: 4, Spheres: 1000, Duration: 2, Elapsed Time: 26.0611 sec
+---
+Run 2/5:
+Threads: 4, Spheres: 1000, Duration: 2, Elapsed Time: 26.0951 sec
+---
+Run 3/5:
+Threads: 4, Spheres: 1000, Duration: 2, Elapsed Time: 25.4759 sec
+---
+Run 4/5:
+Threads: 4, Spheres: 1000, Duration: 2, Elapsed Time: 26.3375 sec
+---
+Run 5/5:
+Threads: 4, Spheres: 1000, Duration: 2, Elapsed Time: 26.3159 sec
+---
+
+=== 8 Threads ===
+Run 1/5:
+Threads: 8, Spheres: 1000, Duration: 2, Elapsed Time: 15.2129 sec
+---
+Run 2/5:
+Threads: 8, Spheres: 1000, Duration: 2, Elapsed Time: 15.1579 sec
+---
+Run 3/5:
+Threads: 8, Spheres: 1000, Duration: 2, Elapsed Time: 14.8755 sec
+---
+Run 4/5:
+Threads: 8, Spheres: 1000, Duration: 2, Elapsed Time: 14.9651 sec
+---
+Run 5/5:
+Threads: 8, Spheres: 1000, Duration: 2, Elapsed Time: 15.2343 sec
+---
+
+=== 16 Threads ===
+Run 1/5:
+Threads: 16, Spheres: 1000, Duration: 2, Elapsed Time: 9.3555 sec
+---
+Run 2/5:
+Threads: 16, Spheres: 1000, Duration: 2, Elapsed Time: 9.13057 sec
+---
+Run 3/5:
+Threads: 16, Spheres: 1000, Duration: 2, Elapsed Time: 9.40241 sec
+---
+Run 4/5:
+Threads: 16, Spheres: 1000, Duration: 2, Elapsed Time: 11.9665 sec
+---
+Run 5/5:
+Threads: 16, Spheres: 1000, Duration: 2, Elapsed Time: 9.46116 sec
+---
+
+=== 32 Threads ===
+Run 1/5:
+Threads: 32, Spheres: 1000, Duration: 2, Elapsed Time: 12.3407 sec
+---
+Run 2/5:
+Threads: 32, Spheres: 1000, Duration: 2, Elapsed Time: 11.2701 sec
+---
+Run 3/5:
+Threads: 32, Spheres: 1000, Duration: 2, Elapsed Time: 11.7967 sec
+---
+Run 4/5:
+Threads: 32, Spheres: 1000, Duration: 2, Elapsed Time: 10.2237 sec
+---
+Run 5/5:
+Threads: 32, Spheres: 1000, Duration: 2, Elapsed Time: 9.58965 sec
+---
+
+=== 64 Threads ===
+Run 1/5:
+WARNING! Requested number of threads (64) larger than maximum available (32)
+Threads: 64, Spheres: 1000, Duration: 2, Elapsed Time: 15.6286 sec
+---
+Run 2/5:
+WARNING! Requested number of threads (64) larger than maximum available (32)
+Threads: 64, Spheres: 1000, Duration: 2, Elapsed Time: 15.9371 sec
+---
+Run 3/5:
+WARNING! Requested number of threads (64) larger than maximum available (32)
+Threads: 64, Spheres: 1000, Duration: 2, Elapsed Time: 15.5742 sec
+---
+Run 4/5:
+WARNING! Requested number of threads (64) larger than maximum available (32)
+Threads: 64, Spheres: 1000, Duration: 2, Elapsed Time: 15.7952 sec
+---
+Run 5/5:
+WARNING! Requested number of threads (64) larger than maximum available (32)
+Threads: 64, Spheres: 1000, Duration: 2, Elapsed Time: 15.9071 sec
+---
+
+Change duration. [0.5, 1.0, 2.0, 4.0, 8.0] (5 runs each)
+Balls: 1000 Threads: 2
+
+=== Duration: 0.5 ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 0.5, Elapsed Time: 11.8683 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 0.5, Elapsed Time: 12.0029 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 0.5, Elapsed Time: 11.7908 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 0.5, Elapsed Time: 11.7386 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 0.5, Elapsed Time: 11.6753 sec
+---
+
+=== Duration: 1.0 ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 1, Elapsed Time: 23.5853 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 1, Elapsed Time: 23.3133 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 1, Elapsed Time: 23.7686 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 1, Elapsed Time: 23.5983 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 1, Elapsed Time: 23.9181 sec
+---
+
+=== Duration: 2.0 ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.7982 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.926 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 47.273 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.7071 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 2, Elapsed Time: 46.9287 sec
+---
+
+=== Duration: 4.0 ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 4, Elapsed Time: 92.9289 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 4, Elapsed Time: 93.3842 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 4, Elapsed Time: 94.1175 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 4, Elapsed Time: 96.9453 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 4, Elapsed Time: 93.353 sec
+---
+
+=== Duration: 8.0 ===
+Run 1/5:
+Threads: 2, Spheres: 1000, Duration: 8, Elapsed Time: 183.914 sec
+---
+Run 2/5:
+Threads: 2, Spheres: 1000, Duration: 8, Elapsed Time: 186.569 sec
+---
+Run 3/5:
+Threads: 2, Spheres: 1000, Duration: 8, Elapsed Time: 185.781 sec
+---
+Run 4/5:
+Threads: 2, Spheres: 1000, Duration: 8, Elapsed Time: 190.622 sec
+---
+Run 5/5:
+Threads: 2, Spheres: 1000, Duration: 8, Elapsed Time: 185.092 sec
+---
+

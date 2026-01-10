@@ -1,0 +1,107 @@
+ 
+\documentclass {article}
+\usepackage{amsfonts}
+\usepackage{amsmath} %this is a package you need to make triple integrals and line integrals (the ones with the circle)
+\usepackage{esint}%this is a package you need to make triple integrals and line integrals (the ones with the circle)
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+
+\setlength{\oddsidemargin}{-.3in}
+\setlength{\evensidemargin}{-.3in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+\usepackage{scrextend}
+
+
+\def\dt        {{\Delta t}}
+\def\dx        {{\Delta x}}
+
+\def\eq        {\, = \,}
+\def\gt        {\, > \,}
+\def\implies   {{\, \Longrightarrow \,}}
+\def\norm      {{| \! |}}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{\bf HOMEWORK 5}
+
+
+\rhead{\bf  MATH 440}
+\noindent
+
+\cfoot{\thepage}
+
+
+{\bf Problem 3.2.2(d):}  For the following functions, sketch the Fourier series of $f(x)$ (on the interval $-L \le x \le L$) and determine the Fourier coefficients where 
+
+$f(x) = \begin{cases} 0 & x<0 \\
+x & x>0
+\end{cases}$
+
+{\bf Problem 3.2.3:}  Show that the Fourier series operation is linear.  That is, show that the Fourier series of $c_1 f(x) + c_2 g(x)$ is the sum of $c_1$ times the Fourier series of $f(x)$ and $c_2$ times the series of $g(x)$.
+
+{\bf Problem 3.3.1(b):}  For the following functions, sketch $f(x)$, the Fourier series of $f(x)$, the Fourier sine series of $f(x)$, and the Fourier cosine series of $f(x) = 1+x$
+
+{\bf Problem 3.3.2(b):}  For the following functions, sketch the Fourier sine series of $f(x)$ and determine its Fourier coefficients:
+ 
+ $f(x) = \begin{cases} 1 & x < L/6 \\
+3 & L/6 < x < L/2 \\
+0 & x > L/2 \end{cases} $
+
+{\bf Problem 3.3.3(b):}  For the following functions, sketch the Fourier sine series of $f(x)$.  Also, roughly sketch the sum of a finite number of nonzero terms (at least the first two)of the Fourier sine series:
+
+{\bf (b)} $f(x) = \begin{cases} 1 & x < L/2 \\
+ 0 & x > L/2\end{cases}
+ $ 
+
+{\bf Problem 3.3.5(b):}  For the following functions, sketch the Fourier cosine series of $f(x)$ and determine its Fourier coefficients:
+
+ $f(x) = \begin{cases} 1 & x < L/6 \\
+3 & L/6< x< L/2 \\
+0 & x > L/2 \end{cases}$
+
+{\bf Problem 3.3.6(b):}  For the following function, sketch the Fourier cosine series of $f(x)$.  Also roughly sketch the sum of a finite number of nonzero terms (at least the first two) of the Fourier cosine series:
+
+{\bf (b)} $f(x) = \begin{cases} 0 & x <L/2 \\
+1& x>L/2\end{cases}$
+
+{\bf Problem 3.3.7:}  Show that $e^x$ is the sum of an even and an odd function.
+
+{\bf Problem 3.3.8(a-c):}  
+
+{\bf (a)} Determine the formulas for the even extension of any function $f(x)$.  Compare to the formula for the even part of $f(x)$.
+
+{\bf (b)} Do the same for the odd extension of $f(x)$ and the odd part of $f(x)$.
+
+{\bf (c)} Calculate and sketch the four functions of parts (a) and (b) if 
+$$
+f(x) = \begin{cases} x & x>0 \\
+x^2 & x<0.\end{cases}
+$$
+
+%{\bf Problem 3.3.14(a):} Consider a function $f(x)$ that is even around $x = L/2$.  Show that the odd coefficients ($n$ odd) of the Fourier cosine series of $f(x)$ on $0\le x \le L$ are zero.
+
+{\bf Problem 3.4.4(b):}  Suppose that $f(x)$ and $df/dx$ are piecewise smooth. Prove that the Fourier cosine series of a continuous function $f(x)$ can be differentiated term by term.
+
+{\bf Problem 3.4.8:}  Consider 
+$$
+\frac{\partial u}{\partial t} = k \frac{\partial^2u}{\partial x^2}
+$$
+subject to $\frac{\partial u}{\partial x }(0,t) = 0 = \frac{\partial u}{\partial x} (L,t)$ and $u(x,0) = f(x)$. Solve in the following way.  Look for the solution as a Fourier cosine series.  Assume that $u$ and $\partial u/\partial x$ are continuous and that $\partial^2 u /\partial x^2$ and $\partial u/\partial t$ are piecewise smooth.  Justify all differentiations of infinite series.
+
+{\bf Problem 3.5.2(a-b):} 
+
+{\bf (a)}  Using (3.3.11) and (3.3.12), obtain the Fourier cosine series of $x^2$.
+
+{\bf (b)} From part (a), determine the Fourier sine series of $x^3$.
+
+
+\end{document}
