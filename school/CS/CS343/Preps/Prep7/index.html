@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Josh Derrow CS343 Prep 7</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    #imageContainer {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    #imageContainer img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 3px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Number of images -->
+  <form id="imageForm">
+    <label for="numImages">Number of images:</label>
+    <input type="number" id="numImages" min="1" max="27">
+    <button type="button" id="generateBtn">Generate</button>
+  </form>
+
+  <!-- Background color -->
+  <form id="bgForm">
+    <label for="bgColor">Background color:</label>
+    <input type="color" id="bgColor">
+    <button type="button" id="bgBtn">Change background</button>
+  </form>
+
+  <!-- Store images -->
+  <div id="imageContainer"></div>
+
+  <script>
+    // Get references to html elements
+    const numImagesInput = document.getElementById('numImages');
+    const generateBtn = document.getElementById('generateBtn');
+    const imageContainer = document.getElementById('imageContainer');
+    const bgColorInput = document.getElementById('bgColor');
+    const bgBtn = document.getElementById('bgBtn');
+
+    // Generate random images
+    generateBtn.addEventListener('click', () => {
+      const numImages = parseInt(numImagesInput.value);
+
+      // Clear previous images
+      imageContainer.innerHTML = '';
+
+      // Validate user-input
+      if (isNaN(numImages) || numImages <= 0) {
+        alert('Please enter a valid number of images.');
+        return;
+      }
+
+      // Add random images
+      for (let i = 0; i < numImages; i++) {
+        const img = document.createElement('img');
+        const randomNum = Math.floor(Math.random() * 1000);
+        img.src = `https://picsum.photos/200/200?random=${randomNum}`;
+        imageContainer.appendChild(img);
+      }
+    });
+
+    // Change background color
+    bgBtn.addEventListener('click', () => {
+      const color = bgColorInput.value;
+      document.body.style.backgroundColor = color;
+    });
+  </script>
+</body>
+
+</html>

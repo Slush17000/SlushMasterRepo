@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Details - Trail Finder</title>
+    <link rel="icon" href="https://fav.farm/mountain">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        /* Improve contrast for outline buttons */
+        .btn-outline-primary {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+        .btn-outline-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        .btn-outline-danger {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        .btn-outline-danger:hover {
+            background-color: #bb2d3b;
+            border-color: #b02a37;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-success">
+        <h1>Trail Finder</h1>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navigation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="near-me.html">Near Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="user-details.html">User Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">Settings</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" data-bs-theme="light">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="container mt-4">
+        <h1 class="mb-4">User Profile</h1>
+        
+        <!-- User Information Card -->
+        <section aria-labelledby="profile-info-heading">
+            <h2 id="profile-info-heading" class="visually-hidden">Profile Information</h2>
+            <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <img id="profileImage" src="https://ui-avatars.com/api/?name=Josh+Derrow&size=150&background=198754&color=fff" 
+                             alt="Profile Picture" class="rounded-circle mb-3">
+                        <h3 id="headerName">Josh Derrow</h3>
+                        <p class="text-muted" id="headerUsername">@TrailFinder17000</p>
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="h4">Profile Information</h3>
+                        <hr>
+                        <div id="profileView">
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Name:</strong></div>
+                                <div class="col-md-8" id="displayName">Josh Derrow</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Username:</strong></div>
+                                <div class="col-md-8" id="displayUsername">TrailFinder17000</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Email:</strong></div>
+                                <div class="col-md-8" id="displayEmail">joshb12d@gmail.com</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Location:</strong></div>
+                                <div class="col-md-8" id="userLocation">Loading location...</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Member Since:</strong></div>
+                                <div class="col-md-8" id="displayMemberSince">October 2025</div>
+                            </div>
+                            <button id="editProfileBtn" class="btn btn-primary mt-3">Edit Profile</button>
+                            <button id="deleteProfileBtn" class="btn btn-danger mt-3 ms-2">Delete Profile</button>
+                        </div>
+                        <div id="profileEdit" style="display: none;">
+                            <div class="mb-3">
+                                <label for="editName" class="form-label"><strong>Name:</strong></label>
+                                <input type="text" class="form-control" id="editName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editUsername" class="form-label"><strong>Username:</strong></label>
+                                <input type="text" class="form-control" id="editUsername" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editEmail" class="form-label"><strong>Email:</strong></label>
+                                <input type="email" class="form-control" id="editEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-label"><strong>Location:</strong></div>
+                                <div class="form-control-plaintext" id="editLocation">Loading location...</div>
+                                <small class="text-muted">Location can be changed in Settings page</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editMemberSince" class="form-label"><strong>Member Since:</strong></label>
+                                <input type="text" class="form-control" id="editMemberSince" required>
+                            </div>
+                            <button id="saveProfileBtn" class="btn btn-success mt-3">Save Changes</button>
+                            <button id="cancelEditBtn" class="btn btn-secondary mt-3 ms-2">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="mb-4" aria-labelledby="stats-heading">
+            <h2 id="stats-heading" class="visually-hidden">Hiking Statistics</h2>
+
+        <!-- Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h2 class="text-success" id="statHikesCompleted">0</h2>
+                        <p class="mb-0">Hikes Completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h2 class="text-success" id="statMilesHiked">0</h2>
+                        <p class="mb-0">Miles Hiked</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h2 class="text-success" id="statReviewsWritten">0</h2>
+                        <p class="mb-0">Reviews Written</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h2 class="text-success" id="statFavoriteTrails">0</h2>
+                        <p class="mb-0">Favorite Trails</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- Favorite Hikes -->
+        <section class="mb-5" aria-labelledby="favorites-heading">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 id="favorites-heading" class="mb-0">Favorite Trails</h2>
+                <button id="addFavoriteBtn" class="btn btn-success btn-sm">+ Add Favorite</button>
+            </div>
+            <div class="list-group" id="favoritesContainer">
+            </div>
+        </section>
+
+        <!-- Hikes Completed -->
+        <section class="mb-5" aria-labelledby="completed-heading">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 id="completed-heading" class="mb-0">Hikes Completed</h2>
+                <button id="addHikeBtn" class="btn btn-success btn-sm">+ Add Hike</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <caption class="visually-hidden list-toggle">List of recent completed hikes with trail details</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Trail Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Date Completed</th>
+                            <th scope="col">Distance</th>
+                            <th scope="col">Difficulty</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hikesContainer">
+
+                            <td>Catawba, VA</td>
+                            <td>Sep 10, 2025</td>
+                            <td>4.6 miles</td>
+                            <td><span class="badge bg-danger">Hard</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sharp Top Trail</td>
+                            <td>Peaks of Otter, VA</td>
+                            <td>Aug 28, 2025</td>
+                            <td>3.4 miles</td>
+                            <td><span class="badge bg-warning text-dark">Moderate</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reviews -->
+        <section class="mb-5" aria-labelledby="reviews-heading">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 id="reviews-heading" class="mb-0">My Reviews</h2>
+                <button id="addReviewBtn" class="btn btn-success btn-sm">+ Add Review</button>
+            </div>
+            <div id="reviewsContainer"></div>
+        </section>
+
+        <!-- Profile Import/Export -->
+        <section class="mb-5" aria-labelledby="export-heading">
+            <h2 id="export-heading">Profile Data</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title h5">Export & Import Profile</h3>
+                    <p class="card-text">Download your profile data as a JSON file or upload a previously exported profile to restore your data.</p>
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <h4 class="h6">Download Profile</h4>
+                            <p class="text-muted small">Export all your profile data including favorites, hikes, and reviews.</p>
+                            <button id="downloadProfileBtn" class="btn btn-success">
+                                <i class="bi bi-download"></i> Download Profile JSON
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="h6">Upload Profile</h4>
+                            <p class="text-muted small">Import a previously exported profile to restore your data.</p>
+                            <label for="uploadProfileInput" class="visually-hidden">Choose profile JSON file to upload</label>
+                            <input type="file" class="form-control mb-2" id="uploadProfileInput" accept=".json" aria-label="Choose profile JSON file to upload">
+                            <button id="uploadProfileBtn" class="btn btn-success">
+                                <i class="bi bi-upload"></i> Upload Profile JSON
+                            </button>
+                        </div>
+                    </div>
+                    <div id="uploadStatus" class="alert mt-3" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="search-highlight.js"></script>
+    <script src="navbar-search.js"></script>
+    <script src="theme.js"></script>
+    <script src="user-data-manager.js"></script>
+    <script src="user-details-ui.js"></script>
+    <script>
+        // Update user location from localStorage
+        async function updateUserLocation() {
+            const locationElement = document.getElementById('userLocation');
+            const useCurrentLocation = localStorage.getItem('useCurrentLocation') === 'true';
+
+            // If location is disabled in settings, show appropriate message
+            if (!useCurrentLocation) {
+                locationElement.textContent = 'Location disabled';
+                return;
+            }
+
+            const savedLocation = localStorage.getItem('userLocation');
+
+            if (savedLocation) {
+                try {
+                    const location = JSON.parse(savedLocation);
+                    const { latitude, longitude } = location;
+
+                    // Use reverse geocoding with OpenStreetMap Nominatim API
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
+                    );
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        const address = data.address;
+                        
+                        // Extract city and state
+                        const city = address.city || address.town || address.village || address.county || 'Unknown';
+                        const state = address.state || 'Unknown';
+                        
+                        locationElement.textContent = `${city}, ${state}`;
+                        
+                        // Save the readable location to localStorage for future use
+                        localStorage.setItem('userLocationName', `${city}, ${state}`);
+                    } else {
+                        locationElement.textContent = 'Location unavailable';
+                    }
+                } catch (error) {
+                    console.error('Error fetching location:', error);
+                    locationElement.textContent = 'Error loading location';
+                }
+            } else {
+                // Check if we have a previously saved location name
+                const savedLocationName = localStorage.getItem('userLocationName');
+                if (savedLocationName) {
+                    locationElement.textContent = savedLocationName;
+                } else {
+                    locationElement.textContent = 'Location not set';
+                }
+            }
+        }
+
+        // Update location when page loads
+        updateUserLocation();
+
+        // Listen for storage changes (when settings are changed in another tab/window)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'useCurrentLocation') {
+                updateUserLocation();
+            }
+        });
+
+        // Profile Management
+        // Load profile data from localStorage or use defaults
+        function loadProfileData() {
+            const profile = {
+                name: localStorage.getItem('profileName') || 'Josh Derrow',
+                username: localStorage.getItem('profileUsername') || 'TrailFinder17000',
+                email: localStorage.getItem('profileEmail') || 'joshb12d@gmail.com',
+                memberSince: localStorage.getItem('profileMemberSince') || 'October 2025'
+            };
+            return profile;
+        }
+
+        function saveProfileData(profile) {
+            localStorage.setItem('profileName', profile.name);
+            localStorage.setItem('profileUsername', profile.username);
+            localStorage.setItem('profileEmail', profile.email);
+            localStorage.setItem('profileMemberSince', profile.memberSince);
+        }
+
+        function updateProfileDisplay(profile) {
+            // Update all display elements
+            document.getElementById('displayName').textContent = profile.name;
+            document.getElementById('displayUsername').textContent = profile.username;
+            document.getElementById('displayEmail').textContent = profile.email;
+            document.getElementById('displayMemberSince').textContent = profile.memberSince;
+            
+            // Update header
+            document.getElementById('headerName').textContent = profile.name;
+            document.getElementById('headerUsername').textContent = '@' + profile.username;
+            
+            // Update profile image
+            const encodedName = encodeURIComponent(profile.name);
+            document.getElementById('profileImage').src = 
+                `https://ui-avatars.com/api/?name=${encodedName}&size=150&background=198754&color=fff`;
+        }
+
+        // Initialize profile on page load
+        const profile = loadProfileData();
+        updateProfileDisplay(profile);
+
+        // Edit Profile Button
+        document.getElementById('editProfileBtn').addEventListener('click', function() {
+            const profile = loadProfileData();
+            
+            // Populate edit form
+            document.getElementById('editName').value = profile.name;
+            document.getElementById('editUsername').value = profile.username;
+            document.getElementById('editEmail').value = profile.email;
+            document.getElementById('editMemberSince').value = profile.memberSince;
+            
+            // Update location in edit form
+            const locationText = document.getElementById('userLocation').textContent;
+            document.getElementById('editLocation').textContent = locationText;
+            
+            // Toggle views
+            document.getElementById('profileView').style.display = 'none';
+            document.getElementById('profileEdit').style.display = 'block';
+        });
+
+        // Cancel Edit Button
+        document.getElementById('cancelEditBtn').addEventListener('click', function() {
+            document.getElementById('profileView').style.display = 'block';
+            document.getElementById('profileEdit').style.display = 'none';
+        });
+
+        // Save Profile Button
+        document.getElementById('saveProfileBtn').addEventListener('click', function() {
+            const name = document.getElementById('editName').value.trim();
+            const username = document.getElementById('editUsername').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
+            const memberSince = document.getElementById('editMemberSince').value.trim();
+            
+            // Validate inputs
+            if (!name || !username || !email || !memberSince) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Save profile
+            const profile = { name, username, email, memberSince };
+            saveProfileData(profile);
+            updateProfileDisplay(profile);
+            
+            // Toggle views
+            document.getElementById('profileView').style.display = 'block';
+            document.getElementById('profileEdit').style.display = 'none';
+            
+            // Show success message
+            alert('Profile updated successfully!');
+        });
+
+        // Delete Profile Button
+        document.getElementById('deleteProfileBtn').addEventListener('click', function() {
+            const confirmed = confirm('Are you sure you want to delete your profile? This will remove all your information including favorites, hikes, and reviews (location settings will be preserved).');
+            
+            if (confirmed) {
+                // Set guest user profile data (but keep location)
+                localStorage.setItem('profileName', 'Guest User');
+                localStorage.setItem('profileUsername', 'guest');
+                localStorage.setItem('profileEmail', 'guest@example.com');
+                localStorage.setItem('profileMemberSince', 'New Member');
+                
+                // Remove favorites, hikes, and reviews - set to empty arrays
+                localStorage.setItem('userFavorites', JSON.stringify([]));
+                localStorage.setItem('userCompletedHikes', JSON.stringify([]));
+                localStorage.setItem('userReviews', JSON.stringify([]));
+                
+                // Reload the page to refresh all sections with empty data
+                alert('Profile deleted successfully. Location settings have been preserved. The page will now refresh.');
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>

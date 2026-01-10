@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>CS343 Prep 8 - Load</title>
+    <style>
+        nav {
+            background-color: black;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid white;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 10px;
+            color: white;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background-color: darkviolet;
+            color: white;
+            padding: 10px;
+            margin: 0px;
+            border: 1px solid white;
+        }
+
+        body {
+            margin: 0px;
+            background-color: darkviolet;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        div {
+            padding-left: 10px;
+            padding-bottom: 5px;
+        }
+
+        p {
+            padding-left: 10px;
+            padding-bottom: 5px;
+            margin: 0px;
+        }
+
+        ul {
+            margin: 0px;
+        }
+
+        .label {
+            text-decoration: underline;
+        }
+
+        #container {
+            padding-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CS343 Prep 8 - Load</h1>
+    </header>
+
+    <nav>
+        <a href="save.html">Save Data</a>
+    </nav>
+
+    <div id="container">
+        <div id="name-display">
+            <span class="label">Name:</span>
+            <span id="name-value"></span>
+        </div>
+
+        <div id="favorite-display">
+            <span class="label">Favorite Number + 5:</span>
+            <span id="favorite-value"></span>
+        </div>
+
+        <p><span class="label">Quotes:</span></p>
+        <ul id="quotes-display"></ul>
+    </div>
+
+    <script>
+        const fullName = localStorage.getItem('fullname');
+        document.getElementById('name-value').textContent = fullName;
+
+        const favNumberString = localStorage.getItem('favnumber');
+        const favNumber = parseInt(favNumberString, 10);
+        document.getElementById('favorite-value').textContent = favNumber + 5;
+
+        const quotesString = localStorage.getItem('quotes');
+        const quotesArray = JSON.parse(quotesString);
+        const quotesList = document.getElementById('quotes-display');
+
+        quotesArray.forEach(quote => {
+            const li = document.createElement('li');
+            li.textContent = quote;
+            quotesList.appendChild(li);
+        });
+    </script>
+</body>
+
+</html>

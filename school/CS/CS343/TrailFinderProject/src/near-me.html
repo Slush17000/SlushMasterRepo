@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Near Me - Trail Finder</title>
+    <link rel="icon" href="https://fav.farm/mountain">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+    <header class="bg-success">
+         <h1>Trail Finder</h1>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navigation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="near-me.html">Near Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-details.html">User Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">Settings</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" data-bs-theme="light">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="container mt-4">
+        <h1 class="mb-4">Trails Near Me</h1>
+        <p class="lead" id="locationMessage">
+            <span class="spinner-border spinner-border-sm me-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </span>
+            Loading trails near your location...
+        </p>
+        <hr>
+
+        <div id="nearbyTrails">
+            <!-- Trails will be loaded here -->
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+    <script src="api/trails-api.js"></script>
+    <script src="user-data-manager.js"></script>
+    <script src="trail-actions.js"></script>
+    <script src="search-highlight.js"></script>
+    <script src="navbar-search.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        // Initialize API and User Data
+        const api = new TrailsAPI();
+        const userDataManager = new UserDataManager();
+        trailActions.init(userDataManager);
+        let userLocation = null;
+        let userLocationName = '';
+        let allNearbyTrails = [];
+        let displayedCount = 0;
+        const TRAILS_PER_PAGE = 10;
+
+        // Load user location from localStorage
+        const storedLocation = localStorage.getItem('userLocation');
+        if (storedLocation) {
+            userLocation = JSON.parse(storedLocation);
+        }
+
+        // Load user location name from localStorage
+        const storedLocationName = localStorage.getItem('userLocationName');
+        if (storedLocationName) {
+            userLocationName = storedLocationName;
+        }
+
+        // Helper functions
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 3959; // Earth's radius in miles
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            let stars = '★'.repeat(fullStars);
+            if (hasHalfStar) stars += '☆';
+            stars += '☆'.repeat(5 - Math.ceil(rating));
+            return stars;
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function getTagBadgeClass(index) {
+            const classes = ['bg-success', 'bg-info text-dark', 'bg-warning text-dark'];
+            return classes[index % classes.length];
+        }
+
+        function getDifficultyBadgeClass(difficulty) {
+            if (difficulty === 'easy') return 'bg-success';
+            if (difficulty === 'moderate') return 'bg-warning text-dark';
+            return 'bg-danger';
+        }
+
+        // Load nearby trails
+        async function loadNearbyTrails() {
+            // Wait for API to load
+            await new Promise(resolve => {
+                const checkLoaded = setInterval(() => {
+                    if (api.trails.length > 0) {
+                        clearInterval(checkLoaded);
+                        resolve();
+                    }
+                }, 100);
+            });
+
+            const locationMessage = document.getElementById('locationMessage');
+            const container = document.getElementById('nearbyTrails');
+
+            if (!userLocation) {
+                locationMessage.innerHTML = 'Location not available. Please enable location access on the settings page to see trails near you.';
+                container.innerHTML = `
+                    <div class="alert alert-success">
+                        <h4 class="alert-heading">Location Required</h4>
+                        <p>We need your location to show trails near you. Please visit the <a href="settings.html" class="alert-link">settings page</a> and allow location access.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Calculate distances for all trails and sort by distance
+            allNearbyTrails = api.trails
+                .filter(trail => trail.coordinates)
+                .map(trail => {
+                    const distance = calculateDistance(
+                        userLocation.latitude,
+                        userLocation.longitude,
+                        trail.coordinates.lat,
+                        trail.coordinates.lng
+                    );
+                    return { ...trail, distanceFromUser: distance };
+                })
+                .sort((a, b) => a.distanceFromUser - b.distanceFromUser);
+
+            // Update location message
+            locationMessage.innerHTML = `Discover trails near your location. Showing results for <strong>${userLocationName || 'your location'}</strong>:`;
+
+            // Display first batch of trails
+            displayedCount = 0;
+            displayTrails();
+        }
+
+        // Display trails with pagination
+        function displayTrails() {
+            const container = document.getElementById('nearbyTrails');
+            const trailsToShow = allNearbyTrails.slice(displayedCount, displayedCount + TRAILS_PER_PAGE);
+            displayedCount += trailsToShow.length;
+
+            let html = '';
+            trailsToShow.forEach((trail, index) => {
+                html += `
+                    <article class="card mb-4">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="${trail.image}" class="img-fluid rounded-start" alt="${trail.name}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h2 class="card-title">${trail.name}</h2>
+                                    <div class="mb-2">
+                                        <span class="badge ${getDifficultyBadgeClass(trail.difficulty)}">${capitalize(trail.difficulty)}</span>
+                                        <span class="stars" aria-label="Rating: ${trail.rating} out of 5 stars" role="img">${generateStars(trail.rating)}</span>
+                                        <span class="text-muted">(${trail.rating}/5)</span>
+                                    </div>
+                                    <p class="card-text">
+                                        <strong>Length:</strong> ${trail.length} miles | 
+                                        <strong>Elevation Gain:</strong> ${trail.elevationGain.toLocaleString()} ft<br>
+                                        <strong>Location:</strong> ${typeof trail.location === 'string' ? trail.location : `${trail.location.city}, ${trail.location.state}`} | 
+                                        <strong>Distance:</strong> ${trail.distanceFromUser.toFixed(1)} miles away<br>
+                                        <strong>Cost:</strong> ${trail.cost === 0 ? 'Free' : '$' + trail.cost} | 
+                                        <strong>Type:</strong> ${trail.type}
+                                    </p>
+                                    <p class="card-text">${trail.description}</p>
+                                    <div>
+                                        ${trail.tags.map((tag, i) => `<span class="badge ${getTagBadgeClass(i)}">${tag}</span>`).join(' ')}
+                                    </div>
+                                    <div class="trail-action-buttons mt-3">
+                                        <button class="btn btn-success btn-sm mark-completed-btn me-2" data-trail-id="${trail.id}">
+                                            <span>✓</span> Mark Completed
+                                        </button>
+                                        <button class="btn btn-warning btn-sm mark-favorite-btn" data-trail-id="${trail.id}">
+                                            <span>★</span> Mark Favorite
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+
+            // Add Load More button if there are more trails
+            if (displayedCount < allNearbyTrails.length) {
+                html += `
+                    <div class="text-center my-4">
+                        <button id="loadMoreBtn" class="btn btn-success btn-lg">
+                            Load More (${Math.min(TRAILS_PER_PAGE, allNearbyTrails.length - displayedCount)} more)
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Remove old Load More button if it exists
+            const oldBtn = document.getElementById('loadMoreBtn');
+            if (oldBtn) {
+                oldBtn.parentElement.remove();
+            }
+
+            // Append new trails
+            container.insertAdjacentHTML('beforeend', html);
+
+            // Add event listeners to action buttons
+            trailsToShow.forEach(trail => {
+                const completedBtn = document.querySelector(`[data-trail-id="${trail.id}"].mark-completed-btn`);
+                const favoriteBtn = document.querySelector(`[data-trail-id="${trail.id}"].mark-favorite-btn`);
+                
+                if (completedBtn) {
+                    completedBtn.addEventListener('click', () => trailActions.markCompleted(trail));
+                }
+                if (favoriteBtn) {
+                    favoriteBtn.addEventListener('click', () => trailActions.markFavorite(trail));
+                }
+            });
+
+            // Add event listener to Load More button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', displayTrails);
+            }
+        }
+
+        // Load trails when page loads
+        loadNearbyTrails();
+    </script>
+</body>
+
+</html>

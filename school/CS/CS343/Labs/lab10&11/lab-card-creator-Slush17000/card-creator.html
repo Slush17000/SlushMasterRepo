@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Card Creator</title>
+  <link rel="stylesheet" href="styles/cards.css">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>CS343 Lab 10 & 11 - Card Creator</h1>
+  </header>
+
+  <nav>
+    <a href="card-viewer.html">View Card</a>
+  </nav>
+
+  <main class="left-right">
+    <section id="form-area">
+      <form class="card-form">
+        <div class="form-group">
+          <label for="to-input">To</label>
+          <input type="text" id="to-input" name="to-input" placeholder="Enter recipient" required>
+        </div>
+        <div class="form-group">
+          <label for="from-input">From</label>
+          <input type="text" id="from-input" name="from-input" placeholder="Enter sender" required>
+        </div>
+        <div class="form-group">
+          <label for="title-input">Title</label>
+          <input type="text" id="title-input" name="title-input" placeholder="Enter title" required>
+        </div>
+        <div class="form-group">
+          <label for="subtitle-input">Subtitle</label>
+          <input type="text" id="subtitle-input" name="subtitle-input" placeholder="Enter subtitle" required>
+        </div>
+        <div class="form-group">
+          <label for="message-input">Message</label>
+          <textarea id="message-input" name="message-input" placeholder="Enter message" required></textarea>
+        </div>
+        <div class="form-buttons">
+          <button type="button" id="preview-btn">Preview</button>
+          <button type="submit" id="save-btn">Save</button>
+        </div>
+      </form>
+    </section>
+    <section id="preview-area">
+      <div class="card-display">
+        <div class="card-page page-one">
+          <div class="title"><span class="title-text">TITLE</span></div>
+          <div class="subtitle"><span class="subtitle-text">SUBTITLE</span></div>
+        </div>
+        <div class="card-page page-two">
+          <div class="to">Dear <span class="to-text">RECIPIENT</span>,</div>
+          <div class="message"><span class="message-text">YOUR MESSAGE HERE</span></div>
+          <div class="from">Sincerely, <span class="from-text">SENDER</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="scripts/createcard.js"></script>
+</body>
+
+</html>

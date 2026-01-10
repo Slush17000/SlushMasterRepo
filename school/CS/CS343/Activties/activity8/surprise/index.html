@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise JavaScript Asynchronous</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            margin: 40px;
+        }
+
+        .buttons {
+            margin-bottom: 40px;
+        }
+
+        button {
+            font-size: 2rem;
+            padding: 15px 30px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        #display {
+            font-size: 6rem;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            max-width: 600px;
+            max-height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <button id="callMeBtn">Call me in 5</button>
+        <button id="surpriseBtn">Surprise me</button>
+        <button id="dogBtn">Dog? Dog.</button>
+    </div>
+
+    <div id="display"></div>
+
+    <script>
+        // DOM elements
+        const display = document.getElementById('display');
+        const callMeBtn = document.getElementById('callMeBtn');
+        const surpriseBtn = document.getElementById('surpriseBtn');
+        const dogBtn = document.getElementById('dogBtn');
+
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        /**
+         * Button 1: Uses setTimeout with a callback after 5 seconds
+         */
+        function callMeInFive() {
+            // Display the text "Waiting..." immediately
+
+            // Use setTimeout to display the text "Hi, how are you?" after 5 seconds
+
+        }
+
+        /**
+         * Button 2: Uses setTimeout with a random delay between 1-10 seconds
+         */
+        function surpriseMe() {
+            // Display the text "Unaware..." immediately
+
+            // Generate a random delay between 1 and 10 seconds (in milliseconds)   
+            
+            // Use setTimeout to display the text "Surprise!" after the random delay
+
+        }
+
+        /**
+         * Button 3: Uses fetch with Promises to get a dog image from the API
+         */
+        function fetchDog() {
+            // Display the text "Fetching..." immediately
+            
+            // Use fetch() to get a response from the Dog CEO API (https://dog.ceo/api/breeds/image/random)
+            // The returned value is a Promise -- store this in a variable
+            
+            // Then, use the .then() method on the Promise to handle the response in a callback.
+            // In the callback, the first parameter given to the callback will be the response object.
+            // You need to call the .json() method on the response, which also returns a Promise.
+            // Return this Promise from the first .then() callback.
+
+            // Use another .then() method to handle the JSON data returned from the previous Promise.
+            // In this callback, the first parameter will be the JSON data object.
+            // Extract the image URL from the JSON object
+            // Then display the image in display. You may use .innerHTML = `<img src="${imageUrl}" alt="Random dog">`
+
+        }
+
+        // Event listeners
+        callMeBtn.addEventListener('click', callMeInFive);
+        surpriseBtn.addEventListener('click', surpriseMe);
+        dogBtn.addEventListener('click', fetchDog);
+    </script>
+</body>
+</html>

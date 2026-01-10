@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Calorie Tracker</title>
+    <script src="https://cdn.plot.ly/plotly-3.2.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Meal Calorie Tracker</h1>
+
+    <div>
+        <button id="downloadBtn">Download JSON</button>
+        <input type="file" id="fileInput" accept=".json">
+        <button id="uploadBtn">Upload JSON</button>
+    </div>
+    <br>
+
+    <form id="mealForm">
+        <h2>Breakfast</h2>
+        <label for="breakfast">Meal:</label>
+        <select id="breakfast" name="breakfast">
+            <option value="">Select a meal</option>
+            <option value="300">Cereal (300 cal)</option>
+            <option value="400">Eggs and Toast (400 cal)</option>
+            <option value="250">Yogurt and Fruit (250 cal)</option>
+            <option value="450">Pancakes (450 cal)</option>
+            <option value="350">Oatmeal (350 cal)</option>
+        </select>
+        <label for="breakfastPortion">Portions:</label>
+        <input type="number" id="breakfastPortion" name="breakfastPortion" min="0" step="0.5" value="1">
+
+        <h2>Lunch</h2>
+        <label for="lunch">Meal:</label>
+        <select id="lunch" name="lunch">
+            <option value="">Select a meal</option>
+            <option value="600">Burger and Fries (600 cal)</option>
+            <option value="450">Sandwich (450 cal)</option>
+            <option value="500">Salad with Chicken (500 cal)</option>
+            <option value="550">Pizza (2 slices) (550 cal)</option>
+            <option value="400">Soup and Bread (400 cal)</option>
+        </select>
+        <label for="lunchPortion">Portions:</label>
+        <input type="number" id="lunchPortion" name="lunchPortion" min="0" step="0.5" value="1">
+
+        <h2>Dinner</h2>
+        <label for="dinner">Meal:</label>
+        <select id="dinner" name="dinner">
+            <option value="">Select a meal</option>
+            <option value="700">Steak and Potatoes (700 cal)</option>
+            <option value="550">Pasta with Sauce (550 cal)</option>
+            <option value="600">Chicken and Rice (600 cal)</option>
+            <option value="650">Fish and Vegetables (650 cal)</option>
+            <option value="750">Chinese Takeout (750 cal)</option>
+        </select>
+        <label for="dinnerPortion">Portions:</label>
+        <input type="number" id="dinnerPortion" name="dinnerPortion" min="0" step="0.5" value="1">
+
+        <br><br>
+        <button type="submit">Calculate Calories</button>
+    </form>
+
+    <div id="calorieGraph" style="margin-top: 30px;"></div>
+
+    <script>
+        // Get all form elements
+        const breakfastSelect = document.getElementById('breakfast');
+        const breakfastPortionInput = document.getElementById('breakfastPortion');
+        const lunchSelect = document.getElementById('lunch');
+        const lunchPortionInput = document.getElementById('lunchPortion');
+        const dinnerSelect = document.getElementById('dinner');
+        const dinnerPortionInput = document.getElementById('dinnerPortion');
+
+        // Form submission
+        document.getElementById('mealForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get meal values and portions
+            const breakfastCal = parseFloat(breakfastSelect.value);
+            const breakfastPortion = parseFloat(breakfastPortionInput.value);
+
+            const lunchCal = parseFloat(lunchSelect.value);
+            const lunchPortion = parseFloat(lunchPortionInput.value);
+
+            const dinnerCal = parseFloat(dinnerSelect.value);
+            const dinnerPortion = parseFloat(dinnerPortionInput.value);
+
+            // Calculate total calories for each meal
+            const breakfastTotal = breakfastCal * breakfastPortion;
+            const lunchTotal = lunchCal * lunchPortion;
+            const dinnerTotal = dinnerCal * dinnerPortion;
+
+            // Create bar chart
+            const data = [{
+                x: ['Breakfast', 'Lunch', 'Dinner'],
+                y: [breakfastTotal, lunchTotal, dinnerTotal],
+                type: 'bar',
+                marker: {
+                    color: ['#ff9999', '#99ccff', '#99ff99']
+                }
+            }];
+
+            const layout = {
+                title: {
+                    text: 'Calorie Distribution by Meal'
+                },
+                xaxis: {
+                    title: 'Meal'
+                },
+                yaxis: {
+                    title: 'Calories'
+                }
+            };
+
+            Plotly.newPlot('calorieGraph', data, layout);
+        });
+
+
+        // Download JSON functionality
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            // First, put all the form data into an object
+            const mealData = {
+                breakfast: {
+                    meal: breakfastSelect.value,
+                    mealText: breakfastSelect.options[breakfastSelect.selectedIndex].text,
+                    portion: breakfastPortionInput.value
+                },
+                lunch: {
+                    meal: lunchSelect.value,
+                    mealText: lunchSelect.options[lunchSelect.selectedIndex].text,
+                    portion: lunchPortionInput.value
+                },
+                dinner: {
+                    meal: dinnerSelect.value,
+                    mealText: dinnerSelect.options[dinnerSelect.selectedIndex].text,
+                    portion: dinnerPortionInput.value
+                }
+            };
+
+            // Then, convert the object to a JSON string
+            const jsonString = JSON.stringify(mealData, null, 2);
+
+            // Next, create a Blob and download it as a .json file
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            // Then, create a temporary link element to trigger the download
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'meal-data.json';
+            document.body.appendChild(link);
+            link.click();
+            
+            // Finally, clean up
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+
+        // Upload JSON functionality
+        document.getElementById('uploadBtn').addEventListener('click', function () {
+            const input = document.getElementById('fileInput');
+            if (!input.files || input.files.length === 0) {
+                alert('Please choose a JSON file first.');
+                return;
+            }
+
+            Plotly.purge('calorieGraph');
+
+            const file = input.files[0];
+
+            // Read the selected file from the file picker
+            const reader = new FileReader();
+
+            // Set up the onload handler to process the file when it's read
+            reader.onload = function(event) {
+                try {
+                    // Parse the file's text back into an object
+                    const mealData = JSON.parse(event.target.result);
+
+                    // Fill in the form fields with the loaded data
+                    // Set breakfast
+                    if (mealData.breakfast) {
+                        breakfastSelect.value = mealData.breakfast.meal;
+                        breakfastPortionInput.value = mealData.breakfast.portion;
+                    }
+
+                    // Set lunch
+                    if (mealData.lunch) {
+                        lunchSelect.value = mealData.lunch.meal;
+                        lunchPortionInput.value = mealData.lunch.portion;
+                    }
+
+                    // Set dinner
+                    if (mealData.dinner) {
+                        dinnerSelect.value = mealData.dinner.meal;
+                        dinnerPortionInput.value = mealData.dinner.portion;
+                    }
+
+                    alert('Meal data loaded successfully!');
+                } catch (error) {
+                    alert('Error parsing JSON file: ' + error.message);
+                }
+            };
+
+            // Handle any errors that occur while reading the file
+            reader.onerror = function() {
+                alert('Error reading file!');
+            };
+
+            // Read the file as text
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+
+</html>

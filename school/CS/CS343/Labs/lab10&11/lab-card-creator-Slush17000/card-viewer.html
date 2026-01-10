@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Cards Viewer</title>
+  <link rel="stylesheet" href="styles/cards.css">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>CS343 Lab 10 & 11 - Card Viewer</h1>
+  </header>
+
+  <nav>
+    <a href="card-creator.html">Create Card</a>
+  </nav>
+
+  <main id="card-list">
+  </main>
+  <!-- TEMPLATE FOR CARDS -->
+  <template id="card-template">
+    <div class="card-display">
+      <div class="card-page page-one">
+        <button type="button" class="delete-btn">Delete</button>
+        <div class="title"><span class="title-text" contenteditable>TITLE</span></div>
+        <div class="subtitle"><span class="subtitle-text" contenteditable>SUBTITLE</span></div>
+      </div>
+      <div class="card-page page-two">
+        <div class="to">Dear <span class="to-text" contenteditable>RECIPIENT</span>,</div>
+        <div class="message"><span class="message-text" contenteditable>YOUR MESSAGE HERE</span></div>
+        <div class="from">Sincerely, <span class="from-text" contenteditable>SENDER</span></div>
+      </div>
+    </div>
+  </template>
+  <script src="scripts/viewcards.js"></script>
+</body>
+
+</html>

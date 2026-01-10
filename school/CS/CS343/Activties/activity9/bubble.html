@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bubble Chart</title>
+    <script src="https://cdn.plot.ly/plotly-3.2.0.min.js" charset="utf-8"></script>
+    
+    <script>
+        const country = ["Afghanistan", "Angola", "Albania", "Andorra", "UAE", "Argentina", "Armenia", "Antigua and Barbuda", "Australia", "Austria", "Azerbaijan", "Burundi", "Belgium", "Benin", "Burkina Faso", "Bangladesh", "Bulgaria", "Bahrain", "Bahamas", "Bosnia and Herzegovina", "Belarus", "Belize", "Bolivia", "Brazil", "Barbados", "Brunei", "Bhutan", "Botswana", "Central African Republic", "Canada", "Switzerland", "Chile", "China", "Cote d'Ivoire", "Cameroon", "Congo, Dem. Rep.", "Congo, Rep.", "Colombia", "Comoros", "Cape Verde", "Costa Rica", "Cuba", "Cyprus", "Czech Republic", "Germany", "Djibouti", "Dominica", "Denmark", "Dominican Republic", "Algeria", "Ecuador", "Egypt", "Eritrea", "Spain", "Estonia", "Ethiopia", "Finland", "Fiji", "France", "Micronesia, Fed. Sts.", "Gabon", "UK", "Georgia", "Ghana", "Guinea", "Gambia", "Guinea-Bissau", "Equatorial Guinea", "Greece", "Grenada", "Guatemala", "Guyana", "Hong Kong, China", "Honduras", "Croatia", "Haiti", "Hungary", "Indonesia", "India", "Ireland", "Iran", "Iraq", "Iceland", "Israel", "Italy", "Jamaica", "Jordan", "Japan", "Kazakhstan", "Kenya", "Kyrgyz Republic", "Cambodia", "Kiribati", "St. Kitts and Nevis", "South Korea", "Kuwait", "Lao", "Lebanon", "Liberia", "Libya", "St. Lucia", "Sri Lanka", "Lesotho", "Lithuania", "Luxembourg", "Latvia", "Morocco", "Monaco", "Moldova", "Madagascar", "Maldives", "Mexico", "Marshall Islands", "North Macedonia", "Mali", "Malta", "Myanmar", "Montenegro", "Mongolia", "Mozambique", "Mauritania", "Mauritius", "Malawi", "Malaysia", "Namibia", "Niger", "Nigeria", "Nicaragua", "Netherlands", "Norway", "Nepal", "Nauru", "New Zealand", "Oman", "Pakistan", "Panama", "Peru", "Philippines", "Palau", "Papua New Guinea", "Poland", "North Korea", "Portugal", "Paraguay", "Palestine", "Qatar", "Romania", "Russia", "Rwanda", "Saudi Arabia", "Sudan", "Senegal", "Singapore", "Solomon Islands", "Sierra Leone", "El Salvador", "San Marino", "Somalia", "Serbia", "South Sudan", "Sao Tome and Principe", "Suriname", "Slovak Republic", "Slovenia", "Sweden", "Eswatini", "Seychelles", "Syria", "Chad", "Togo", "Thailand", "Tajikistan", "Turkmenistan", "Timor-Leste", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Tuvalu", "Taiwan", "Tanzania", "Uganda", "Ukraine", "Uruguay", "USA", "Uzbekistan", "St. Vincent and the Grenadines", "Venezuela", "Vietnam", "Vanuatu", "Samoa", "Yemen", "South Africa", "Zambia", "Zimbabwe"]
+        const gdp_pcap = [1330, 5760, 17400, 55000, 81300, 21900, 19500, 24000, 52300, 56000, 15700, 733, 53900, 3780, 2290, 7380, 29600, 53600, 34400, 18200, 19200, 9880, 8430, 16000, 17300, 62000, 13300, 16400, 833, 48200, 72100, 26700, 20900, 6130, 3930, 1240, 3260, 15900, 3270, 8560, 24300, 9020, 45500, 41000, 53900, 5820, 12900, 61600, 21300, 11800, 11100, 13500, 2160, 41000, 37100, 2710, 49300, 14000, 46900, 3350, 14100, 46600, 20400, 5700, 2950, 2310, 2020, 12300, 33800, 16300, 9650, 72800, 61300, 6050, 37500, 2600, 37400, 14000, 8460, 105000, 16800, 8910, 57100, 45800, 45100, 10700, 9960, 43800, 29100, 5390, 5680, 5220, 2240, 32800, 48300, 45900, 8560, 13600, 1600, 22300, 16400, 13200, 2350, 41700, 111000, 34500, 8630, 226000, 12100, 1580, 24100, 20600, 6330, 19000, 2220, 52700, 4280, 25100, 14000, 1330, 5880, 26600, 1470, 30900, 9980, 1380, 5050, 6300, 58400, 68400, 4230, 11000, 44800, 34500, 5350, 36300, 13000, 9840, 17300, 3970, 40700, 1810, 37500, 14700, 5460, 91000, 35600, 27600, 2730, 50500, 2930, 4060, 108000, 2410, 1730, 10200, 70200, 1150, 23500, 377, 3990, 15600, 35400, 43300, 54800, 9630, 28600, 3200, 1450, 2430, 18800, 4730, 15900, 3070, 6120, 24600, 10800, 35600, 4980, 63100, 2830, 2480, 9860, 25900, 68200, 8930, 17300, 7240, 13200, 2770, 5810, 1660, 13300, 3550, 2330]
+        const lex = [65.1, 66.3, 79.7, 83.2, 74.9, 77.6, 76.9, 77.3, 83.8, 83.2, 71.7, 65, 82.3, 65.7, 63, 76.3, 74.3, 78, 77, 77.9, 75.2, 75.5, 73.5, 77.1, 77.1, 74.4, 74.8, 63.1, 53.6, 83.2, 84.8, 81.4, 78.8, 65.5, 64.5, 66.3, 66.4, 81.4, 70.3, 75, 81.3, 79.8, 81.8, 80.3, 82.1, 68.3, 73.3, 82, 74.3, 77.5, 77.5, 72, 65.4, 83.9, 79, 70.7, 82.8, 69.2, 83.8, 65, 68.7, 81.9, 74.5, 67.4, 62.5, 68.2, 62.2, 67, 82.1, 74.3, 73.6, 68.3, 0, 72.9, 79.7, 65.1, 77.6, 72.3, 72.4, 82.9, 79.1, 74, 84.9, 83.9, 84, 77.2, 79.2, 85.6, 72.7, 68, 74.4, 71, 61.7, 73, 83.6, 82.6, 70.7, 77.4, 67.6, 77.2, 76.2, 78.5, 52.8, 77.2, 83.8, 76.7, 74.7, 80.7, 75.2, 67, 80.5, 76.9, 66.3, 75.3, 63.3, 83.5, 70.8, 76.9, 69.6, 60.1, 72.3, 76.3, 66.2, 76, 66.5, 64.1, 66.1, 76.5, 82.5, 83.8, 72.9, 64.4, 82.7, 75.3, 66.7, 81.2, 81.5, 72.5, 68.6, 65.6, 79.1, 73.9, 82.8, 77.4, 75.8, 77.3, 76.5, 73.9, 70, 75.7, 71.2, 70.4, 85.6, 59.8, 63, 77, 83, 59.9, 76.7, 65.4, 71.5, 73.5, 78.6, 82.5, 83.7, 59.5, 74.8, 74.8, 61.6, 66.5, 79.8, 70.4, 71.6, 72.2, 73.8, 75.8, 79.2, 79.7, 69.1, 81.5, 68.6, 67.5, 74.9, 78.5, 79.8, 69.1, 74.1, 76.2, 75.4, 66.6, 71.4, 69.3, 66, 64.3, 62]
+        const pop = [43800000, 39000000, 2770000, 82900, 11300000, 45900000, 2950000, 94200, 27000000, 9110000, 10400000, 14400000, 11800000, 14800000, 24100000, 176000000, 6710000, 1640000, 403000, 3140000, 9000000, 423000, 12600000, 213000000, 283000, 466000, 797000, 2560000, 5510000, 40100000, 8970000, 19900000, 1420000000, 32700000, 29900000, 113000000, 6480000, 53400000, 883000, 527000, 5150000, 10900000, 1370000, 10600000, 84100000, 1180000, 65900, 6000000, 11500000, 47400000, 18300000, 118000000, 3610000, 47900000, 1340000, 135000000, 5620000, 933000, 66700000, 114000, 2590000, 69600000, 3810000, 35100000, 15100000, 2820000, 2250000, 1940000, 9940000, 117000, 18700000, 836000, 7400000, 11000000, 3850000, 11900000, 9630000, 286000000, 1460000000, 5310000, 92400000, 47000000, 398000, 9520000, 59100000, 2840000, 11500000, 123000000, 20800000, 57500000, 7300000, 17800000, 136000, 46900, 51700000, 5030000, 7870000, 5850000, 5730000, 7460000, 180000, 23200000, 2360000, 2830000, 680000, 1850000, 38400000, 38300, 3000000, 32700000, 530000, 132000000, 36300, 1810000, 25200000, 545000, 54900000, 633000, 3520000, 35600000, 5320000, 1270000, 22200000, 36000000, 3090000, 27900000, 238000000, 7010000, 18300000, 5620000, 29600000, 12000, 5250000, 5490000, 255000000, 4570000, 34600000, 117000000, 17700, 10800000, 38100000, 26600000, 10400000, 7010000, 5590000, 3120000, 18900000, 144000000, 14600000, 34600000, 51700000, 18900000, 5870000, 839000, 8820000, 6370000, 33600, 19700000, 6690000, 12200000, 240000, 640000, 5470000, 2120000, 10700000, 1260000, 133000, 25600000, 21000000, 9720000, 71600000, 10800000, 7620000, 1420000, 104000, 1510000, 12300000, 87700000, 9490, 23100000, 70500000, 51400000, 39000000, 3380000, 347000000, 37100000, 99900, 28500000, 102000000, 335000, 219000, 41800000, 64700000, 21900000, 17000000]
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const layout = {
+                title: {
+                    text: 'Bubble Chart Example'
+                },
+                xaxis: {
+                    range: [0, 75000],
+                    title: { text: 'GDP per capita' }
+                },
+                yaxis: {
+                    range: [50, 90],
+                    title: { text: 'Life Expectancy' }
+                }
+            };
+            
+            // Create the bubble chart data
+            const data = [{
+                x: gdp_pcap,
+                y: lex,
+                text: country,
+                mode: 'markers',
+                marker: {
+                    size: pop.map(p => Math.log(p)),
+                    sizemode: 'diameter',
+                    sizeref: 0.5,
+                    opacity: 0.6
+                },
+                type: 'scatter'
+            }];
+            
+            // Create the plot
+            Plotly.newPlot('myPlot', data, layout)
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Bubble Chart</h1>
+    <div id="myPlot"></div>
+
+</body>
+
+</html>
