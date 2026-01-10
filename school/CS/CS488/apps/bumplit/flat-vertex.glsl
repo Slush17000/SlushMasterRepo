@@ -1,0 +1,14 @@
+uniform mat4 clipFromEye;
+uniform mat4 eyeFromWorld;
+uniform mat4 worldFromModel;
+
+in vec3 position;
+in vec3 normal;
+out vec3 mixNormal;
+out vec3 mixPositionEye;
+
+void main() {
+  mixNormal = (eyeFromWorld * worldFromModel * vec4(normal, 0.0)).xyz;
+  gl_Position = clipFromEye * eyeFromWorld * worldFromModel * vec4(position, 1.0);
+  mixPositionEye = (eyeFromWorld * worldFromModel * vec4(position, 1.0)).xyz;
+}

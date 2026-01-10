@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Rastercaster Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://fav.farm/🧙🏼‍♂️">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <textarea id="editor">
+        // Example (Gradient):
+        vec2 uv = gl_FragCoord.xy / dimensions;
+        vec3 color = vec3(uv.x, uv.y, 1.0);
+    </textarea>
+    <script type="module" src="main.ts"></script>
+</body>
+
+</html>
