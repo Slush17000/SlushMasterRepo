@@ -1,0 +1,68 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: wikipedia-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"  # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:15
+    container_name: wikipedia-postgres
+    command: -c max_connections=200
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: wikiuser
+      POSTGRES_PASSWORD: wikipass123
+      POSTGRES_DB: wikilinks
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wikiuser -d wikilinks"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  collector:
+    build: ./collector
+    container_name: wikipedia-collector
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+      START_URL: https://en.wikipedia.org/wiki/Freedom_of_Information_Act_(United_States)
+      MAX_DEPTH: 3
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: "no"
+
+  storer:
+    build: ./storer
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: wikiuser
+      POSTGRES_PASS: wikipass123
+      POSTGRES_DB: wikilinks
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
