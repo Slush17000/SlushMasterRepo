@@ -1,0 +1,26 @@
+p {
+    color: red;
+}
+body {
+    margin: 0;
+}
+.sticky-div {
+        
+    background: linear-gradient(to bottom, #450084, #a86e6e);
+    height: 100vh;
+    width: 100%;
+    position: sticky;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    top: 0;
+    z-index: -1;
+}
+@font-face {
+    font-family: 'newFont';
+    src: url('../BurbankBigRegular-Black.otf') format('opentype');
+    /* Add more formats as needed for broader browser support */
+}
+
+body {
+    font-family: 'newFont', sans-serif;
+}

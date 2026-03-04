@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../styles.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+    <title>User Profile</title>
+    <style>
+        body {
+            height: 200vh;
+            /* Set a height larger than the viewport (e.g., 150% of viewport height) */
+            margin: 0;
+            /* Remove default margin */
+            overflow-y: scroll;
+            /* Enable vertical scrolling */
+        }
+
+        /* Additional styling for demonstration purposes */
+        h1 {
+            text-align: center;
+            padding: 50px 0;
+        }
+    </style>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(to bottom, #450084, #a86e6e);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+    <script src="../../p5.js"></script>
+    <script src="../../api_keys.js"></script>
+
+</head>
+
+<body>
+    <main>
+        <script src="../../lib/review.js"></script>
+        <script src="../../lib/rating.js"></script>
+        <script src="../moviePage/movie.js"></script>
+        <script src="../../lib/keyval.js"></script>
+        <script src="../../lib/buttonUtil.js"></script>
+        <script src="userProfileData.js"></script>
+        <script src="userDriver.js"></script>
+    </main>
+    <canvas id="canvas" width="1500" height="2000"></canvas>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#CBB677";
+        ctx.fillRect(40, 130, screen.width - 120, 150);
+        ctx.fillRect(40, 330, screen.width - 120, 150);
+        ctx.fillRect(40, 530, 415, 150);
+        ctx.fillRect(490, 530, screen.width - 570, 150);
+        ctx.fillRect(40, 730, screen.width - 120, 150);
+    </script>
+</body>
+
+</html>
