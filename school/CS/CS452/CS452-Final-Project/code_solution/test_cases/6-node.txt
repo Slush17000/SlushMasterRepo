@@ -1,0 +1,16 @@
+6 15
+a b 12
+a c 18
+a d 7
+a e 25
+a f 10
+b c 5
+b d 14
+b e 9
+b f 20
+c d 8
+c e 22
+c f 13
+d e 6
+d f 15
+e f 19
