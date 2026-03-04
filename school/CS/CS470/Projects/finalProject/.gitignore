@@ -1,0 +1,14 @@
+# Compiled build output
+chrono/build/
+
+# Large 3D mesh files
+chrono/data/**/*.obj
+
+# Large HDR environment textures
+chrono/data/**/*.hdr
+
+# Large POV-Ray scene files
+chrono/data/**/*.inc
+
+# Large particle/terrain simulation data
+chrono/data/**/sph/**/*.txt
