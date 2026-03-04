@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env/
+
+# Environment / secrets
+.env
+*.env
+.env.*
+api_keys.js
+**/api_keys.js
+
+# Node
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# C / C++ build artifacts
+*.o
+*.a
+*.so
+*.out
+*.exe
+CMakeCache.txt
+CMakeFiles/
+
+# Java
+*.class
+*.jar
+target/
+
+# Jupyter
+.ipynb_checkpoints/
+
