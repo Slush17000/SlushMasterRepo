@@ -31,6 +31,9 @@ node_modules/
 *.suo
 *.user
 
+# Personal
+personal/pics/
+
 # OS
 .DS_Store
 Thumbs.db
