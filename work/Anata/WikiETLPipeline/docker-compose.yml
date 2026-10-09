@@ -1,13 +1,14 @@
 services:
   rabbitmq:
     image: rabbitmq:3.12-management
-    container_name: wikipedia-rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"  # Management UI
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
@@ -16,7 +17,6 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: wikipedia-postgres
     command: -c max_connections=200
     ports:
       - "5432:5432"
@@ -35,13 +35,12 @@ services:
 
   collector:
     build: ./collector
-    container_name: wikipedia-collector
     environment:
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_USER: admin
       RABBITMQ_PASS: admin123
-      START_URL: https://en.wikipedia.org/wiki/Freedom_of_Information_Act_(United_States)
-      MAX_DEPTH: 3
+      START_URL: ${START_URL:-https://en.wikipedia.org/wiki/Freedom_of_Information_Act_(United_States)}
+      MAX_DEPTH: ${MAX_DEPTH:-2}
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -65,4 +64,5 @@ services:
     restart: unless-stopped
 
 volumes:
+  rabbitmq_data:
   postgres_data:

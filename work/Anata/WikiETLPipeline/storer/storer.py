@@ -106,7 +106,7 @@ class WikipediaStorer:
             self.db_conn.rollback()
             # Try to reconnect
             self.connect_database()
-            return False
+            raise
     
     def callback(self, ch, method, properties, body):
         """Callback function for processing messages from RabbitMQ"""

@@ -4,7 +4,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 from collections import deque
-from urllib.parse import urljoin, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 import pika
 from datetime import datetime
 
@@ -13,13 +13,17 @@ RABBITMQ_HOST = os.getenv('RABBITMQ_HOST', 'localhost')
 RABBITMQ_USER = os.getenv('RABBITMQ_USER', 'admin')
 RABBITMQ_PASS = os.getenv('RABBITMQ_PASS', 'admin123')
 START_URL = os.getenv('START_URL', 'https://en.wikipedia.org/wiki/Freedom_of_Information_Act_(United_States)')
-MAX_DEPTH = int(os.getenv('MAX_DEPTH', '3'))
+MAX_SUPPORTED_DEPTH = 2
+MAX_DEPTH = int(os.getenv('MAX_DEPTH', str(MAX_SUPPORTED_DEPTH)))
+if not 0 <= MAX_DEPTH <= MAX_SUPPORTED_DEPTH:
+    raise ValueError(f'MAX_DEPTH must be between 0 and {MAX_SUPPORTED_DEPTH}')
 QUEUE_NAME = 'wikipedia_links'
-REQUEST_DELAY = 0.2  # Seconds between requests - faster for depth 3
+REQUEST_DELAY = 0.2  # Seconds between page requests
 
 class WikipediaCollector:
     def __init__(self):
         self.visited = set()
+        self.page_cache = {}
         self.connection = None
         self.channel = None
         self.session = requests.Session()
@@ -83,26 +87,30 @@ class WikipediaCollector:
         if not url:
             return False
         
-        parsed = urlparse(url)
-        
-        # Must be Wikipedia domain
-        if 'wikipedia.org' not in parsed.netloc:
+        try:
+            parsed = urlparse(url)
+            valid_host = (
+                parsed.scheme.lower() == 'https'
+                and parsed.hostname == 'en.wikipedia.org'
+                and parsed.port in (None, 443)
+                and parsed.username is None
+                and parsed.password is None
+            )
+        except ValueError:
             return False
         
-        # Must be a wiki article
-        if not parsed.path.startswith('/wiki/'):
+        if not valid_host or not parsed.path.startswith('/wiki/'):
             return False
         
-        # Exclude special pages
-        exclude_patterns = [
-            'Wikipedia:', 'Help:', 'Special:', 'Talk:', 'User:', 
-            'Category:', 'File:', 'Template:', 'Portal:', 'Draft:',
-            'MediaWiki:', 'Module:', 'TimedText:'
-        ]
-        
-        for pattern in exclude_patterns:
-            if pattern in url:
-                return False
+        title = unquote(parsed.path[len('/wiki/'):])
+        if not title:
+            return False
+        namespace = title.partition(':')[0].casefold()
+        if namespace in {
+            'category', 'file', 'help', 'mediawiki', 'module', 'portal', 'special',
+            'talk', 'template', 'timedtext', 'user', 'wikipedia', 'draft',
+        }:
+            return False
         
         return True
     
@@ -132,6 +140,9 @@ class WikipediaCollector:
     
     def fetch_page(self, url):
         """Fetch a Wikipedia page with error handling"""
+        if url in self.page_cache:
+            return self.page_cache.pop(url)
+
         try:
             response = self.session.get(url, timeout=10)
             response.raise_for_status()
@@ -166,6 +177,9 @@ class WikipediaCollector:
             if self.publish_link(current_url, source_url, depth):
                 links_published += 1
                 print(f"  ✓ Published to queue (Total: {links_published})")
+                print(f"CRAWL_PROGRESS published={links_published} pending={len(queue)} depth={depth}")
+            else:
+                raise RuntimeError(f"Could not publish link to RabbitMQ: {current_url}")
             
             # Stop if we've reached max depth
             if depth >= MAX_DEPTH:
@@ -205,21 +219,34 @@ class WikipediaCollector:
     
     def run(self):
         """Main entry point"""
+        if not self.is_valid_wikipedia_link(START_URL):
+            print("✗ START_URL must be an HTTPS English Wikipedia article URL.")
+            return 2
+
+        start_page = self.fetch_page(START_URL)
+        if start_page is None:
+            print("✗ START_URL did not return a Wikipedia article. Check that the page exists and is accessible.")
+            return 1
+        self.page_cache[START_URL] = start_page
+
         if not self.connect_rabbitmq():
             print("✗ Failed to connect to RabbitMQ. Exiting.")
-            return
+            return 1
         
         try:
             self.crawl()
         except KeyboardInterrupt:
             print("\n⚠ Interrupted by user")
+            return 130
         except Exception as e:
             print(f"\n✗ Error during crawling: {e}")
+            return 1
         finally:
             if self.connection and not self.connection.is_closed:
                 self.connection.close()
                 print("✓ RabbitMQ connection closed")
+        return 0
 
 if __name__ == '__main__':
     collector = WikipediaCollector()
-    collector.run()
+    raise SystemExit(collector.run())
