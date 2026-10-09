@@ -24,28 +24,49 @@ A decoupled ETL pipeline that collects Wikipedia links starting from a given URL
 3. **Storer** - Consumes messages and writes to database (scalable to multiple instances)
 4. **PostgreSQL** - Stores link data with metadata
 
-### Depth Complexity
+### Depth and Runtime
 
-**Important:** Link count grows exponentially with depth:
-- **Depth 1**: ~320 links (1-2 minutes)
-- **Depth 2**: ~56,000 links (1-2 hours with 20 storers)
-- **Depth 3**: ~800,000+ links (days, depending on starting page)
-
-Highly-connected pages (government, law, politics) result in massive depth 3 graphs.
+- The starting page is depth 0. Its links are depth 1, and links found on those pages are depth 2.
+- The default and maximum supported depth is 2. Depth 2 links are published and stored, but not fetched for further links (depth 3 is not supported because it can potentially take a very long time).
+- Recent runs on this setup took about 30 seconds at depth 1 and 3 minutes at depth 2. These are observed times, not guarantees; network and Wikipedia response times affect the duration.
+- A recent depth 2 export contained 57,706 rows: the starting page, 343 depth 1 pages, and 57,362 depth 2 pages. Counts vary with the starting page and site content.
+- Scaling storers can help process a growing queue, but does not make the collector fetch pages faster.
 
 ## Prerequisites
 
 - Docker Desktop installed and running
 - Docker Compose installed
-- At least 2GB free disk space
+- Several MB of free disk space; actual usage depends on the crawl
 - Internet connection for Wikipedia access
+- Python 3 with Tkinter (included with the standard Windows installer)
 
 ## Quick Start
 
-### 1. Start All Services
+### Desktop Launcher (Windows)
+
+From the repository root in PowerShell, run:
+
+```powershell
+cd work\Anata\WikiETLPipeline
+py run_pipeline_gui.py
+```
+
+The starting page field defaults to `https://en.wikipedia.org/wiki/Freedom_of_Information_Act_(United_States)`. Keep it unchanged to run the existing crawl, or enter a full HTTPS English Wikipedia article URL such as `https://en.wikipedia.org/wiki/Example`. Category, file, talk, and other special pages are rejected; a `#section` fragment is removed. The collector also checks that the selected article can be fetched before crawling, and reports an error if it does not exist or cannot be reached.
+
+Choose depth 1 or 2, then enter a CSV filename or browse for a location. The default location is your Documents folder. The launcher builds the Docker images, starts four storage workers, shows crawl and queue progress, waits for storage to finish, exports rows through the selected depth, and opens the CSV in your default spreadsheet application.
+
+The progress bar is estimated from prior runs of the default starting page (344 pages at depth 1 and about 57,706 at depth 2). Custom starting pages can have very different link counts, so their percentage and ETA estimates may be less accurate. The percentage advances through collection, storage, and export. Elapsed time starts when you press **Start crawl**.
+
+Each launcher run uses its own Compose project and removes its containers and data volumes after a successful export. Cancel stops collection and saves a partial CSV. If a run fails, its Docker data is retained and the launcher shows a command to remove it after troubleshooting. Close other WikiETLPipeline runs first because the services publish local ports 5432, 5672, and 15672.
+
+### Manual Docker Compose Run
+
+#### 1. Start All Services
+
+When upgrading from an earlier Compose setup, RabbitMQ's old queue is not migrated into the new named volume. If those queued messages matter, stop the collector and let the storers drain the queue before the first rebuild; rows already stored in PostgreSQL remain in its volume.
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
 This starts all four services in the background:
@@ -54,17 +75,14 @@ This starts all four services in the background:
 - Collector (begins scraping immediately)
 - Storer (begins processing queue immediately)
 
-**For better performance, scale storers immediately:**
+**To add storage workers when the queue is growing:**
 ```bash
-docker compose up -d --scale storer=20
+docker compose up -d --build --scale storer=4
 ```
 
-**Recommended storer counts:**
-- Depth 1: 1-5 storers
-- Depth 2: 10-20 storers
-- Depth 3: 20-50 storers (if attempting)
+Start with one storer, then scale up only if RabbitMQ's queue keeps growing and the database and machine have capacity.
 
-### 2. View Logs
+#### 2. View Logs
 
 **Watch all services:**
 ```bash
@@ -77,7 +95,7 @@ docker compose logs -f collector
 docker compose logs -f storer
 ```
 
-### 3. Monitor Progress
+#### 3. Monitor Progress
 
 **RabbitMQ Management UI:**
 - URL: http://localhost:15672
@@ -90,7 +108,7 @@ docker compose logs -f storer
 docker compose exec postgres psql -U wikiuser -d wikilinks -c "SELECT COUNT(*) FROM links;"
 ```
 
-### 4. Stop Services
+#### 4. Stop Services
 
 **Stop all:**
 ```bash
@@ -106,22 +124,23 @@ docker compose stop
 ```bash
 docker compose down -v
 ```
+This removes this Compose project's PostgreSQL and RabbitMQ data volumes.
 
 ## Usage Scenarios
 
 ### Scenario 1: Run Both Services (Normal Operation)
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-Collector scrapes → Publishes to queue → Storer writes to DB in real-time.
+Collector fetches pages sequentially → Publishes discovered links to the queue → Storer writes them to PostgreSQL.
 
 ### Scenario 2: Run Collector Only
 
 ```bash
 docker compose up -d rabbitmq postgres
-docker compose up -d collector
+docker compose up -d --build collector
 ```
 
 Collector scrapes and fills the queue. Messages wait for storer.
@@ -141,8 +160,8 @@ Storer processes backlog from queue. No new links are collected.
 # Stop collector
 docker compose stop collector
 
-# Let storer finish processing queue
-# ... wait ...
+# The collector starts over from START_URL when restarted; it does not resume its in-memory BFS state.
+# Let the storer drain the queue before restarting if you want to avoid adding duplicate messages.
 
 # Restart collector
 docker compose start collector
@@ -152,7 +171,7 @@ docker compose start collector
 
 ```bash
 docker compose down -v  # Remove all data
-docker compose up -d    # Start fresh
+docker compose up -d --build  # Start fresh
 ```
 
 ## Configuration
@@ -161,10 +180,13 @@ Edit `docker-compose.yml` to change settings:
 
 ```yaml
 collector:
-  environment:
-    START_URL: https://en.wikipedia.org/wiki/Different_Page
-    MAX_DEPTH: 5  # Change depth limit
+   environment:
+   START_URL: ${START_URL:-https://en.wikipedia.org/wiki/Freedom_of_Information_Act_(United_States)}
+      MAX_DEPTH: 2  # Supported values: 0, 1, or 2
 ```
+
+The URL defaults to the Freedom of Information Act page. For a manual PowerShell run with a different page, set `$env:START_URL` to an HTTPS English Wikipedia article URL before running `docker compose up`. The collector validates the URL and checks that it can be fetched before crawling. It also rejects depth values above 2.
+After changing `START_URL` or `MAX_DEPTH`, rebuild and recreate the collector with `docker compose up -d --build collector`.
 
 ## Accessing the Data
 
@@ -190,7 +212,7 @@ SELECT url, depth, discovered_at FROM links ORDER BY discovered_at DESC LIMIT 10
 SELECT url, depth FROM links WHERE source_url = 'https://en.wikipedia.org/wiki/Some_Page';
 
 -- Links at max depth
-SELECT url FROM links WHERE depth = 3;
+SELECT url FROM links WHERE depth = 2;
 ```
 
 ### Using External Tools
@@ -259,6 +281,8 @@ docker stats
 
 ### Database Schema
 
+The pipeline reads and writes the `links` table below. `init.sql` also creates `crawl_stats`, but the current collector and storer do not update or query that table.
+
 ```sql
 CREATE TABLE links (
     id SERIAL PRIMARY KEY,
@@ -299,49 +323,33 @@ CREATE TABLE links (
 ### Out of disk space
 
 - Check Docker disk usage: `docker system df`
-- Clean up: `docker system prune -a --volumes`
+- To remove this pipeline's containers and images while keeping its data: `docker compose down --rmi local`
+- To also delete this pipeline's database and queue data: `docker compose down --rmi local -v`
+- Avoid `docker system prune --volumes` unless you intend to remove unused Docker data for other projects too.
 
 ### PostgreSQL connection errors
 
-If you see "FATAL: sorry, too many clients already" when scaling storers:
-
-1. Edit `docker-compose.yml` and add under `postgres`:
-   ```yaml
-   command: -c max_connections=200
-   ```
-
-2. Restart PostgreSQL:
-   ```bash
-   docker compose up -d postgres
-   ```
-
-Default limit is 100 connections. Increase to 200 for 20+ storers, or 300 for 50+ storers.
+Compose already configures PostgreSQL for up to 200 connections. If PostgreSQL reports that its client limit is reached, scale down the storers first; increasing the connection limit also increases PostgreSQL's resource use.
 
 ## Performance Tips
 
-1. **Scale storers for depth 2+**: The bottleneck is storage, not collection:
+1. **Watch the queue before scaling storers.** The collector is a single sequential worker; scaling only helps when storage cannot keep up:
    ```bash
-   docker compose up -d --scale storer=20
+   docker compose up -d --scale storer=4
    ```
-   - Depth 2: Use 10-20 storers
-   - Depth 3: Use 20-50 storers (system resources permitting)
+   More storers consume more database connections and system resources; add them only while the queue is growing.
 
-2. **Adjust crawler delay**: Lower `REQUEST_DELAY` in collector.py:
-   - Current: 0.2s (tested and safe)
-   - Aggressive: 0.05s (faster but riskier)
-   - Conservative: 1.0s (slower but very safe)
-
-3. **Stop collector to drain queue**: If queue grows too large:
+2. **Stop the collector to drain the queue** if it grows too large:
    ```bash
    docker compose stop collector
    ```
-   Let storers catch up, then restart collector.
+   Storers continue processing. Starting the collector again begins a new crawl from `START_URL`; it does not resume the previous traversal.
 
-4. **Monitor queue backlog**: Check http://localhost:15672 regularly
+3. **Monitor queue backlog**: Check http://localhost:15672 regularly
    - If queue keeps growing, scale up storers
    - If queue is empty, collector is waiting for depth to complete
 
-5. **Database optimization**: Add more indexes for your specific queries
+4. **Database optimization**: Add more indexes for your specific queries
 
 ## Data Analysis Examples
 
@@ -377,6 +385,7 @@ WikiETLPipeline/
 ├── docker-compose.yml      # Orchestration configuration
 ├── init.sql                # Database initialization
 ├── README.md               # This file
+├── run_pipeline_gui.py     # Windows desktop launcher
 ├── collector/
 │   ├── Dockerfile          # Collector container definition
 │   ├── requirements.txt    # Python dependencies
@@ -393,12 +402,11 @@ Educational use only.
 
 ## Notes
 
-- The collector scrapes Wikipedia with 0.2 second delays between requests (configurable)
-  - 0.2 second delays (5 requests/sec) are more aggressive to Wikipedia but yields better performance
-  - To be more respectful to Wikipedia, increase the value of REQUEST_DELAY (at the cost of slower collection)
+- The collector scrapes Wikipedia sequentially with a 0.2 second delay after successful page fetches.
+- Increase `REQUEST_DELAY` in `collector.py` if you want the collector to make requests less frequently; a slower crawl takes longer.
 - User-Agent identifies the bot for Wikipedia administrators
 - Duplicate links are automatically handled via database UNIQUE constraint
-- Services auto-reconnect on failure
-- All data persists in Docker volumes
+- Initial RabbitMQ and PostgreSQL connections retry on failure. A collector run does not resume after a runtime failure; failed database writes are requeued by the storer.
+- PostgreSQL data and RabbitMQ queue data persist in named Docker volumes across container recreation. `docker compose down -v` deletes both.
 - Storer container name removed from docker-compose.yml to enable scaling
-- PostgreSQL configured with increased max_connections for scaled storers
+- PostgreSQL is configured with `max_connections=200` for scaled storers
