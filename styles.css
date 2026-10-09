@@ -1,0 +1,337 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@property --rgb-hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+html {
+  --rgb-hue: 0;
+  --section-gap: 20px;
+  color-scheme: dark;
+  animation: rgb-timeline 6s linear infinite;
+}
+
+body {
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  justify-items: center;
+  row-gap: var(--section-gap);
+  padding: 12px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "UnifrakturMaguntia", "Old English Text MT", serif;
+  font-size: 112px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.site-nav {
+  z-index: 3;
+  display: flex;
+  width: min(100%, 1100px);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  color: hsl(var(--rgb-hue) 100% 50%);
+}
+
+/* Chrome drops var() in color/border/background/outline on visited links, so links inherit the hue from .site-nav. */
+.site-nav a,
+.site-nav .nav-toggle {
+  padding: 8px 13px;
+  color: inherit;
+  border: 1px solid currentcolor;
+  background: rgba(9, 13, 27, 0.9);
+  box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45);
+  opacity: 1;
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 150ms ease;
+}
+
+.site-nav .nav-toggle {
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.site-nav .nav-toggle:hover,
+.site-nav .nav-toggle:focus-visible,
+.site-nav .nav-toggle[aria-expanded="true"] {
+  box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45), inset 0 0 0 100px hsl(var(--rgb-hue) 100% 50% / 0.24);
+}
+
+.site-nav .nav-toggle:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 3px;
+}
+
+.site-nav .navbar-collapse {
+  flex-grow: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.site-nav .nav-label {
+  color: inherit;
+  text-shadow: 0 0 6px hsl(var(--rgb-hue) 100% 50% / 0.6);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.site-nav a.is-current {
+  box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45), inset 0 0 0 100px hsl(var(--rgb-hue) 100% 50% / 0.24);
+  transform: translateY(-1px);
+}
+
+.site-nav a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 3px;
+}
+
+.photo-carousel {
+  display: grid;
+  width: min(100%, 1240px);
+  align-self: stretch;
+  min-height: 0;
+  grid-template-columns: 52px minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  align-self: end;
+  padding: 0;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.carousel-stage {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  place-items: center;
+  justify-self: center;
+}
+
+.carousel-image {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(0);
+  transition: opacity 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.carousel-image.is-loaded {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.carousel-image.slide-from-right:not(.is-loaded) {
+  opacity: 0;
+  transform: translateX(8%);
+}
+
+.carousel-image.slide-from-left:not(.is-loaded) {
+  opacity: 0;
+  transform: translateX(-8%);
+}
+
+.carousel-image-outgoing {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.carousel-image-outgoing.slide-to-left {
+  opacity: 0;
+  transform: translateX(-8%);
+}
+
+.carousel-image-outgoing.slide-to-right {
+  opacity: 0;
+  transform: translateX(8%);
+}
+
+.carousel-button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid hsl(var(--rgb-hue) 100% 50%);
+  border-radius: 50%;
+  background: rgba(9, 13, 27, 0.84);
+  color: hsl(var(--rgb-hue) 100% 50%);
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+  box-shadow: 0 0 12px hsl(var(--rgb-hue) 100% 50% / 0.45);
+}
+
+.carousel-button span {
+  margin-top: -4px;
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  background: rgba(130, 203, 255, 0.16);
+  transform: scale(1.06);
+}
+
+@keyframes rgb-timeline {
+  0%,
+  100% {
+    --rgb-hue: 0;
+  }
+  33% {
+    --rgb-hue: 120;
+  }
+  66% {
+    --rgb-hue: 240;
+  }
+}
+
+.photo-count {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 8px;
+  background: rgba(9, 13, 27, 0.82);
+  color: #e8edff;
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-image {
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    --section-gap: 14px;
+    padding: 10px 8px;
+  }
+
+  .page-header h1 {
+    font-size: 88px;
+  }
+
+  .photo-carousel {
+    grid-template-columns: 36px minmax(0, 1fr) 36px;
+    gap: 6px;
+  }
+
+  .site-nav {
+    gap: 5px;
+    padding: 0;
+  }
+
+  .site-nav a {
+    padding: 8px 9px;
+    font-size: 11px;
+  }
+
+  .site-footer {
+    font-size: 9px;
+  }
+
+  .carousel-stage {
+    width: 100%;
+  }
+
+  .carousel-button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .carousel-button span {
+    font-size: 29px;
+  }
+
+  .photo-count {
+    right: 5px;
+    bottom: 5px;
+  }
+}
+
+/* Below Bootstrap's sm breakpoint the links collapse into a dropdown that overlays the page. */
+@media (max-width: 575.98px) {
+  .site-nav .navbar-collapse {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    width: min(100%, 260px);
+    margin-inline: auto;
+    background: #000;
+  }
+
+  .site-nav .navbar-collapse.show,
+  .site-nav .navbar-collapse.collapsing {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Skip Bootstrap's height animation so the menu snaps open/closed with no in-between layout. */
+  .site-nav .navbar-collapse.collapsing {
+    transition: none;
+  }
+
+  .site-nav .navbar-collapse a {
+    flex-shrink: 0;
+    text-align: center;
+  }
+}
