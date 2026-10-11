@@ -22,7 +22,7 @@
         params.set("continuation-token", continuationToken);
       }
 
-      const response = await fetch(`${SPACES_BASE}/?${params}`);
+      const response = await fetch(`${SPACES_BASE}/?${params}`, { cache: "no-store" });
       if (!response.ok) {
         throw new Error(`Spaces listing failed: ${response.status}`);
       }
