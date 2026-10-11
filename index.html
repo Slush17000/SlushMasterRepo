@@ -123,6 +123,26 @@
       resetAutoAdvance();
     });
 
+    function stepPhoto(delta) {
+      displayPhoto(currentPhoto + delta, delta);
+      resetAutoAdvance();
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") stepPhoto(-1);
+      else if (event.key === "ArrowRight") stepPhoto(1);
+    });
+
+    let touchStartX = null;
+    const stage = document.querySelector(".carousel-stage");
+    stage.addEventListener("touchstart", (event) => { touchStartX = event.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", (event) => {
+      if (touchStartX === null) return;
+      const deltaX = event.changedTouches[0].clientX - touchStartX;
+      touchStartX = null;
+      if (Math.abs(deltaX) > 50) stepPhoto(deltaX < 0 ? 1 : -1);
+    }, { passive: true });
+
     photoCount.textContent = "Loading...";
     window.carouselPhotosReady.then((loadedPhotos) => {
       photos = loadedPhotos;
