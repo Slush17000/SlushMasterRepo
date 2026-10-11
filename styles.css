@@ -611,6 +611,125 @@ html[data-bs-theme="light"] .about-text p {
   color: #000;
 }
 
+/* Professional page: reuses the about-page scroll layout with RGB subheadings and theme-colored body text. */
+.pro-section h2 {
+  margin: 0 0 16px;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.5);
+  text-transform: uppercase;
+}
+
+.pro-section h3 {
+  margin: 0 0 8px;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pro-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.pro-info {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* White backing keeps transparent PNG logos legible on the dark theme. */
+.pro-logo {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border: 1px solid hsl(var(--rgb-hue) 100% 50%);
+  background: #fff;
+  box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45);
+  object-fit: contain;
+}
+
+.pro-entry:last-child {
+  margin-bottom: 0;
+}
+
+.pro-title {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.pro-entry p {
+  margin: 0;
+}
+
+.pro-desc {
+  margin-top: 6px;
+}
+
+.pro-meta {
+  opacity: 0.8;
+}
+
+.course-groups {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.course-list {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  line-height: 1.6;
+  list-style: none;
+}
+
+.course-list li {
+  display: flex;
+  gap: 8px;
+}
+
+.course-code {
+  flex: none;
+  min-width: 5.5em;
+  font-family: "DM Mono", "Courier New", monospace;
+  font-weight: 700;
+}
+
+@media (min-width: 576px) {
+  .pro-logo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .pro-entry {
+    gap: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .course-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .pro-section h2 {
+    font-size: 28px;
+  }
+}
+
+html[data-bs-theme="light"] .pro-entry,
+html[data-bs-theme="light"] .course-list {
+  color: #000;
+}
+
 /* Extra specificity so the RGB color beats the light-theme paragraph rule. */
 html body .about-text p.about-quote {
   margin-top: 1.7em;
