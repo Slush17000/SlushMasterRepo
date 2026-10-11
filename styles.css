@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "UnifrakturMaguntia";
-  src: url("fonts/UnifrakturMaguntia.ttf") format("truetype");
+  font-family: "Cloister Black";
+  src: url("fonts/CloisterBlack.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -47,7 +47,7 @@ body {
 .page-header h1 {
   margin: 0;
   color: hsl(var(--rgb-hue) 100% 50%);
-  font-family: "UnifrakturMaguntia", "Old English Text MT", serif;
+  font-family: "Cloister Black", "Old English Text MT", serif;
   font-size: 112px;
   font-weight: 400;
   line-height: 1;
