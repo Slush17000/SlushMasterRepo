@@ -379,6 +379,92 @@ body {
   outline-offset: 3px;
 }
 
+/* About page: main scrolls inside its grid row so header, nav, and footer stay fixed. */
+.about-page {
+  display: flex;
+  width: min(100%, 1100px);
+  min-height: 0;
+  flex-direction: column;
+  gap: 40px;
+  overflow-y: auto;
+  padding: 4px 12px 24px;
+  scrollbar-color: hsl(var(--rgb-hue) 100% 50%) transparent;
+}
+
+.about-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.about-text h2 {
+  margin: 0 0 12px;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.5);
+  text-transform: uppercase;
+}
+
+.about-text p {
+  margin: 0;
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.about-figure {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+/* Auto width/height with max caps keep the box at the image's own aspect ratio, so the border hugs it. */
+.about-figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  border: 1px solid hsl(var(--rgb-hue) 100% 50%);
+  box-shadow: 0 0 12px hsl(var(--rgb-hue) 100% 50% / 0.45);
+}
+
+@media (min-width: 768px) {
+  .about-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .about-section:nth-child(even) .about-figure {
+    order: -1;
+  }
+
+  .about-text h2 {
+    font-size: 28px;
+  }
+}
+
+html[data-bs-theme="light"] .about-text p {
+  color: #000;
+}
+
+/* Extra specificity so the RGB color beats the light-theme paragraph rule. */
+html body .about-text p.about-quote {
+  margin-top: 1.7em;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  text-align: center;
+  text-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.5);
+}
+
+/* Inherit so visited links keep the animated hue (Chrome drops var() on visited links). */
+.about-quote a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 /* Light theme: white surfaces, RGB accents unchanged. */
 html[data-bs-theme="light"] {
   color-scheme: light;
