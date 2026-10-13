@@ -408,6 +408,96 @@ body {
   font-size: 10px;
 }
 
+.music-page {
+  width: min(100%, 1100px);
+  min-height: 0;
+  align-self: stretch;
+  padding: 6px;
+  overflow-y: auto;
+  scrollbar-color: hsl(var(--rgb-hue) 100% 50%) transparent;
+}
+
+.music-browser {
+  border: 1px solid currentcolor;
+  background: rgba(9, 13, 27, 0.9);
+  color: hsl(var(--rgb-hue) 100% 50%);
+  box-shadow: 0 0 12px hsl(var(--rgb-hue) 100% 50% / 0.45);
+  font-family: "DM Mono", "Courier New", monospace;
+  text-shadow: 0 0 6px hsl(var(--rgb-hue) 100% 50% / 0.6);
+}
+
+.music-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid currentcolor;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.music-crumbs button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+}
+
+.music-crumbs button:hover,
+.music-crumbs button:focus-visible {
+  text-decoration: underline;
+}
+
+.music-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.music-table th {
+  padding: 10px 14px;
+  border-bottom: 1px solid currentcolor;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.music-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid hsl(var(--rgb-hue) 100% 50% / 0.25);
+  font-weight: 700;
+}
+
+.music-table .col-num {
+  width: 64px;
+}
+
+.music-row {
+  cursor: pointer;
+}
+
+.music-row:hover,
+.music-row:focus-visible,
+.music-row.is-playing {
+  background: hsl(var(--rgb-hue) 100% 50% / 0.18);
+  outline: none;
+}
+
+.music-row:focus-visible {
+  box-shadow: inset 0 0 0 2px currentcolor;
+}
+
+@media (max-width: 575.98px) {
+  .music-table .col-extra {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .carousel-image {
     transition: none;
@@ -728,6 +818,55 @@ html[data-bs-theme="light"] .about-text p {
 html[data-bs-theme="light"] .pro-entry,
 html[data-bs-theme="light"] .course-list {
   color: #000;
+}
+
+/* Projects page: link lists inherit the animated hue from the list (Chrome drops var() on visited links). */
+.project-list {
+  margin: 0;
+  padding: 0;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  list-style: none;
+  text-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.5);
+}
+
+.project-list li {
+  margin-bottom: 10px;
+}
+
+.project-list a {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+}
+
+.project-list a:hover,
+.project-list a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+.project-empty {
+  opacity: 0.8;
+}
+
+.projects-more {
+  margin: 0;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.5);
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .projects-more {
+    font-size: 28px;
+  }
 }
 
 /* Extra specificity so the RGB color beats the light-theme paragraph rule. */

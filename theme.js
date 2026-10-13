@@ -20,7 +20,7 @@
 
   apply(stored());
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function bindToggle() {
     var button = document.getElementById("themeToggle");
     if (!button) return;
 
@@ -40,5 +40,9 @@
     });
 
     sync();
-  });
+  }
+
+  document.addEventListener("DOMContentLoaded", bindToggle);
+  // Fired by player.js after it swaps in a new page without a full reload.
+  window.addEventListener("slush:pageload", bindToggle);
 })();
