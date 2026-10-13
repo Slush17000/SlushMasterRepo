@@ -883,6 +883,74 @@ html body .about-text p.about-quote {
   text-decoration: underline;
 }
 
+/* Project detail pages: RGB subheadings (via .pro-section), white/black body text, RGB-bordered screenshots. */
+.project-page .pro-section {
+  color: #fff;
+}
+
+.project-page p,
+.project-page li {
+  margin: 0 0 12px;
+  color: inherit;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.project-page ul,
+.project-page ol {
+  margin: 0 0 12px;
+  padding-left: 1.5em;
+}
+
+.project-page h3 {
+  margin: 20px 0 8px;
+}
+
+.project-page .project-flow {
+  font-family: "DM Mono", "Courier New", monospace;
+  font-weight: 700;
+}
+
+.project-page code {
+  color: inherit;
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.project-code {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  border: 1px solid hsl(var(--rgb-hue) 100% 50%);
+  box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45);
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.project-code code {
+  font-size: inherit;
+}
+
+.project-shot {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 20px;
+}
+
+.project-shot img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  border: 2px solid hsl(var(--rgb-hue) 100% 50%);
+  box-shadow: 0 0 12px hsl(var(--rgb-hue) 100% 50% / 0.45);
+}
+
+html[data-bs-theme="light"] .project-page .pro-section {
+  color: #000;
+}
+
 /* Light theme: white surfaces, RGB accents unchanged. */
 html[data-bs-theme="light"] {
   color-scheme: light;

@@ -9,7 +9,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2252%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>&#x1F6E0;&#xFE0F;</text></svg>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="theme.js"></script>
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=25">
   <link rel="stylesheet" href="player.css?v=3">
 </head>
 <body>
@@ -20,7 +20,53 @@
     <a href="index.html"><span class="nav-label">Home</span></a><a href="about.html"><span class="nav-label">About</span></a><a href="professional.html"><span class="nav-label">Professional</span></a><a class="is-current" href="projects.html" aria-current="page"><span class="nav-label">Projects</span></a><a href="music.html"><span class="nav-label">Music</span></a><a href="fitness.html"><span class="nav-label">Fitness</span></a><a href="gaming.html"><span class="nav-label">Gaming</span></a><a href="social.html"><span class="nav-label">Social</span></a><a href="gallery.html"><span class="nav-label">Gallery</span></a><a href="settings.html"><span class="nav-label">Settings</span></a>
   </div>
   </nav>
-  <main class="empty-page" aria-label="File Encrypter and Decrypter page"></main>
+  <main class="about-page project-page" aria-label="File Encrypter and Decrypter page">
+    <section class="pro-section">
+      <h2>What It Is</h2>
+      <p>The File Encryptor / Decryptor is a small Tkinter desktop application for encrypting or decrypting files using AES, Base64, TDES, and XOR implementations. It works with any binary file, including text and images, and always leaves the original input file unchanged.</p>
+      <p>It grew out of learning basic data encryption and decryption algorithms during a ManTech internship, and the ciphers are educational implementations rather than tools for protecting sensitive data.</p>
+    </section>
+    <section class="pro-section">
+      <h2>How It Works</h2>
+      <p>Each method lives in its own module, and the GUI picks the right one based on the chosen operation and method:</p>
+      <ul>
+        <li><strong>AES:</strong> AES-EAX file encryption with authenticated decryption. No key is requested; it uses a fixed key embedded in the source.</li>
+        <li><strong>B64:</strong> Base64 encoding and decoding. No key is used, and it is an encoding, not encryption.</li>
+        <li><strong>TDES:</strong> Triple DES using an ASCII passphrase. The same passphrase is needed to encrypt and decrypt.</li>
+        <li><strong>XOR:</strong> XOR with a random one-byte key generated during encryption. The key is shown after encryption with a copy button, and decryption needs that integer from 0 through 255.</li>
+      </ul>
+      <h3>File Handling</h3>
+      <p>Operations run in a background thread, so the window stays responsive. Results are first written to a temporary file, and the destination is replaced only after the operation succeeds. New encrypted and decrypted files are always written to the <code>ExampleFiles</code> folder beside the program, regardless of where the input file lives, and you are asked to confirm before an existing output is overwritten.</p>
+      <h3>Security Limitations</h3>
+      <p>AES uses a hardcoded key, TDES is a legacy cipher and the current implementation does not authenticate ciphertext, XOR has only a one-byte key, and Base64 is only an encoding. Wrong keys for unauthenticated formats may produce output without an error. For real security needs, use a maintained, authenticated encryption format.</p>
+    </section>
+    <section class="pro-section">
+      <h2>How To Use</h2>
+      <h3>Requirements</h3>
+      <ul>
+        <li>Python 3.10 or newer</li>
+        <li>Tkinter (included with the standard Windows Python installer)</li>
+        <li>PyCryptodome, installed from <code>requirements.txt</code></li>
+      </ul>
+      <h3>Setup and Launch</h3>
+      <p>From the repository root in PowerShell:</p>
+      <pre class="project-code"><code>Set-Location "work\ManTech\EncrypterDecrypter"
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe file_crypto_gui.py</code></pre>
+      <figure class="project-shot">
+        <img src="project-images/file-crypto-gui.png" alt="Screenshot of the File Encryptor and Decryptor desktop application" loading="lazy" decoding="async">
+      </figure>
+      <h3>Using the App</h3>
+      <ol>
+        <li>Choose <strong>Encrypt</strong> or <strong>Decrypt</strong>.</li>
+        <li>Choose AES, B64, TDES, or XOR.</li>
+        <li>Use <strong>Browse</strong> to pick the input file. The output field is filled with a suggested name in <code>ExampleFiles</code>; edit the filename or use <strong>Save as...</strong> to choose another name in that folder.</li>
+        <li>Enter a key if the selected method needs one (a passphrase for TDES, or the saved number for XOR decryption), then start the operation.</li>
+        <li>On success, use <strong>Open output</strong> to open the result with its associated application.</li>
+      </ol>
+    </section>
+  </main>
   <footer class="site-footer">
     <p>slush.tech v1.0 - Designed by Slush</p>
     <p>&copy; 2026 B00N, LLC. All rights reserved.</p>

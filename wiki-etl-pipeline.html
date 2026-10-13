@@ -9,7 +9,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2252%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>&#x1F6E0;&#xFE0F;</text></svg>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="theme.js"></script>
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=25">
   <link rel="stylesheet" href="player.css?v=3">
 </head>
 <body>
@@ -20,7 +20,66 @@
     <a href="index.html"><span class="nav-label">Home</span></a><a href="about.html"><span class="nav-label">About</span></a><a href="professional.html"><span class="nav-label">Professional</span></a><a class="is-current" href="projects.html" aria-current="page"><span class="nav-label">Projects</span></a><a href="music.html"><span class="nav-label">Music</span></a><a href="fitness.html"><span class="nav-label">Fitness</span></a><a href="gaming.html"><span class="nav-label">Gaming</span></a><a href="social.html"><span class="nav-label">Social</span></a><a href="gallery.html"><span class="nav-label">Gallery</span></a><a href="settings.html"><span class="nav-label">Settings</span></a>
   </div>
   </nav>
-  <main class="empty-page" aria-label="Wiki ETL Pipeline page"></main>
+  <main class="about-page project-page" aria-label="Wiki ETL Pipeline page">
+    <section class="pro-section">
+      <h2>What It Is</h2>
+      <p>The Wikipedia ETL Pipeline is a decoupled data pipeline that collects Wikipedia links starting from a given English Wikipedia article, stores them in PostgreSQL, and uses RabbitMQ to process them asynchronously. By default it starts from the <em>Freedom of Information Act (United States)</em> article, and a desktop launcher wraps the whole thing so a crawl can be run and exported to CSV with a couple of clicks.</p>
+      <p>The starting page is depth 0, its links are depth 1, and links found on those pages are depth 2. Depth 2 is the maximum supported depth. Recent runs took about 30 seconds at depth 1 and about 3 minutes at depth 2, and a depth 2 export of the default page contained 57,706 rows: the starting page, 343 depth 1 pages, and 57,362 depth 2 pages. Times and counts vary with the starting page, network speed, and Wikipedia response times.</p>
+    </section>
+    <section class="pro-section">
+      <h2>How It Works</h2>
+      <p>The pipeline is split into independent services so that collecting links and storing them can run at different speeds:</p>
+      <p class="project-flow">Collector &rarr; RabbitMQ queue &rarr; Storer &rarr; PostgreSQL</p>
+      <ul>
+        <li><strong>Collector:</strong> scrapes Wikipedia using a breadth-first search up to the configured depth.</li>
+        <li><strong>RabbitMQ:</strong> a message queue that decouples collection from storage.</li>
+        <li><strong>Storer:</strong> consumes messages and writes them to the database. It can be scaled to multiple instances.</li>
+        <li><strong>PostgreSQL:</strong> stores each link along with its metadata.</li>
+      </ul>
+      <h3>Collection</h3>
+      <ol>
+        <li>The collector connects to RabbitMQ and starts at the initial URL at depth 0.</li>
+        <li>It fetches each page, extracts the Wikipedia article links, and filters out special pages such as <code>Category:</code> and <code>Help:</code>.</li>
+        <li>Every discovered link is published to the queue as a JSON message containing the URL, the source URL, the depth, and a timestamp.</li>
+        <li>It stops exploring beyond the maximum depth, and waits 0.2 seconds between requests to stay polite to Wikipedia.</li>
+      </ol>
+      <h3>Storage</h3>
+      <ol>
+        <li>Each storer connects to RabbitMQ and PostgreSQL and listens for messages.</li>
+        <li>Links are written to a <code>links</code> table, and duplicates are skipped with <code>ON CONFLICT DO NOTHING</code>.</li>
+        <li>Each message is acknowledged only after it has been processed.</li>
+      </ol>
+      <p>Scaling storers helps when the queue keeps growing, but it does not make the collector fetch pages faster, since the collector is a single sequential worker.</p>
+    </section>
+    <section class="pro-section">
+      <h2>How To Use</h2>
+      <h3>Requirements</h3>
+      <ul>
+        <li>Docker Desktop and Docker Compose, installed and running</li>
+        <li>Python 3 with Tkinter (included with the standard Windows installer)</li>
+        <li>An internet connection and a few MB of free disk space</li>
+      </ul>
+      <h3>Desktop Launcher</h3>
+      <p>From the project folder in PowerShell, start the launcher:</p>
+      <pre class="project-code"><code>cd work\Anata\WikiETLPipeline
+py run_pipeline_gui.py</code></pre>
+      <figure class="project-shot">
+        <img src="project-images/wiki-etl-gui.png" alt="Screenshot of the Wikipedia Link Collector desktop launcher" loading="lazy" decoding="async">
+      </figure>
+      <ol>
+        <li>Keep the default starting page, or enter a full HTTPS English Wikipedia article URL. Category, file, talk, and other special pages are rejected, and the collector checks that the article can be fetched before crawling.</li>
+        <li>Choose a crawl depth of 1 or 2.</li>
+        <li>Enter a CSV filename or use <strong>Browse</strong> to pick a location. The default is your Documents folder.</li>
+        <li>Press <strong>Start crawl</strong>. The launcher builds the Docker images, starts four storage workers, and shows crawl and queue progress, an elapsed timer, and an ETA.</li>
+        <li>When storage finishes, the launcher exports the rows through the selected depth and opens the CSV in your default spreadsheet application.</li>
+      </ol>
+      <p><strong>Cancel</strong> stops collection and saves a partial CSV. Each run uses its own Compose project and removes its containers and data volumes after a successful export. The progress estimate is based on the default starting page, so custom pages may show less accurate percentages and ETAs. Close any other pipeline runs first, since the services use local ports 5432, 5672, and 15672.</p>
+      <h3>Manual Docker Compose</h3>
+      <p>To run the services directly, start everything in the background from the project folder:</p>
+      <pre class="project-code"><code>docker compose up -d --build</code></pre>
+      <p>Watch the logs with <code>docker compose logs -f</code>, check the queue in the RabbitMQ management UI on port 15672, and count the stored links with a query against the <code>links</code> table. Stop everything and remove its data with <code>docker compose down -v</code>.</p>
+    </section>
+  </main>
   <footer class="site-footer">
     <p>slush.tech v1.0 - Designed by Slush</p>
     <p>&copy; 2026 B00N, LLC. All rights reserved.</p>
