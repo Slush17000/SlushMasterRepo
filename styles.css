@@ -598,9 +598,44 @@ body {
 
 .settings-page {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
   padding-top: 24px;
+  overflow-y: auto;
+}
+
+.color-pickers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.color-pickers[hidden] {
+  display: none;
+}
+
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.color-picker input {
+  width: 56px;
+  height: 36px;
+  padding: 2px;
+  border: 1px solid currentcolor;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .theme-toggle {
@@ -822,17 +857,20 @@ html[data-bs-theme="light"] .course-list {
   color: #000;
 }
 
-/* Projects page: link lists inherit the animated hue from the list (Chrome drops var() on visited links). */
+/* Projects page: link lists use the plain theme text color in every color mode. */
 .project-list {
   margin: 0;
   padding: 0;
-  color: hsl(var(--rgb-hue) 100% 50%);
+  color: #fff;
   font-family: "DM Mono", "Courier New", monospace;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.5;
   list-style: none;
-  text-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.5);
+}
+
+html[data-bs-theme="light"] .project-list {
+  color: #000;
 }
 
 .project-list li {
@@ -984,4 +1022,163 @@ html[data-bs-theme="light"] .photo-count {
   html[data-bs-theme="light"] .site-nav .navbar-collapse {
     background: #fff;
   }
+}
+
+/* Static color mode: theme.js sets data-color-mode="static" (and --color-1/--color-2 when the user picks colors).
+   Color 1: header, footer, boxes, image borders. Color 2: navbar, nav glow, subheadings, settings buttons. */
+html[data-color-mode="static"] {
+  --color-1: #fff;
+  --color-2: #fff;
+  --c1-a25: color-mix(in srgb, var(--color-1) 25%, transparent);
+  --c1-a45: color-mix(in srgb, var(--color-1) 45%, transparent);
+  --c1-a50: color-mix(in srgb, var(--color-1) 50%, transparent);
+  --c1-a60: color-mix(in srgb, var(--color-1) 60%, transparent);
+  --c1-a80: color-mix(in srgb, var(--color-1) 80%, transparent);
+  --c2-a18: color-mix(in srgb, var(--color-2) 18%, transparent);
+  --c2-a24: color-mix(in srgb, var(--color-2) 24%, transparent);
+  --c2-a45: color-mix(in srgb, var(--color-2) 45%, transparent);
+  --c2-a50: color-mix(in srgb, var(--color-2) 50%, transparent);
+  --c2-a60: color-mix(in srgb, var(--color-2) 60%, transparent);
+  animation: none;
+}
+
+html[data-color-mode="static"][data-bs-theme="light"] {
+  --color-1: #000;
+  --color-2: #000;
+}
+
+html[data-color-mode="static"] .page-header h1,
+html[data-color-mode="static"] .site-footer {
+  color: var(--color-1);
+}
+
+html[data-color-mode="static"] .view-digit {
+  color: var(--color-1);
+  text-shadow: 0 0 6px var(--c1-a80);
+}
+
+html[data-color-mode="static"] .site-nav,
+html[data-color-mode="static"] .theme-toggle,
+html[data-color-mode="static"] .color-picker {
+  color: var(--color-2);
+}
+
+html[data-color-mode="static"] .color-picker:first-child {
+  color: var(--color-1);
+}
+
+html[data-color-mode="static"] .site-nav a,
+html[data-color-mode="static"] .site-nav .nav-toggle,
+html[data-color-mode="static"] .theme-toggle {
+  box-shadow: 0 0 8px var(--c2-a45);
+}
+
+html[data-color-mode="static"] .site-nav .nav-toggle:hover,
+html[data-color-mode="static"] .site-nav .nav-toggle:focus-visible,
+html[data-color-mode="static"] .site-nav .nav-toggle[aria-expanded="true"],
+html[data-color-mode="static"] .site-nav a:hover,
+html[data-color-mode="static"] .site-nav a:focus-visible,
+html[data-color-mode="static"] .site-nav a.is-current,
+html[data-color-mode="static"] .theme-toggle:hover,
+html[data-color-mode="static"] .theme-toggle:focus-visible {
+  box-shadow: 0 0 8px var(--c2-a45), inset 0 0 0 100px var(--c2-a24);
+}
+
+html[data-color-mode="static"] .site-nav .nav-label,
+html[data-color-mode="static"] .theme-toggle {
+  text-shadow: 0 0 6px var(--c2-a60);
+}
+
+html[data-color-mode="static"] .carousel-image,
+html[data-color-mode="static"] .gallery-viewer-image,
+html[data-color-mode="static"] .about-figure img,
+html[data-color-mode="static"] .project-shot img {
+  border-color: var(--color-1);
+  box-shadow: 0 0 12px var(--c1-a45);
+}
+
+html[data-color-mode="static"] .pro-logo,
+html[data-color-mode="static"] .project-code {
+  border-color: var(--color-1);
+  box-shadow: 0 0 8px var(--c1-a45);
+}
+
+html[data-color-mode="static"] .carousel-button {
+  border-color: var(--color-1);
+  color: var(--color-1);
+  box-shadow: 0 0 12px var(--c1-a45);
+}
+
+html[data-color-mode="static"] .gallery-page,
+html[data-color-mode="static"] .music-page,
+html[data-color-mode="static"] .about-page {
+  scrollbar-color: var(--color-1) transparent;
+}
+
+html[data-color-mode="static"] .gallery-tile {
+  background: var(--color-1);
+  box-shadow: 0 0 10px var(--c1-a50);
+}
+
+html[data-color-mode="static"] .music-browser,
+html[data-color-mode="static"] .music-player {
+  border-color: var(--color-1);
+  color: var(--color-2);
+  box-shadow: 0 0 12px var(--c1-a45);
+  text-shadow: 0 0 6px var(--c2-a60);
+}
+
+html[data-color-mode="static"] .music-crumbs,
+html[data-color-mode="static"] .music-table th {
+  border-bottom-color: var(--color-1);
+}
+
+html[data-color-mode="static"] .music-table td {
+  border-bottom-color: var(--c1-a25);
+}
+
+html[data-color-mode="static"] .music-row:hover,
+html[data-color-mode="static"] .music-row:focus-visible,
+html[data-color-mode="static"] .music-row.is-playing {
+  background: var(--c2-a18);
+}
+
+html[data-color-mode="static"] .gallery-status,
+html[data-color-mode="static"] .about-text h2,
+html[data-color-mode="static"] .pro-section h2,
+html[data-color-mode="static"] .projects-more,
+html[data-color-mode="static"] body .about-text p.about-quote {
+  color: var(--color-2);
+  text-shadow: 0 0 8px var(--c2-a50);
+}
+
+html[data-color-mode="static"] .pro-section h3 {
+  color: var(--color-2);
+}
+
+html[data-color-mode="static"] .under-construction {
+  color: var(--color-2);
+  text-shadow: 0 0 14px var(--c2-a60);
+}
+
+html[data-color-mode="static"] .player-cover {
+  background: conic-gradient(from var(--cover-angle), var(--color-1), var(--color-2), var(--color-1));
+  box-shadow: 0 0 12px var(--c1-a60);
+}
+
+html[data-color-mode="static"] .player-seek input::-webkit-slider-runnable-track,
+html[data-color-mode="static"] .player-volume::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--color-2) var(--fill), #3a3f52 var(--fill));
+}
+
+html[data-color-mode="static"] .player-seek input::-webkit-slider-thumb,
+html[data-color-mode="static"] .player-volume::-webkit-slider-thumb {
+  background: var(--color-2);
+}
+
+html[data-color-mode="static"] .player-seek input::-moz-range-progress,
+html[data-color-mode="static"] .player-volume::-moz-range-progress,
+html[data-color-mode="static"] .player-seek input::-moz-range-thumb,
+html[data-color-mode="static"] .player-volume::-moz-range-thumb {
+  background: var(--color-2);
 }
