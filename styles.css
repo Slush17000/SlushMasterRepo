@@ -48,9 +48,10 @@ body {
   margin: 0;
   color: hsl(var(--rgb-hue) 100% 50%);
   font-family: "Cloister Black", "Old English Text MT", serif;
-  font-size: 112px;
+  font-size: min(112px, calc((100vw - 28px) / 6.6));
   font-weight: 400;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .site-nav {
@@ -148,6 +149,11 @@ body {
 
 .site-footer p {
   margin: 0;
+}
+
+.view-digit {
+  color: hsl(calc(var(--rgb-hue) + var(--i, 0) * 28) 100% 55%);
+  text-shadow: 0 0 6px hsl(calc(var(--rgb-hue) + var(--i, 0) * 28) 100% 50% / 0.8);
 }
 
 .carousel-stage {
@@ -520,10 +526,6 @@ body {
   body {
     --section-gap: 14px;
     padding: 10px 8px;
-  }
-
-  .page-header h1 {
-    font-size: 88px;
   }
 
   .photo-carousel {

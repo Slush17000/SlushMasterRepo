@@ -273,10 +273,24 @@
     return pic ? URL.createObjectURL(new Blob([pic.data], { type: pic.mime })) : null;
   }
 
+  // Only the few most recent covers are kept; each blob URL pins its image data until revoked.
+  const ART_KEEP = 3;
   const artCache = new Map();
   function artFor(url) {
-    if (!artCache.has(url)) artCache.set(url, fetchArt(url));
-    return artCache.get(url);
+    if (artCache.has(url)) {
+      const hit = artCache.get(url);
+      artCache.delete(url);
+      artCache.set(url, hit);
+      return hit;
+    }
+    const p = fetchArt(url);
+    artCache.set(url, p);
+    while (artCache.size > ART_KEEP) {
+      const [oldUrl, oldP] = artCache.entries().next().value;
+      artCache.delete(oldUrl);
+      oldP.then((src) => { if (src) URL.revokeObjectURL(src); }, () => {});
+    }
+    return p;
   }
 
   // Folders may be nested in the bucket (e.g. "Slush Beats/Remixes"), so encode each path segment.
