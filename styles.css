@@ -151,11 +151,6 @@ body {
   margin: 0;
 }
 
-.view-digit {
-  color: hsl(calc(var(--rgb-hue) + var(--i, 0) * 28) 100% 55%);
-  text-shadow: 0 0 6px hsl(calc(var(--rgb-hue) + var(--i, 0) * 28) 100% 50% / 0.8);
-}
-
 .carousel-stage {
   position: relative;
   display: grid;
@@ -830,6 +825,21 @@ html[data-bs-theme="light"] .about-text p {
   font-weight: 700;
 }
 
+.skill-level {
+  font-weight: 700;
+}
+
+.skill-list {
+  margin: 0 0 8px;
+  padding-left: 1.25em;
+  columns: 11em auto;
+  list-style: disc;
+}
+
+.skill-list li {
+  break-inside: avoid;
+}
+
 @media (min-width: 576px) {
   .pro-logo {
     width: 72px;
@@ -1050,11 +1060,6 @@ html[data-color-mode="static"][data-bs-theme="light"] {
 html[data-color-mode="static"] .page-header h1,
 html[data-color-mode="static"] .site-footer {
   color: var(--color-1);
-}
-
-html[data-color-mode="static"] .view-digit {
-  color: var(--color-1);
-  text-shadow: 0 0 6px var(--c1-a80);
 }
 
 html[data-color-mode="static"] .site-nav,
