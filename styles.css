@@ -54,6 +54,19 @@ body {
   white-space: nowrap;
 }
 
+.site-clock {
+  min-height: 1em;
+  margin: 8px 0 0;
+  color: hsl(var(--rgb-hue) 100% 50%);
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 0 6px hsl(var(--rgb-hue) 100% 50% / 0.6);
+  text-transform: uppercase;
+}
+
 .site-nav {
   z-index: 3;
   display: flex;
@@ -563,6 +576,11 @@ body {
 
 /* Below Bootstrap's sm breakpoint the links collapse into a dropdown that overlays the page. */
 @media (max-width: 575.98px) {
+  /* Must outrank every positioned page element (player, footer, EQ) so the open menu is never covered. */
+  .site-nav {
+    z-index: 1000;
+  }
+
   .site-nav .navbar-collapse {
     position: absolute;
     top: calc(100% + 8px);
@@ -776,6 +794,18 @@ html[data-bs-theme="light"] .about-text p {
   background: #fff;
   box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45);
   object-fit: contain;
+}
+
+.pro-logo-stack {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Non-square flag: let the height follow the image so the border hugs it. */
+.pro-logo.pro-logo-flag {
+  height: auto;
 }
 
 .pro-entry:last-child {
@@ -1058,8 +1088,13 @@ html[data-color-mode="static"][data-bs-theme="light"] {
 }
 
 html[data-color-mode="static"] .page-header h1,
+html[data-color-mode="static"] .site-clock,
 html[data-color-mode="static"] .site-footer {
   color: var(--color-1);
+}
+
+html[data-color-mode="static"] .site-clock {
+  text-shadow: 0 0 6px var(--c1-a60);
 }
 
 html[data-color-mode="static"] .site-nav,
