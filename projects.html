@@ -11,7 +11,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2252%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>&#x1F6E0;&#xFE0F;</text></svg>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="theme.js"></script>
-  <link rel="stylesheet" href="styles.css?v=38">
+  <link rel="stylesheet" href="styles.css?v=48">
   <link rel="stylesheet" href="player.css?v=3">
 </head>
 <body>
@@ -25,26 +25,82 @@
   <main class="about-page" aria-label="Projects page">
     <section class="pro-section">
       <h2>Web Apps</h2>
-      <ul class="project-list">
-        <li>Trail Finder - <a href="https://trailfinder.slush17000.tech" target="_blank" rel="noopener noreferrer">https://trailfinder.slush17000.tech</a></li>
-        <li>Who Dat? - <a href="https://whodat.slush17000.tech" target="_blank" rel="noopener noreferrer">https://whodat.slush17000.tech</a></li>
+      <ul class="project-grid">
+        <li>
+          <a class="project-card" href="https://trailfinder.slush17000.tech" target="_blank" rel="noopener noreferrer">
+            <img class="project-card-img" src="https://slush-tech-images.nyc3.cdn.digitaloceanspaces.com/Projects/trail.jpg" alt="" loading="lazy" decoding="async">
+            <span class="project-card-body">
+              <span class="project-card-title">Trail Finder</span>
+              <span class="project-card-desc">Discover hiking trails near you with a location-based search, from casual nature walks to challenging climbs.</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project-card" href="https://whodat.slush17000.tech" target="_blank" rel="noopener noreferrer">
+            <img class="project-card-img" src="https://slush-tech-images.nyc3.cdn.digitaloceanspaces.com/Projects/whoDat.jpg" alt="" loading="lazy" decoding="async">
+            <span class="project-card-body">
+              <span class="project-card-title">Who Dat?</span>
+              <span class="project-card-desc">A classroom tool that helps instructors take attendance and learn student names with rosters, photos, and preferred names.</span>
+            </span>
+          </a>
+        </li>
       </ul>
     </section>
     <section class="pro-section">
       <h2>Programs</h2>
-      <ul class="project-list">
-        <li><a href="wiki-etl-pipeline.html">Wiki ETL Pipeline</a></li>
-        <li><a href="file-encrypter-decrypter.html">File Encrypter &amp; Decrypter</a></li>
+      <ul class="project-grid">
+        <li>
+          <a class="project-card" href="file-encrypter-decrypter.html">
+            <img class="project-card-img" src="https://slush-tech-images.nyc3.cdn.digitaloceanspaces.com/Projects/encryption.png" alt="" loading="lazy" decoding="async">
+            <span class="project-card-body">
+              <span class="project-card-title">File Encrypter &amp; Decrypter</span>
+              <span class="project-card-desc">A desktop app that encrypts and decrypts any file using AES, Base64, TDES, and XOR implementations.</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project-card" href="wiki-etl-pipeline.html">
+            <img class="project-card-img" src="https://slush-tech-images.nyc3.cdn.digitaloceanspaces.com/Projects/wikiLogo.webp" alt="" loading="lazy" decoding="async">
+            <span class="project-card-body">
+              <span class="project-card-title">Wiki ETL Pipeline</span>
+              <span class="project-card-desc">A decoupled data pipeline that collects Wikipedia links into PostgreSQL via RabbitMQ and exports them to CSV.</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section class="pro-section">
+      <h2>Miscellaneous</h2>
+      <ul class="project-grid">
+        <li>
+          <a class="project-card" href="coin-flipper.html">
+            <img class="project-card-img" src="https://slush-tech-images.nyc3.cdn.digitaloceanspaces.com/Projects/flipACoin.png" alt="" loading="lazy" decoding="async">
+            <span class="project-card-body">
+              <span class="project-card-title">Flip a coin</span>
+              <span class="project-card-desc">For those indecisive folks out there like me.</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="project-card" href="#" data-protected data-salt="o7G7HcGaM3IyFxYx1viNbw==" data-iv="0cER47SGcnlrKCiS" data-ct="QYcJj1I6VNibRgJBBvk7+Gtk9UnwZ9KA4cESyNBR+yt7R5AUYcXLeP3oTB7k1KnnnH+LhmsLxpUBecYoeD6KoT6wc8HcoPSO0AuJNZ85VgG9EsJgi4Pps+5WA0fYPPyZWjFwNgK2PUY19cXMc+CQuicvXQA=">
+            <img class="project-card-img" src="https://slush-tech-images.nyc3.cdn.digitaloceanspaces.com/Projects/grogLog.jpg" alt="" loading="lazy" decoding="async">
+            <span class="project-card-body">
+              <span class="project-card-title">Grog Log</span>
+              <span class="project-card-desc">Spreadsheet record of all B00N funnels and statistics.</span>
+            </span>
+          </a>
+        </li>
       </ul>
     </section>
     <h2 class="projects-more">More projects coming soon</h2>
   </main>
   <footer class="site-footer">
-    <p>Slush17000.tech v1.13 - Designed by Slush</p>
+    <p>Slush17000.tech v1.14 - Designed by Slush</p>
     <p>&copy; 2026 B00N, LLC. All rights reserved.</p>
   </footer>
   <script src="clock.js"></script>
   <script src="viewcounter.js"></script>
+  <script src="protected-link.js?v=3"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script src="player.js"></script>
 </body>
