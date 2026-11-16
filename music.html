@@ -11,7 +11,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2252%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>🎵</text></svg>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="theme.js"></script>
-  <link rel="stylesheet" href="styles.css?v=48">
+  <link rel="stylesheet" href="styles.css?v=52">
   <link rel="stylesheet" href="player.css?v=3">
 </head>
 <body>
@@ -23,16 +23,23 @@
   </div>
   </nav>
   <main class="music-page" id="musicPage" aria-label="Music page">
-    <div class="music-browser">
-      <div class="music-crumbs" id="musicCrumbs"></div>
-      <table class="music-table">
-        <thead id="musicHead"></thead>
-        <tbody id="musicBody"></tbody>
-      </table>
+    <div class="music-browser" id="musicBrowser">
+      <div class="music-bar">
+        <div class="music-crumbs" id="musicCrumbs"></div>
+        <button class="music-toggle" id="musicToggle" type="button" aria-expanded="true" aria-controls="musicList" aria-label="Toggle file explorer">
+          <span class="player-chevron" aria-hidden="true">&#9650;</span>
+        </button>
+      </div>
+      <div class="music-list" id="musicList">
+        <table class="music-table">
+          <thead id="musicHead"></thead>
+          <tbody id="musicBody"></tbody>
+        </table>
+      </div>
     </div>
   </main>
   <footer class="site-footer">
-    <p>Slush17000.tech v1.14 - Designed by Slush</p>
+    <p>Slush17000.tech v1.15 - Designed by Slush</p>
     <p>&copy; 2026 B00N, LLC. All rights reserved.</p>
   </footer>
   <script src="clock.js"></script>
@@ -183,6 +190,24 @@
     const offLibrary = window.SlushPlayer.onLibrary(renderBrowser);
     window.addEventListener("slush:pageleave", () => { offChange(); offLibrary(); }, { once: true });
     renderBrowser();
+
+    // File explorer collapse: remembered for the session, like the equalizer and player.
+    (() => {
+      const BROWSER_KEY = "slush-browser-open";
+      const browser = $("musicBrowser");
+      const toggle = $("musicToggle");
+      const list = $("musicList");
+      function setOpen(on) {
+        browser.classList.toggle("is-collapsed", !on);
+        list.hidden = !on;
+        toggle.setAttribute("aria-expanded", String(on));
+        try { sessionStorage.setItem(BROWSER_KEY, on ? "1" : "0"); } catch (e) { /* storage unavailable */ }
+      }
+      toggle.addEventListener("click", () => setOpen(list.hidden));
+      let startOpen = true;
+      try { startOpen = sessionStorage.getItem(BROWSER_KEY) !== "0"; } catch (e) { /* storage unavailable */ }
+      setOpen(startOpen);
+    })();
 
     // Equalizer panel: lives directly above the player and only exists on this page.
     (() => {

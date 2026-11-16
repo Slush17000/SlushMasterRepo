@@ -440,12 +440,53 @@ body {
   text-shadow: 0 0 6px hsl(var(--rgb-hue) 100% 50% / 0.6);
 }
 
+.music-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid currentcolor;
+}
+
+.music-browser.is-collapsed .music-bar {
+  border-bottom: 0;
+}
+
+.music-list[hidden] {
+  display: none;
+}
+
+.music-toggle {
+  padding: 12px 14px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  text-shadow: inherit;
+  cursor: pointer;
+}
+
+.music-toggle:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: -4px;
+}
+
+.music-browser:not(.is-collapsed) .player-chevron {
+  transform: rotate(180deg);
+}
+
+.music-toggle .player-chevron {
+  display: inline-block;
+}
+
 .music-crumbs {
   display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 12px 14px;
-  border-bottom: 1px solid currentcolor;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -870,6 +911,35 @@ html[data-bs-theme="light"] .about-text p {
   break-inside: avoid;
 }
 
+/* Fitness page: routine exercises with the set/rep scheme right-aligned. */
+.routine-list {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  line-height: 1.6;
+  list-style: none;
+}
+
+.routine-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 0;
+  border-bottom: 1px solid hsl(var(--rgb-hue) 100% 50% / 0.25);
+}
+
+.routine-list .routine-sets {
+  flex: none;
+  font-family: "DM Mono", "Courier New", monospace;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.routine-list a {
+  color: inherit;
+  font-weight: 700;
+}
+
 @media (min-width: 576px) {
   .pro-logo {
     width: 72px;
@@ -893,6 +963,7 @@ html[data-bs-theme="light"] .about-text p {
 }
 
 html[data-bs-theme="light"] .pro-entry,
+html[data-bs-theme="light"] .routine-list,
 html[data-bs-theme="light"] .course-list {
   color: #000;
 }
@@ -984,6 +1055,126 @@ html[data-bs-theme="light"] .project-card {
 
 .project-empty {
   opacity: 0.8;
+}
+
+/* Social page: horizontal link cards. Border/glow live on the <li> (not the <a>) because browsers drop var() colors on visited links. */
+.social-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-item {
+  position: relative;
+  border: 1px solid hsl(var(--rgb-hue) 100% 50%);
+  box-shadow: 0 0 8px hsl(var(--rgb-hue) 100% 50% / 0.45);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+/* The avatar border is drawn on the <li> (not inside the <a>) so visited links can't drop its var() color; it overlays the avatar's own transparent border (card padding 12px, avatar 64px, vertically centered). */
+.social-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border: 1px solid hsl(var(--rgb-hue) 100% 50%);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.social-item:has(a.social-card):hover,
+.social-item:has(a.social-card):focus-within {
+  box-shadow: 0 0 16px hsl(var(--rgb-hue) 100% 50% / 0.8);
+  transform: translateY(-2px);
+}
+
+.social-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.social-avatar {
+  display: flex;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid transparent;
+  background: #1a1d29;
+}
+
+.social-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.social-avatar-empty {
+  background: #1a1d29 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238a90a6'%3E%3Ccircle cx='12' cy='8' r='4.5'/%3E%3Cpath d='M3.5 21c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8z'/%3E%3C/svg%3E") center / 62% no-repeat;
+}
+
+.social-info {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.social-name {
+  font-family: "DM Mono", "Courier New", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.social-platform {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Logo glyphs are white (black for Snapchat); each card supplies its brand color via --brand. */
+.social-logo {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: var(--brand);
+}
+
+.social-card:focus-visible {
+  outline: 2px solid hsl(var(--rgb-hue) 100% 50%);
+  outline-offset: -4px;
+}
+
+html[data-bs-theme="light"] .social-card {
+  color: #000;
+}
+
+@media (min-width: 768px) {
+  .social-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .social-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* Coin flipper page. */
@@ -1146,10 +1337,8 @@ html[data-bs-theme="light"] .project-card {
 
 .coin-app .coin-history {
   display: inline-block;
-  max-height: 240px;
   margin: 10px 0 0;
   padding-left: 2.5em;
-  overflow-y: auto;
   text-align: left;
 }
 
@@ -1504,12 +1693,19 @@ html[data-color-mode="static"] .project-shot img {
 }
 
 html[data-color-mode="static"] .pro-logo,
+html[data-color-mode="static"] .social-item,
 html[data-color-mode="static"] .project-code,
 html[data-color-mode="static"] .project-grid li {
   border-color: var(--color-1);
   box-shadow: 0 0 8px var(--c1-a45);
 }
 
+html[data-color-mode="static"] .social-item::before {
+  border-color: var(--color-1);
+}
+
+html[data-color-mode="static"] .social-item:has(a.social-card):hover,
+html[data-color-mode="static"] .social-item:has(a.social-card):focus-within,
 html[data-color-mode="static"] .project-grid li:hover,
 html[data-color-mode="static"] .project-grid li:focus-within {
   box-shadow: 0 0 16px var(--c1-a60);
@@ -1544,7 +1740,7 @@ html[data-color-mode="static"] .music-player {
   text-shadow: 0 0 6px var(--c2-a60);
 }
 
-html[data-color-mode="static"] .music-crumbs,
+html[data-color-mode="static"] .music-bar,
 html[data-color-mode="static"] .music-table th {
   border-bottom-color: var(--color-1);
 }
